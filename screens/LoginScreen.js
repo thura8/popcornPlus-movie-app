@@ -17,12 +17,16 @@ import { Eye, EyeOff,PlusIcon } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image } from 'expo-image';
 
+import '../i18n'
+import { useTranslation } from 'react-i18next';
+
 export default function LoginScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const {t} = useTranslation()
 
   const passwordRef = useRef(null);
 
@@ -80,13 +84,13 @@ export default function LoginScreen() {
               source={require('../assets/images/popcornPlus.png')}
               style={styles.logo}
             />
-            <Text style={styles.appTitle}>Please log in to continue</Text>
+            <Text style={styles.appTitle}>{t('pleaseLoginToContinue')}</Text>
             
           </View>
         </SafeAreaView>
         <View style={styles.formContainer}>
           <View style={styles.form}>
-            <Text style={styles.label}>Email Address</Text>
+            <Text style={styles.label}>{t('email')}</Text>
             <TextInput
               autoCapitalize="none"
               style={styles.input}
@@ -99,7 +103,7 @@ export default function LoginScreen() {
             />
 
             <View style={styles.passwordContainer}>
-              <Text style={styles.label}>Password</Text>
+              <Text style={styles.label}>{t('password')}</Text>
               <TextInput
                 ref={passwordRef}
                 autoCapitalize="none"
@@ -122,14 +126,14 @@ export default function LoginScreen() {
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
             <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>{t('login')}</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.signUpContainer}>
-            <Text style={styles.text}>Don't have an account?</Text>
+            <Text style={styles.text}>{t('dontHaveAnAccount')}</Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text style={styles.signUpText}>Sign Up</Text>
+              <Text style={styles.signUpText}>{t('signUp')}</Text>
             </TouchableOpacity>
           </View>
         </View>

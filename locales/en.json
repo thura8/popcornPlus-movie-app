@@ -1,4 +1,27 @@
 {
-    "welcome": "Welcome"
-  }
-  
+  "welcome": "Welcome",
+  "trending": "Trending",
+  "upcoming": "Upcoming",
+  "topRated": "Top Rated",
+  "seeAll": "See All",
+  "searchMovie": "Search Movie",
+  "noMoviesToShow": "No Movies to Show",
+  "editProfile": "Edit Profile",
+  "content": "Content",
+  "favorites": "Favorites",
+  "watchLater": "Watch Later",
+  "preference": "Preference",
+  "language": "Language",
+  "darkMode": "Dark Mode",
+  "profile": "Profile",
+  "username": "Username",
+  "email": "Email",
+  "logout": "Logout",
+  "pleaseLoginToContinue": "Please log in to continue",
+  "password": "Password",
+  "login": "Login",
+  "dontHaveAnAccount": "Don't have an account?",
+  "signUp": "Sign Up",
+  "completeYourProfile": "Complete Your Profile",
+  "alreadyHaveAnAccount": "Already had an account?"
+}

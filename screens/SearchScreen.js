@@ -17,13 +17,16 @@ import {
   import { image185, searchMovies } from "../api/movieDb";
   import { Image } from "expo-image";
 
+  import '../i18n'
+  import { useTranslation } from "react-i18next";
+
   var { width, height } = Dimensions.get("window");
   
   export default function SearchScreen() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
-    
+    const {t} = useTranslation()
 
     const handleSearch = value =>{
       if(value && value.length > 2){
@@ -51,7 +54,7 @@ import {
         <View style={styles.searchContainer}>
           <TextInput
             onChangeText={handleText}
-            placeholder="Search Movie"
+            placeholder={t('searchMovie')}
             placeholderTextColor="lightgray"
             style={styles.textInput}
           />
@@ -105,10 +108,10 @@ import {
             <Image
               source={require("../assets/images/movie_watching.jpg")}
               style={styles.movieWatching}
-              contentFit="contain"
+              // contentFit="contain"
             />
             <Text style={{ color: "white", fontSize: 18 }}>
-              No movies to show
+              {t('noMoviesToShow')}
             </Text>
           </View>
         )}
@@ -182,6 +185,6 @@ import {
       marginVertical: 24,
       height: 384,
       width: 384,
-      borderRadius: 24,
+      borderRadius: 20,
     },
   });

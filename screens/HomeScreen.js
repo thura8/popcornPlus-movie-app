@@ -77,7 +77,7 @@ export default function HomeScreen() {
             <Text style={{ fontFamily: "PlayFair", fontSize: 20, color: "#F7E7DC",}}>
               {t('welcome')}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("AccountProfile")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Account")}>
               <Text style={{ fontFamily: "Anton", fontSize: 24, color: "#FFF8F3",letterSpacing:2  }}>
                 {username ? username : 'Loading...'} 
               </Text>
@@ -105,8 +105,8 @@ export default function HomeScreen() {
           contentContainerStyle={{ paddingBottom: 10 }}
         >
           {trending.length > 0 && <TrendingMovies data={trending} />}
-          <MovieLists title="Upcoming" data={upcoming} />
-          <MovieLists title="Top Rated" data={topRated} />
+          <MovieLists title="upcoming" data={upcoming} />
+          <MovieLists title="topRated" data={topRated} />
         </ScrollView>
       )}
     </View>

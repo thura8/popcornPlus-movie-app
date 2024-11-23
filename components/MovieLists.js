@@ -11,19 +11,24 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import { image185 } from "../api/movieDb";
   import { Image } from "expo-image";
+
+  import '../i18n'
+  import { useTranslation } from "react-i18next";
   
   var { width, height } = Dimensions.get("window");
   
   export default function MovieLists({ title, data, hideSeeAll }) {
     const navigation = useNavigation();
+
+    const {t} = useTranslation();
   
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{t(title)}</Text>
           {!hideSeeAll && (
             <TouchableOpacity onPress={() => navigation.navigate("SeeAll", { data,title })}>
-              <Text style={styles.seeAll}>See All</Text>
+              <Text style={styles.seeAll}>{t('seeAll')}</Text>
             </TouchableOpacity>
           )}
         </View>

@@ -10,11 +10,15 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import { image500 } from "../api/movieDb";
   import { Image } from "expo-image";
+  import '../i18n'
+  import { useTranslation } from "react-i18next";
   
   var { width, height } = Dimensions.get("window");
   
   export default function TrendingMovies({ data }) {
     const navigation = useNavigation();
+    const {t} = useTranslation();
+
     const handleClick = (item) => {
       navigation.navigate("Movie", item);
     };
@@ -31,7 +35,7 @@ import {
             letterSpacing:1
           }}
         >
-          Trending
+          {t('trending')}
         </Text>
   
         <Carousel

@@ -8,6 +8,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { Eye, EyeOff } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image } from 'expo-image';
+import { t } from 'i18next';
 
 export default function SignUpScreen() {
   const navigation = useNavigation();
@@ -73,13 +74,13 @@ export default function SignUpScreen() {
               style={{ width: 250, height: 250, borderRadius: 100 }}
             />
             <Text style={{ marginTop: 4, color: '#f0ebd8', fontSize: 20, fontWeight: 'bold', fontFamily: 'BebasNeue', letterSpacing: 4 }}>
-              Complete your profile.
+              {t('completeYourProfile')}
             </Text>
           </View>
         </SafeAreaView>
         <View style={[styles.formContainer, { borderTopLeftRadius: 50, borderTopRightRadius: 50 }]}>
           <View>
-            <Text style={styles.label}>Username</Text>
+            <Text style={styles.label}>{t('username')}</Text>
             <TextInput
               style={styles.input}
               placeholder="Enter your name"
@@ -89,7 +90,7 @@ export default function SignUpScreen() {
               returnKeyType='next'
               onSubmitEditing={()=>emailRef.current.focus()}
             />
-            <Text style={styles.label}>Email Address</Text>
+            <Text style={styles.label}>{t('email')}</Text>
             <TextInput
               ref={emailRef}
               autoCapitalize="none"
@@ -102,7 +103,7 @@ export default function SignUpScreen() {
               onSubmitEditing={()=>passwordRef.current.focus()}
             />
             <View style={styles.passwordContainer}>
-              <Text style={styles.label}>Password</Text>
+              <Text style={styles.label}>{t('password')}</Text>
               <TextInput
                 ref={passwordRef}
                 autoCapitalize="none"
@@ -119,14 +120,14 @@ export default function SignUpScreen() {
               </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Sign Up</Text>
+              <Text style={styles.buttonText}>{t('signUp')}</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.loginContainer}>
-            <Text style={styles.text}>Already had an account?</Text>
+            <Text style={styles.text}>{t('alreadyHaveAnAccount')}</Text>
             <TouchableOpacity onPress={useCallback(_=> navigation.goBack(),[])}>
-              <Text style={styles.loginText}>Log In</Text>
+              <Text style={styles.loginText}>{t('login')}</Text>
             </TouchableOpacity>
           </View>
         </View>

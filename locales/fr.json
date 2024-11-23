@@ -1,0 +1,28 @@
+{
+    "welcome": "Bienvenue",
+    "trending": "Tendances",
+    "upcoming": "À venir",
+    "topRated": "Les mieux notés",
+    "seeAll": "Voir Tout",
+    "searchMovie": "Rechercher Film",
+    "noMoviesToShow": "Aucune vidéo à afficher",
+    "editProfile": "Modifier le Profil",
+    "content": "Contenu",
+    "favorites": "Favoris",
+    "watchLater": "Regarder Plus Tard",
+    "preference": "Préférences",
+    "language": "Langue",
+    "darkMode": "Mode Sombre",
+    "profile": "Profil",
+    "username": "Nom d'utilisateur",
+    "email": "E-mail",
+    "logout": "Se déconnecter",
+    "pleaseLoginToContinue": "Veuillez vous connecter pour continuer",
+    "password": "Mot de passe",
+    "login": "Connexion",
+    "dontHaveAnAccount": "Vous n'avez pas de compte ?",
+    "signUp": "S'inscrire",
+    "completeYourProfile": "Complétez votre profil",
+    "alreadyHaveAnAccount": "Vous avez déjà un compte ?"
+  }
+  

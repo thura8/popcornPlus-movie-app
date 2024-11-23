@@ -8,6 +8,9 @@ import { auth, db } from '../config/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../components/loading';
 
+import '../i18n'
+import { useTranslation } from 'react-i18next';
+
 export default function ProfileScreen() {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -18,6 +21,8 @@ export default function ProfileScreen() {
 
     const [updatedUsername, setUpdatedUsername] = useState('');
     const [updatedPassword, setUpdatedPassword] = useState('');
+
+    const {t} = useTranslation()
 
     const fetchUserData = async () => {
         try {
@@ -130,10 +135,10 @@ export default function ProfileScreen() {
                         </LinearGradient>
                     </SafeAreaView>
 
-                    <Text style={styles.title}>Profile</Text>
+                    <Text style={styles.title}>{t('profile')}</Text>
 
                     <View style={styles.editingContainer}>
-                        <Text style={styles.label}>Username</Text>
+                        <Text style={styles.label}>{t('username')}</Text>
                         <TextInput
                             style={styles.input}
                             value={updatedUsername}
@@ -151,7 +156,7 @@ export default function ProfileScreen() {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.label}>Email</Text>
+                    <Text style={styles.label}>{t('email')}</Text>
                     <TextInput style={styles.input} value={userData?.email || ''} editable={false} />
 
                     {/* <View style={styles.editingContainer}>
@@ -179,7 +184,7 @@ export default function ProfileScreen() {
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.logout} onPress={handleLogout}>
-                            <Text style={{ color: 'white', marginRight: 8 ,fontFamily:"BebasNeue",fontSize:18}}>Log Out</Text>
+                            <Text style={{ color: 'white', marginRight: 8 ,fontFamily:"BebasNeue",fontSize:18}}>{t('logout')}</Text>
                             <LogOut color="white" />
                         </TouchableOpacity>
                     </View>

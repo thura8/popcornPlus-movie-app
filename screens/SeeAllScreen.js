@@ -7,11 +7,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
 import Loading from '../components/loading';
 
+import '../i18n'
+import { useTranslation } from 'react-i18next';
+
 var { width, height } = Dimensions.get('window');
 
 export default function SeeAllScreen({ route }) {
   const [loading, setLoading] = useState(true);
 
+  const {t}=useTranslation()
   
   const { data, title } = route.params;
   const navigation = useNavigation();
@@ -40,7 +44,7 @@ export default function SeeAllScreen({ route }) {
 
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>
-                {title}
+                {t(title)}
             </Text>
          </View>
         </View>

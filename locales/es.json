@@ -1,5 +1,27 @@
 {
-    "welcome": "Bienvenido"
-    
-  }
-  
+  "welcome": "Bienvenido",
+  "trending": "Tendencias",
+  "upcoming": "Próximamente",
+  "topRated": "Mejor Valorados",
+  "seeAll": "Ver Todos",
+  "searchMovie": "Buscar Película",
+  "noMoviesToShow": "No Hay Películas para Mostrar",
+  "editProfile": "Editar Perfil",
+  "content": "Contenido",
+  "favorites": "Favoritos",
+  "watchLater": "Ver Más Tarde",
+  "preference": "Preferencia",
+  "language": "Idioma",
+  "darkMode": "Modo Oscuro",
+  "profile": "Perfil",
+  "username": "Nombre de usuario",
+  "email": "Correo electrónico",
+  "logout": "Cerrar sesión",
+  "pleaseLoginToContinue": "Por favor inicie sesión para continuar",
+  "password": "Contraseña",
+  "login": "Iniciar sesión",
+  "dontHaveAnAccount": "¿No tienes una cuenta?",
+  "signUp": "Regístrate",
+  "completeYourProfile": "Completa tu perfil",
+  "alreadyHaveAnAccount": "¿Ya tienes una cuenta?"
+}

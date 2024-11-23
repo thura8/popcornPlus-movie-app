@@ -28,6 +28,13 @@ export default function LanguageSelector() {
         >
         <Text style={styles.buttonText}>Español</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={selectedLanguage === 'fr' ? styles.selectedButton : styles.button}
+          onPress={() => changeLanguage('fr')}
+        >
+          <Text style={styles.buttonText}>Français</Text>
+        </TouchableOpacity>
     </View>
   )
 }

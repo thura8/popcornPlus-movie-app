@@ -6,6 +6,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon, ChevronRightSquare } from 'lucide-react-native';
 import { Image } from 'expo-image';
 
+import '../i18n'
+import { useTranslation } from 'react-i18next';
 
 import { auth, db } from "../config/firebase";
 import { doc, onSnapshot } from "firebase/firestore"; 
@@ -15,6 +17,7 @@ export default function AccountProfileScreen() {
 
     const [username,setUsername] = useState('');
     
+    const {t} = useTranslation();
 
   const navigation = useNavigation();
 
@@ -67,18 +70,18 @@ export default function AccountProfileScreen() {
         <Text style={styles.username}>{username}</Text>
 
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.editProfile}>Edit Profile</Text>
+          <Text style={styles.editProfile}>{t('editProfile')}</Text>
         </TouchableOpacity>
 
       </View>
 
       <View style={styles.contentSection}>
 
-        <Text style={styles.contentTitle}>Content</Text>
+        <Text style={styles.contentTitle}>{t('content')}</Text>
 
         <View style={styles.contentRow}>
 
-          <Text style={styles.contentText}>Favorites</Text>
+          <Text style={styles.contentText}>{t('favorites')}</Text>
 
           <View style={styles.arrowIcon}>
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
@@ -87,7 +90,7 @@ export default function AccountProfileScreen() {
         </View>
         <View style={styles.contentRow}>
 
-          <Text style={styles.contentText}>Watch Later</Text>
+          <Text style={styles.contentText}>{t('watchLater')}</Text>
 
           <View style={styles.arrowIcon}>
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
@@ -99,11 +102,11 @@ export default function AccountProfileScreen() {
 
       <View style={styles.preferenceSection}>
 
-        <Text style={styles.preferenceTitle}>Preference</Text>
+        <Text style={styles.preferenceTitle}>{t('preference')}</Text>
 
         <View style={styles.preferenceRow}>
 
-          <Text style={styles.preferenceText}>Language</Text>
+          <Text style={styles.preferenceText}>{t('language')}</Text>
 
           <View style={styles.languageSelection}>
 
@@ -127,7 +130,7 @@ export default function AccountProfileScreen() {
 
         </View>
         <View style={styles.preferenceRow}>
-          <Text style={styles.preferenceText}>Dark Mode</Text>
+          <Text style={styles.preferenceText}>{t('darkMode')}</Text>
           <Switch onValueChange={handleToggleDarkMode} />
         </View>
 
