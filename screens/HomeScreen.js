@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -71,6 +72,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor={'transparent'} />
       <SafeAreaView style={{ backgroundColor: "#0d1321", paddingHorizontal: 16 }}>
         <View style={styles.header}>
           <View>

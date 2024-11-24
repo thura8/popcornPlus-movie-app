@@ -106,7 +106,7 @@ export default function AccountProfileScreen() {
 
         <View style={styles.preferenceRow}>
 
-          <Text style={styles.preferenceText}>{t('language')}</Text>
+          <Text style={styles.preferenceText}>{t('language')} :</Text>
 
           <View style={styles.languageSelection}>
 
