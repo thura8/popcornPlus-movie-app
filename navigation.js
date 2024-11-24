@@ -17,6 +17,7 @@ import AccountProfileScreen from "./screens/AccountProfileScreen";
 
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function TabNavigator() {
   return (
@@ -64,26 +65,31 @@ export default function Navigation() {
 
   if (user) {
     return (
-      <FontProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Main">
-            <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
-            <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
-            <Stack.Screen name="SeeAll" options={{ headerShown: false }} component={SeeAllScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </FontProvider>
+      <ThemeProvider>
+        <FontProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Main">
+              <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
+              <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
+              <Stack.Screen name="SeeAll" options={{ headerShown: false }} component={SeeAllScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FontProvider>
+      </ThemeProvider>
+      
     );
   } else {
     return (
-      <FontProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
-            <Stack.Screen name="SignUp" options={{ headerShown: false }} component={SignUpScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </FontProvider>
+      <ThemeProvider>
+        <FontProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login">
+              <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
+              <Stack.Screen name="SignUp" options={{ headerShown: false }} component={SignUpScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FontProvider>
+      </ThemeProvider>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 import React, { useState,useRef,useCallback } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -66,7 +66,9 @@ export default function SignUpScreen() {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      
       <KeyboardAwareScrollView contentContainerStyle={styles.container} enableOnAndroid={true} keyboardOpeningTime={0}>
+        <StatusBar translucent backgroundColor={'transparent'} />
         <SafeAreaView>
           <View style={{ alignItems: 'center', marginTop: 12 }}>
             <Image

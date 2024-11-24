@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { auth, db } from "../config/firebase";
 import { doc, onSnapshot } from "firebase/firestore"; 
 import LanguageSelector from '../components/LanguageSelector';
+import { useTheme } from '../context/ThemeContext';
 
 export default function AccountProfileScreen() {
 
@@ -25,9 +26,6 @@ export default function AccountProfileScreen() {
     console.log(`${lng} is selected`)
   };
 
-  const handleToggleDarkMode = (isEnabled) => {
-    console.log('Dark mode:', isEnabled);
-  };
 
   useEffect(() => {
     const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser .uid), (doc) => {
@@ -41,9 +39,11 @@ export default function AccountProfileScreen() {
 
   const onPressGoBack = useCallback(_ => navigation.goBack(), [])
 
+  const {theme,toggleTheme,isDarkTheme} = useTheme()
+
   
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,theme.background]}>
 
       <SafeAreaView style={styles.safeArea}>
         <LinearGradient
@@ -130,8 +130,13 @@ export default function AccountProfileScreen() {
 
         </View>
         <View style={styles.preferenceRow}>
-          <Text style={styles.preferenceText}>{t('darkMode')}</Text>
-          <Switch onValueChange={handleToggleDarkMode} />
+          <Text style={styles.preferenceText}>{isDarkTheme ? t('darkMode') : 'Light'}</Text>
+          <Switch
+          trackColor={{ false: '#ccc', true: '#555' }}
+          thumbColor={isDarkTheme ? '#f4f3f4' : '#f4f3f4'}
+          onValueChange={toggleTheme}
+          value={isDarkTheme}
+        />
         </View>
 
       </View>
