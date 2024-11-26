@@ -1,28 +1,31 @@
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { LogOut, ChevronLeftIcon, Pencil, PencilOff,Eye,EyeOff } from 'lucide-react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { LogOut, ChevronLeftIcon, LockKeyhole, LockKeyholeOpen,} from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { signOut, updatePassword } from 'firebase/auth';
 import { auth, db } from '../config/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../components/loading';
+import { useTheme } from '../context/ThemeContext';
 
 import '../i18n'
 import { useTranslation } from 'react-i18next';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default function ProfileScreen() {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const [isEditingUsername, setIsEditingUsername] = useState(false);
-    const [isEditingPassword, setIsEditingPassword] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    // const [isEditingPassword, setIsEditingPassword] = useState(false);
+    // const [showPassword, setShowPassword] = useState(false);
 
     const [updatedUsername, setUpdatedUsername] = useState('');
-    const [updatedPassword, setUpdatedPassword] = useState('');
+    //const [updatedPassword, setUpdatedPassword] = useState('');
 
     const {t} = useTranslation()
+    const {theme} = useTheme()
 
     const fetchUserData = async () => {
         try {
@@ -91,30 +94,14 @@ export default function ProfileScreen() {
         }
     };
     
-
-    // const handleUpdatePassword = async () => {
-    //     try {
-    //         if (!updatedPassword || updatedPassword === '') {
-    //             Alert.alert('Info', 'No changes were made to the password.');
-    //             return;
-    //         }
-
-    //         await updatePassword(auth.currentUser, updatedPassword);
-    //         setIsEditingPassword(false);
-    //         Alert.alert('Success', 'Password updated successfully.');
-    //     } catch (err) {
-    //         console.error('Error updating password:', err);
-    //         Alert.alert('Error', err.message);
-    //     }
-    // };
+    
+    
 
     const handleLogout = async () => {
         await signOut(auth);
     };
 
-    // const togglePasswordVisibility = () => {
-    //     setShowPassword(!showPassword);
-    // };
+    const onPressGoBack = useCallback(_=> navigation.goBack(),[])
 
     const navigation = useNavigation();
 
@@ -123,22 +110,29 @@ export default function ProfileScreen() {
             {!userData && loading ? (
                 <Loading />
             ) : (
-                <View style={styles.container}>
+                <View style={[styles.container,theme.contentBackground]}>
                     <SafeAreaView style={styles.safeArea}>
                         <LinearGradient
-                            colors={['rgba(116, 140, 171, 0.6)', 'rgba(116, 140, 171, 0.9)']}
-                            style={styles.backButton}
+                        colors={theme.gradientColors}
+                        style={styles.backButton}
                         >
-                            <TouchableOpacity onPress={() => navigation.goBack()}>
-                                <ChevronLeftIcon size={34} strokeWidth={2.5} color="white" />
-                            </TouchableOpacity>
+
+                        <TouchableOpacity onPress={onPressGoBack}>
+
+                            <View style={styles.backButton}>
+                            <ChevronLeftIcon size={30} strokeWidth={2.5} color={theme.iconColor} />
+                            </View>
+
+                        </TouchableOpacity>
+
                         </LinearGradient>
+
                     </SafeAreaView>
 
-                    <Text style={styles.title}>{t('profile')}</Text>
+                    <Text style={[styles.title,theme.text]}>{t('profile')}</Text>
 
                     <View style={styles.editingContainer}>
-                        <Text style={styles.label}>{t('username')}</Text>
+                        <Text style={[styles.label,theme.text]}>{t('username')}</Text>
                         <TextInput
                             style={styles.input}
                             value={updatedUsername}
@@ -146,43 +140,39 @@ export default function ProfileScreen() {
                             editable={isEditingUsername}
                         />
                         <TouchableOpacity
-                            onPress={() => {
-                                if (isEditingUsername) handleUpdateUsername();
-                                setIsEditingUsername(!isEditingUsername);
-                            }}
                             style={styles.icon}
                         >
-                            {isEditingUsername ? <Pencil color="#3e5c76" size={22} /> : <PencilOff color="#3e5c76" size={22} />}
+                            {isEditingUsername ? <LockKeyholeOpen color="#3e5c76" size={22} /> : <LockKeyhole color="#3e5c76" size={22} />}
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.label}>{t('email')}</Text>
+                    <Text style={[styles.label,theme.text]}>{t('email')}</Text>
                     <TextInput style={styles.input} value={userData?.email || ''} editable={false} />
 
-                    {/* <View style={styles.editingContainer}>
-                        <Text style={styles.label}>Password</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={isEditingPassword ? updatedPassword : '********'}
-                            onChangeText={setUpdatedPassword}
-                            editable={isEditingPassword}
-                            secureTextEntry={!showPassword}
-                        />
-                        <TouchableOpacity
-                            onPress={() => {
-                                if (isEditingPassword) handleUpdatePassword();
-                                setIsEditingPassword(!isEditingPassword);
-                            }}
-                            style={styles.icon}
-                        >
-                            {isEditingPassword ? <Pencil color="#3e5c76" size={22} /> : <PencilOff color="#3e5c76" size={22} />}
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconEye}>
-                            {showPassword ? <Eye color="#3e5c76" size={22} /> : <EyeOff color="#3e5c76"  size={22}/>}
-                        </TouchableOpacity>
-                    </View> */}
+                   
 
                     <View style={styles.buttonContainer}>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                if (isEditingUsername) {
+                                
+                                if (updatedUsername.trim() === userData?.username) {
+                                    Alert.alert('Info', 'No changes were made to the username.');
+                                } else {
+                                    handleUpdateUsername(); 
+                                }
+                                }
+                                setIsEditingUsername(!isEditingUsername);
+                            }}
+                                style={styles.editIcon}
+                            >
+                            
+                            <Text style={styles.editButtonText}>
+                                {isEditingUsername ? 'Save' : 'Edit'}
+                            </Text>
+                        </TouchableOpacity>
+
                         <TouchableOpacity style={styles.logout} onPress={handleLogout}>
                             <Text style={{ color: 'white', marginRight: 8 ,fontFamily:"BebasNeue",fontSize:18}}>{t('logout')}</Text>
                             <LogOut color="white" />
@@ -199,7 +189,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: '#1d2d44',
     },
     safeArea: {
         position: 'absolute',
@@ -222,7 +211,7 @@ const styles = StyleSheet.create({
         fontFamily:"BebasNeue",
         marginBottom: 20,
         textAlign: 'center',
-        color: '#f0ebd8',
+        
     },
     label: {
         fontSize: 16,
@@ -232,7 +221,7 @@ const styles = StyleSheet.create({
         color: '#f0ebd8',
     },
     input: {
-        height: 40,
+        height: 45,
         fontSize:16,
         borderColor: '#ccc',
         borderWidth: 1,
@@ -243,8 +232,8 @@ const styles = StyleSheet.create({
         fontFamily:"Lato"
     },
     buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
         marginTop: 20,
     },
     logout: {
@@ -256,13 +245,26 @@ const styles = StyleSheet.create({
         width: 100,
         borderRadius: 12,
     },
-    editingContainer: {
+    editIcon: {
+        padding: 10,
+        backgroundColor: '#007bff',
+        borderRadius: 12,
+        marginRight: 10,
+        width:80 
+    },
+    editButtonText: {
+        fontSize: 16,
+        color: '#fff',
+        fontFamily: 'Lato',
+        textAlign:'center'
+    },
+      editingContainer: {
         position: 'relative',
     },
     icon: {
         position: 'absolute',
         right: 10,
-        top: 36,
+        top: 38,
     },
     iconEye: {
         position: 'absolute',

@@ -17,6 +17,7 @@ import { auth } from '../config/firebase';
 import { Eye, EyeOff,PlusIcon } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Image } from 'expo-image';
+import {useTheme} from '../context/ThemeContext'
 
 import '../i18n'
 import { useTranslation } from 'react-i18next';
@@ -29,6 +30,7 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const {t} = useTranslation()
 
+  const {theme} = useTheme()
   const passwordRef = useRef(null);
 
   const togglePasswordVisibility = () => {
@@ -78,7 +80,7 @@ export default function LoginScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       
-      <KeyboardAwareScrollView contentContainerStyle={styles.container} enableOnAndroid={true} keyboardOpeningTime={0}
+      <KeyboardAwareScrollView contentContainerStyle={[styles.container]} enableOnAndroid={true} keyboardOpeningTime={0}
       >
         <StatusBar translucent backgroundColor={'transparent'} />
         <SafeAreaView>
@@ -86,6 +88,7 @@ export default function LoginScreen() {
             <Image
               source={require('../assets/images/popcornPlus.png')}
               style={styles.logo}
+              priority='high'
             />
             <Text style={styles.appTitle}>{t('pleaseLoginToContinue')}</Text>
             
@@ -98,7 +101,7 @@ export default function LoginScreen() {
               autoCapitalize="none"
               style={styles.input}
               placeholder="Enter your email"
-              placeholderTextColor="#f0ebd8"
+              placeholderTextColor="#C0C0C03"
               value={email}
               onChangeText={(value) => setEmail(value)}
               onSubmitEditing={()=>passwordRef.current.focus()}
@@ -113,7 +116,7 @@ export default function LoginScreen() {
                 secureTextEntry={!showPassword}
                 style={styles.input}
                 placeholder="Enter your password"
-                placeholderTextColor="#f0ebd8"
+                placeholderTextColor="#C0C0C0"
                 value={password}
                 onChangeText={(value) => setPassword(value)}
                 returnKeyType='done'
@@ -122,7 +125,7 @@ export default function LoginScreen() {
                 onPress={togglePasswordVisibility}
                 style={styles.iconEye}
               >
-                {showPassword ? <Eye color="#f0ebd8" /> : <EyeOff color="#f0ebd8" />}
+                {showPassword ? <Eye color="#333" /> : <EyeOff color="#333" />}
               </TouchableOpacity>
             </View>
 
@@ -148,7 +151,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0d1321',
+    backgroundColor: '#252525',
   },
   header: {
     alignItems: 'center',
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    backgroundColor: '#f0ebd8',
+    backgroundColor: '#E5E5E5',
     paddingHorizontal: 32,
     paddingTop: 32,
     borderTopLeftRadius: 50,
@@ -189,8 +192,8 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 16,
-    backgroundColor: '#748cab',
-    color: 'white',
+    backgroundColor: '#F7F7F7',
+    color:'#333',
     borderRadius: 24,
     marginBottom: 24,
     fontSize: 16,
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 12,
-    backgroundColor: '#0d1321',
+    backgroundColor: '#1A1A1A',
     borderRadius: 20,
     alignItems: 'center',
     marginTop: 24,

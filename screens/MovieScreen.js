@@ -84,6 +84,7 @@ export default function MovieScreen() {
                 source={{ uri: image500(movie?.poster_path) }}
                 style={{ width, height: height * 0.64}}
                 contentFit="cover"
+                priority='high'
                 
               />
               <LinearGradient

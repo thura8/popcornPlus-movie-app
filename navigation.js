@@ -17,9 +17,13 @@ import AccountProfileScreen from "./screens/AccountProfileScreen";
 
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider,useTheme } from "./context/ThemeContext";
+
 
 function TabNavigator() {
+
+  const {theme} = useTheme()
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -37,11 +41,11 @@ function TabNavigator() {
           
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#e91e63', 
-        tabBarInactiveTintColor: 'gray', 
+        tabBarActiveTintColor: theme.activeTabColor, 
+        tabBarInactiveTintColor: theme.inactiveTabColor, 
         tabBarStyle: {
-          backgroundColor: '#0d1321', 
-          borderTopWidth: 0, 
+         backgroundColor: theme.tabBackgroundColor, 
+         borderTopWidth: 0,
         },
       })}
     >

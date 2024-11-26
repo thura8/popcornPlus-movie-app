@@ -68,6 +68,7 @@ export default function SeeAllScreen({ route }) {
                     <Image
                       source={{ url: image185(item?.poster_path) }}
                       style={styles.movieImage}
+                      priority='high'
                     />
                     <Text style={styles.movieTitle}>
                       {item?.title.length > 22

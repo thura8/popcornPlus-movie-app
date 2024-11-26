@@ -12,12 +12,14 @@ import {
   import { Image } from "expo-image";
   import '../i18n'
   import { useTranslation } from "react-i18next";
+  import {useTheme} from '../context/ThemeContext'
   
   var { width, height } = Dimensions.get("window");
   
   export default function TrendingMovies({ data }) {
     const navigation = useNavigation();
     const {t} = useTranslation();
+    const {theme} = useTheme();
 
     const handleClick = (item) => {
       navigation.navigate("Movie", item);
@@ -25,15 +27,7 @@ import {
     return (
       <View style={{ marginBottom: 32 }}>
         <Text
-          style={{
-            marginHorizontal: 16,
-            paddingTop: 10,
-            marginBottom: 10,
-            color: "#ffffff",
-            fontSize: 28,
-            fontFamily:"Pacifico",
-            letterSpacing:1
-          }}
+          style={theme.trendingTitle}
         >
           {t('trending')}
         </Text>
@@ -64,6 +58,7 @@ import {
           source={{ uri: image500(item.poster_path) }}
           style={styles.image}
           contentFit="contain"
+          priority='high'
         />
       </TouchableWithoutFeedback>
     );
@@ -71,7 +66,7 @@ import {
   
   const styles = StyleSheet.create({
     image: {
-      borderRadius: 24,
+      borderRadius: 28,
       width: width * 0.6,
       height: height * 0.4,
     },

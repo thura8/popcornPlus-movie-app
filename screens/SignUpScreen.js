@@ -74,6 +74,7 @@ export default function SignUpScreen() {
             <Image
               source={require('../assets/images/popcornPlus.png')}
               style={{ width: 250, height: 250, borderRadius: 100 }}
+              priority='high'
             />
             <Text style={{ marginTop: 4, color: '#f0ebd8', fontSize: 20, fontWeight: 'bold', fontFamily: 'BebasNeue', letterSpacing: 4 }}>
               {t('completeYourProfile')}
@@ -86,7 +87,7 @@ export default function SignUpScreen() {
             <TextInput
               style={styles.input}
               placeholder="Enter your name"
-              placeholderTextColor="#f0ebd8"
+              placeholderTextColor="#C0C0C0"
               value={username}
               onChangeText={value => setUserName(value)}
               returnKeyType='next'
@@ -99,7 +100,7 @@ export default function SignUpScreen() {
               style={styles.input}
               value={email}
               onChangeText={value => setEmail(value)}
-              placeholderTextColor="#f0ebd8"
+              placeholderTextColor="#C0C0C0"
               placeholder="Enter your email"
               returnKeyType='next'
               onSubmitEditing={()=>passwordRef.current.focus()}
@@ -112,13 +113,13 @@ export default function SignUpScreen() {
                 secureTextEntry={!showPassword}
                 style={styles.input}
                 placeholder="Enter your password"
-                placeholderTextColor="#f0ebd8"
+                placeholderTextColor="#C0C0C0"
                 value={password}
                 onChangeText={value => setPassword(value)}
                 returnKeyType='done'
               />
               <TouchableOpacity onPress={togglePasswordVisibility} style={styles.iconEye}>
-                {showPassword ? <Eye color="#f0ebd8" /> : <EyeOff color="#f0ebd8" />}
+                {showPassword ? <Eye color="#333" /> : <EyeOff color="#333" />}
               </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -141,13 +142,13 @@ export default function SignUpScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0d1321',
+    backgroundColor: '#252525',
     // paddingHorizontal: 32,
     // paddingTop: 32,
   },
   formContainer: {
     flex: 1,
-    backgroundColor: '#f0ebd8',
+    backgroundColor: '#E5E5E5',
     paddingHorizontal: 32,
     paddingTop: 32,
   },
@@ -160,8 +161,8 @@ const styles = StyleSheet.create({
   },
   input: {
     padding: 16,
-    backgroundColor: '#748cab',
-    color: 'white',
+    backgroundColor: '#F7F7F7',
+    color: '#333',
     borderRadius: 24,
     marginBottom: 10,
     fontSize: 16,

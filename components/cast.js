@@ -36,6 +36,7 @@ import {
                         uri: image185(person?.profile_path) || fallBackCastImage,
                       }}
                       style={{ borderRadius: 16, height: 96, width: 80 }}
+                      priority='high'
                     />
                   </View>
   

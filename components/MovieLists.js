@@ -11,6 +11,7 @@ import {
   import { useNavigation } from "@react-navigation/native";
   import { image185 } from "../api/movieDb";
   import { Image } from "expo-image";
+  import { useTheme } from "../context/ThemeContext";
 
   import '../i18n'
   import { useTranslation } from "react-i18next";
@@ -21,14 +22,15 @@ import {
     const navigation = useNavigation();
 
     const {t} = useTranslation();
+    const {theme} = useTheme()
   
     return (
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>{t(title)}</Text>
+          <Text style={[styles.title,theme.sectionTitle]}>{t(title)}</Text>
           {!hideSeeAll && (
             <TouchableOpacity onPress={() => navigation.navigate("SeeAll", { data,title })}>
-              <Text style={styles.seeAll}>{t('seeAll')}</Text>
+              <Text style={[styles.seeAll,theme.seeAllButton]}>{t('seeAll')}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -52,8 +54,9 @@ import {
                     source={{ uri: image185(item.poster_path) }}
                     style={styles.image}
                     contentFit="contain"
+                    priority='high'
                   />
-                  <Text style={styles.movieName}>
+                  <Text style={[styles.movieName,theme.movieTitle]}>
                     {movieName.length > 25
                       ? movieName.slice(0, 25) + "..."
                       : movieName}
@@ -85,13 +88,13 @@ import {
     },
     seeAll: {
       fontSize: 18,
-      color: "#F7E7DC",
+      //color: "#F7E7DC",
       fontFamily:"PlayFair"
     },
     image: {
       borderRadius: 24,
       width: width * 0.43,
-      height: height * 0.32,
+      height: height * 0.30,
     },
     movieName: {
       color: "#F7E7DC",

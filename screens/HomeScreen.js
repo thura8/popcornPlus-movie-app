@@ -22,6 +22,9 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 import '../i18n'
 import { useTranslation } from "react-i18next";
+import { useTheme } from "../context/ThemeContext";
+
+
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([]);
@@ -34,9 +37,9 @@ export default function HomeScreen() {
   const {t} = useTranslation();
 
   useEffect(() => {
-    const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser .uid), (doc) => {
+    const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser.uid), (doc) => {
       if (doc.exists()) {
-        setUsername(doc.data().username || 'User ');
+        setUsername(doc.data().username || 'User ' );
       }
     });
 
@@ -44,7 +47,6 @@ export default function HomeScreen() {
     getUpComingMovies();
     getTopRatedMovies();
 
-    
     return () => unsubscribeFromFirestore();
   }, []);
 
@@ -70,34 +72,33 @@ export default function HomeScreen() {
     }
   };
 
+  const {theme,isDarkTheme} = useTheme()
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,theme.contentBackground]}>
       <StatusBar translucent backgroundColor={'transparent'} />
-      <SafeAreaView style={{ backgroundColor: "#0d1321", paddingHorizontal: 16 }}>
-        <View style={styles.header}>
-          <View>
-            <Text style={{ fontFamily: "PlayFair", fontSize: 20, color: "#F7E7DC",}}>
+        <SafeAreaView style={[styles.header,theme.headerBackground]}>
+          <View style={styles.headerLeft}>
+            <Text style={[styles.welcomeText,theme.welcomeText]}>
               {t('welcome')}
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Account")}>
-              <Text style={{ fontFamily: "Anton", fontSize: 24, color: "#FFF8F3",letterSpacing:2  }}>
+            <TouchableOpacity style={{position:'relative',top:12}} onPress={() => navigation.navigate("Account")}>
+              <Text style={[styles.usernameText,theme.username]}>
                 {username ? username : 'Loading...'} 
               </Text>
             </TouchableOpacity>
-
-            
           </View>
 
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <SearchIcon
-              size="36"
+              size="36" // Smaller icon size
               strokeWidth={2}
-              color="#F7E7DC"
+              //color="#F7E7DC"
+              style={theme.searchIcon}
               resizeMode="contain"
             />
           </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
 
       {loading ? (
         <Loading />
@@ -118,13 +119,26 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1d2d44",
+    //backgroundColor: "#1d2d44",
   },
   header: {
-    marginVertical: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 5,
+    paddingHorizontal:16
+  },
+  headerLeft: {
+    flexDirection: "column",
+  },
+  welcomeText: {
+    fontFamily: "PlayFair",
+    fontSize: 20, 
+    //color: "#F7E7DC",
+  },
+  usernameText: {
+    fontFamily: "Anton",
+    fontSize: 22, 
+    //color: "#FFF8F3",
+    letterSpacing: 2,
   },
 });

@@ -3,7 +3,7 @@ import React, { useState,useEffect, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeftIcon, ChevronRightSquare } from 'lucide-react-native';
+import { ChevronLeftIcon, ChevronRightIcon, ChevronRightSquare } from 'lucide-react-native';
 import { Image } from 'expo-image';
 
 import '../i18n'
@@ -22,11 +22,6 @@ export default function AccountProfileScreen() {
 
   const navigation = useNavigation();
 
-  const handleLanguageChange = (lng) => {
-    console.log(`${lng} is selected`)
-  };
-
-
   useEffect(() => {
     const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser .uid), (doc) => {
       if (doc.exists()) {
@@ -43,18 +38,18 @@ export default function AccountProfileScreen() {
 
   
   return (
-    <View style={[styles.container,theme.background]}>
+    <View style={[styles.container,theme.contentBackground]}>
 
       <SafeAreaView style={styles.safeArea}>
         <LinearGradient
-          colors={['rgba(116, 140, 171, 0.6)', 'rgba(116, 140, 171, 0.9)']}
+          colors={theme.gradientColors}
           style={styles.backButton}
         >
 
           <TouchableOpacity onPress={onPressGoBack}>
 
             <View style={styles.backButton}>
-              <ChevronLeftIcon size={34} strokeWidth={2.5} color="white" />
+              <ChevronLeftIcon size={30} strokeWidth={2.5} color={theme.iconColor} />
             </View>
 
           </TouchableOpacity>
@@ -67,21 +62,25 @@ export default function AccountProfileScreen() {
 
         <Image source={require('../assets/images/user_fallBack.jpg')} style={styles.profilePicture} />
 
-        <Text style={styles.username}>{username}</Text>
+        <Text style={[styles.username,theme.text]}>{username}</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.editProfile}>{t('editProfile')}</Text>
+        <TouchableOpacity 
+          style={[styles.editProfileButton, theme.editButton]}  
+          onPress={() => navigation.navigate('Profile')}
+        >
+          <Text style={[styles.editProfileText, theme.editText]}>{t('editProfile')}</Text>
+          <ChevronRightIcon size={24} color={theme.editIconColor} />  
         </TouchableOpacity>
 
       </View>
 
-      <View style={styles.contentSection}>
+      <View style={[styles.contentSection,theme.headerBackground]}>
 
-        <Text style={styles.contentTitle}>{t('content')}</Text>
+        <Text style={[styles.contentTitle,theme.text]}>{t('content')}</Text>
 
         <View style={styles.contentRow}>
 
-          <Text style={styles.contentText}>{t('favorites')}</Text>
+          <Text style={[styles.contentText,theme.text]}>{t('favorites')}</Text>
 
           <View style={styles.arrowIcon}>
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
@@ -90,7 +89,7 @@ export default function AccountProfileScreen() {
         </View>
         <View style={styles.contentRow}>
 
-          <Text style={styles.contentText}>{t('watchLater')}</Text>
+          <Text style={[styles.contentText,theme.text]}>{t('watchLater')}</Text>
 
           <View style={styles.arrowIcon}>
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
@@ -100,37 +99,30 @@ export default function AccountProfileScreen() {
 
       </View>
 
-      <View style={styles.preferenceSection}>
+      <View style={[styles.preferenceSection,theme.headerBackground]}>
 
-        <Text style={styles.preferenceTitle}>{t('preference')}</Text>
+        <Text style={[styles.preferenceTitle,theme.text]}>{t('preference')}</Text>
 
         <View style={styles.preferenceRow}>
 
-          <Text style={styles.preferenceText}>{t('language')} :</Text>
+        
 
           <View style={styles.languageSelection}>
 
-            {/* <TouchableOpacity onPress={() => handleLanguageChange('en')}>
-                <Text style={styles.selectedLanguage}>English (Selected)</Text>
-            </TouchableOpacity>
+          <Text style={[styles.preferenceText,theme.text]}>{t('language')}</Text>
 
-            <TouchableOpacity onPress={() => handleLanguageChange('fr')}>
-              <Text style={styles.languageOption}>French</Text>
-            </TouchableOpacity>
+            <View style={styles.languageSection}>
 
-            <TouchableOpacity onPress={() => handleLanguageChange('es')}>
-              <Text style={styles.languageOption}>Spanish</Text>
-            </TouchableOpacity>*/}
+              <LanguageSelector/>
 
-            <LanguageSelector/>
-
+            </View>
 
 
           </View>
 
         </View>
         <View style={styles.preferenceRow}>
-          <Text style={styles.preferenceText}>{isDarkTheme ? t('darkMode') : 'Light'}</Text>
+          <Text style={[styles.preferenceText,theme.text]}>{isDarkTheme ? t('darkMode') : 'Light Mode'}</Text>
           <Switch
           trackColor={{ false: '#ccc', true: '#555' }}
           thumbColor={isDarkTheme ? '#f4f3f4' : '#f4f3f4'}
@@ -163,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   backButton: {
-    borderRadius: 12,
+    borderRadius: 24,
     padding: 4,
   },
   header: {
@@ -171,59 +163,83 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   profilePicture: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    borderRadius: 80,
   },
   username: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 5,
+    marginVertical: 10,
   },
-  editProfile: {
-    color: '#007bff',
+  editProfileButton: {
+    flexDirection: 'row',  
+    alignItems: 'center',  
+    paddingVertical: 12,  
+    paddingHorizontal: 16,  
+    borderRadius: 30,  
+    backgroundColor: '#007bff',  
+    marginVertical: 10,  
+  },
+  editProfileText: {
+    fontSize: 16,  
+    fontWeight: 'bold',  
+    color: '#fff',
+    marginRight: 8,  
   },
   contentSection: {
-    padding: 20,
+    marginVertical: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Subtle background for section
   },
   contentTitle: {
-    fontSize: 16,
-    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 12,
   },
   contentRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
+    paddingVertical: 8,
+
   },
   contentText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: '500',
   },
   arrowIcon: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   preferenceSection: {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
+    marginVertical: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
   },
   preferenceTitle: {
-    fontSize: 16,
-    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 12,
   },
   preferenceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 5,
+    paddingVertical: 8,
+
   },
   preferenceText: {
-    fontSize: 14,
+    fontSize: 16,
+    fontWeight: '500',
   },
   languageSelection: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   selectedLanguage: {
     marginRight: 10,
@@ -235,4 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#007bff',
   },
+  languageSection:{
+    paddingHorizontal:16
+  }
 });

@@ -17,6 +17,8 @@ import {
   import { image185, searchMovies } from "../api/movieDb";
   import { Image } from "expo-image";
 
+  import { useTheme } from "../context/ThemeContext";
+
   import '../i18n'
   import { useTranslation } from "react-i18next";
 
@@ -27,6 +29,7 @@ import {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const {t} = useTranslation()
+    const {theme} = useTheme()
 
     const handleSearch = value =>{
       if(value && value.length > 2){
@@ -50,19 +53,19 @@ import {
     const handleText = useCallback(debounce(handleSearch,400),[])
 
     return (
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.searchContainer}>
+      <SafeAreaView style={[styles.safeArea,theme.contentBackground]}>
+        <View style={theme.searchContainer}>
           <TextInput
             onChangeText={handleText}
             placeholder={t('searchMovie')}
             placeholderTextColor="lightgray"
-            style={styles.textInput}
+            style={theme.textInput}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate("Home")}
-            style={styles.iconButton}
+            style={theme.iconButton}
           >
-            <ArrowBigLeftDash size={25} color="#3e5c76" />
+            <ArrowBigLeftDash size={25} style={theme.iconColor} />
           </TouchableOpacity>
         </View>
   
@@ -90,6 +93,7 @@ import {
                         source={{uri: image185(item?.poster_path)}}
                         style={styles.movieImage}
                         contentFit="contain"
+                        priority='high'
                       />
   
                       <Text style={styles.movieTitle}>
@@ -110,7 +114,7 @@ import {
               style={styles.movieWatching}
               // contentFit="contain"
             />
-            <Text style={{ color: "white", fontSize: 18 }}>
+            <Text style={theme.noMoviesText}>
               {t('noMoviesToShow')}
             </Text>
           </View>
@@ -121,34 +125,9 @@ import {
   
   const styles = StyleSheet.create({
     safeArea: {
-      backgroundColor: "#1d2d44",
       flex: 1,
     },
-    searchContainer: {
-      marginHorizontal: 16,
-      marginBottom: 12,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      borderWidth: 1,
-      borderColor: "#748cab",
-      borderRadius: 50,
-    },
-    textInput: {
-      paddingBottom: 4,
-      paddingLeft: 24,
-      flex: 1,
-      fontSize: 16,
-      fontWeight: "600",
-      color: "#f0ebd8",
-      letterSpacing: 1,
-    },
-    iconButton: {
-      borderRadius: 50,
-      padding: 12,
-      margin: 4,
-      backgroundColor: "#f0ebd8",
-    },
+
     scrollContainer: {
       paddingHorizontal: 15,
       gap: 12,
