@@ -6,7 +6,7 @@ import {
     Dimensions,
   } from "react-native";
   import React from "react";
-  import Carousel from "react-native-snap-carousel";
+ // import Carousel from "react-native-snap-carousel";
   import { useNavigation } from "@react-navigation/native";
   import { image500 } from "../api/movieDb";
   import { Image } from "expo-image";
@@ -32,7 +32,7 @@ import {
           {t('trending')}
         </Text>
   
-        <Carousel
+        {/* <Carousel
           data={data}
           renderItem={({ item }) => (
             <MovieCard item={item} handleClick={() => handleClick(item)} />
@@ -42,7 +42,7 @@ import {
           sliderWidth={width}
           itemWidth={width * 0.62}
           slideStyle={{ display: "flex", alignItems: "center" }}
-        />
+        /> */}
       </View>
     );
   }

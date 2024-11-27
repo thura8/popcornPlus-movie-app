@@ -69,7 +69,7 @@ const lightTheme = StyleSheet.create({
         fontFamily:"Pacifico"
     },
     seeAllButton: { color: '#007BFF'},
-    movieTitle: { color: '#333333'},
+    movieTitleText: { color: '#333333'},
     searchContainer: {
         marginHorizontal: 16,
         marginBottom: 12,
@@ -93,7 +93,7 @@ const lightTheme = StyleSheet.create({
 
     noMoviesText: {
         color: "#666666", 
-        fontSize: 18,
+        fontSize: 26,
         textAlign: "center",
         marginTop: 20,
     },
@@ -119,6 +119,46 @@ const lightTheme = StyleSheet.create({
     editText: { color: '#fff' },  
     editIconColor: '#fff',  
     text: { color: '#000' },
+    loadingColor: '#007BFF',
+    overviewColor: {
+        color: "#1F2937",
+        marginTop: 10,
+        marginLeft: 16,
+        marginRight: 16,
+        letterSpacing: 0.5,
+        fontFamily:"PlayFair"
+    },
+    movieGradient:["transparent", "rgba(229,229,229,0.5)", "rgba(229,229,229,1)"],
+    movieTitle:{
+        color:"#000",
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+        letterSpacing: 0.5,
+        fontFamily:"Anton"
+    },
+    movieScreenText:{
+        color: "#1F2937",
+        fontWeight: "600",
+        fontSize: 16,
+        textAlign: "center",
+        fontFamily:"Montserrat",
+    },
+    castText:{
+        color: "#1F2937",
+        fontSize: 18,
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 20,
+        fontFamily:"Anton"
+    },
+    characterText:{
+        color: "#000", fontSize: 12, marginTop: 4 ,fontFamily:"Lato"
+    },
+    personNameText:{
+        color: "#1F2937", fontSize: 12, marginTop: 4,fontFamily:"Montserrat"
+    }
+    
   });
   
   const darkTheme = StyleSheet.create({
@@ -163,8 +203,8 @@ const lightTheme = StyleSheet.create({
         letterSpacing: 1,
     },
     noMoviesText: {
-        color: "#B0B0B0", // Light gray for "no movies" text in dark mode
-        fontSize: 18,
+        color: "#f7f7f7", 
+        fontSize: 26,
         textAlign: "center",
         marginTop: 20,
     },
@@ -192,4 +232,43 @@ const lightTheme = StyleSheet.create({
     editButton: { backgroundColor: '#0066cc' },  
     editText: { color: '#fff' },  
     editIconColor: '#fff', 
+    loadingColor:'#fff',
+    overviewColor: {
+        color: "#9CA3AF",
+        marginTop: 10,
+        marginLeft: 16,
+        marginRight: 16,
+        letterSpacing: 0.5,
+        fontFamily:"PlayFair"
+    },
+    movieGradient:["transparent", "rgba(37, 37, 37, 0.8)", "#252525"],
+    movieTitle:{
+        color: "white",
+        textAlign: "center",
+        fontSize: 30,
+        fontWeight: "bold",
+        letterSpacing: 0.5,
+        fontFamily:"Anton"
+    },
+    movieScreenText:{
+        color: "#9CA3AF",
+        fontWeight: "600",
+        fontSize: 16,
+        textAlign: "center",
+        fontFamily:"Montserrat",
+    },
+    castText:{
+        color: "#FFFFFF",
+        fontSize: 18,
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 20,
+        fontFamily:"Anton"
+    },
+    characterText:{
+        color: "white", fontSize: 12, marginTop: 4 ,fontFamily:"Lato"
+    },
+    personNameText:{
+        color: "#9CA3AF", fontSize: 12, marginTop: 4,fontFamily:"Montserrat"
+    }
   });

@@ -11,7 +11,7 @@ export default function Loading() {
 
   return (
     <View style={[styles.absoluteCenter, { height, width },theme.contentBackground]}>
-      <Progress.CircleSnail thickness={12} size={160} color={theme.iconColor} />
+      <Progress.CircleSnail thickness={12} size={100} color={theme.loadingColor} />
     </View>
   );
 }

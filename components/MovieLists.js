@@ -56,7 +56,7 @@ import {
                     contentFit="contain"
                     priority='high'
                   />
-                  <Text style={[styles.movieName,theme.movieTitle]}>
+                  <Text style={[styles.movieName,theme.movieTitleText]}>
                     {movieName.length > 25
                       ? movieName.slice(0, 25) + "..."
                       : movieName}

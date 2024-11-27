@@ -110,7 +110,7 @@ import {
         ) : (
           <View style={styles.imageContainer}>
             <Image
-              source={require("../assets/images/movie_watching.jpg")}
+              source={require("../assets/images/movie_watching.png")}
               style={styles.movieWatching}
               // contentFit="contain"
             />

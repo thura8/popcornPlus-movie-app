@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback,ScrollView, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { image185 } from '../api/movieDb';
@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
 import Loading from '../components/loading';
+
+import { Image } from 'expo-image';
 
 import '../i18n'
 import { useTranslation } from 'react-i18next';
@@ -66,7 +68,7 @@ export default function SeeAllScreen({ route }) {
                 >
                   <View style={styles.resultItem}>
                     <Image
-                      source={{ url: image185(item?.poster_path) }}
+                      source={{ uri: image185(item?.poster_path) }}
                       style={styles.movieImage}
                       priority='high'
                     />

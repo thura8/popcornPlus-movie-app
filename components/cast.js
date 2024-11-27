@@ -3,19 +3,21 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    TouchableOpacity,
   } from "react-native";
   import React from "react";
   import { fallBackCastImage,image185 } from "../api/movieDb";
   import { Image } from "expo-image";
   
+  import { useTheme } from "../context/ThemeContext";
+import { TouchableWithoutFeedback } from "react-native";
+
   export default function Cast({ cast }) {
-    // let personName = "Christian Bale";
-    // let characterName = "Bruce Wayne";
+    
+    const {theme} = useTheme();
   
     return (
       <View style={{ marginVertical: 24 }}>
-        <Text style={styles.castText}>Top Cast</Text>
+        <Text style={theme.castText}>Top Cast</Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -24,7 +26,7 @@ import {
           {cast &&
             cast.map((person, index) => {
               return (
-                <TouchableOpacity
+                <View
                   key={index}
                   style={{ marginRight: 16, alignItems: "center" }}
                 >
@@ -40,17 +42,17 @@ import {
                     />
                   </View>
   
-                  <Text style={{ color: "white", fontSize: 12, marginTop: 4 ,fontFamily:"Lato"}}>
+                  <Text style={theme.characterText}>
                     {person?.character.length > 10
                       ? person?.character.slice(0, 10) + "..."
                       : person?.character}
                   </Text>
-                  <Text style={{ color: "#9CA3AF", fontSize: 12, marginTop: 4,fontFamily:"Montserrat" }}>
+                  <Text style={theme.personNameText}>
                     {person?.original_name.length > 10
                       ? person?.original_name.slice(0, 10) + "..."
                       : person?.original_name}
                   </Text>
-                </TouchableOpacity>
+                </View>
               );
             })}
         </ScrollView>

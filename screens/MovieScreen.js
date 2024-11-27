@@ -22,6 +22,7 @@ import {
 import Loading from "../components/loading";
 
 import { Image} from "expo-image";
+import { useTheme } from "../context/ThemeContext";
 
 var { width, height } = Dimensions.get("window");
 
@@ -32,6 +33,8 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const {theme} = useTheme();
 
   useEffect(() => {
     setLoading(true);
@@ -57,7 +60,7 @@ export default function MovieScreen() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#1d2d44" }}>
+    <View style={[{ flex: 1 },theme.contentBackground]}>
       
       <SafeAreaView style={styles.safeArea}>
         <LinearGradient
@@ -88,7 +91,8 @@ export default function MovieScreen() {
                 
               />
               <LinearGradient
-                colors={["transparent", "rgba(23,23,23,0.8)", "rgba(23,23,23,1)"]}
+                colors={theme.movieGradient}
+                
                 style={{
                   width,
                   height: height * 0.4,
@@ -104,20 +108,13 @@ export default function MovieScreen() {
 
         <View style={{ marginTop: -(height * 0.101), marginBottom: 8 }}>
           <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              fontSize: 30,
-              fontWeight: "bold",
-              letterSpacing: 0.5,
-              fontFamily:"Anton"
-            }}
+            style={theme.movieTitle}
           >
             {movie?.title}
           </Text>
 
           {movie?.id ? (
-            <Text style={styles.text}>
+            <Text style={theme.movieScreenText}>
               {movie?.status} - {movie?.release_date?.split("-")[0]} -{" "}
               {movie?.runtime} min
             </Text>
@@ -134,7 +131,7 @@ export default function MovieScreen() {
             {movie?.genres?.map((genre, index) => {
               let showDot = index + 1 !== movie.genres.length;
               return (
-                <Text key={index} style={styles.text}>
+                <Text key={index} style={theme.movieScreenText}>
                   {genre?.name} {showDot ? "." : null}
                 </Text>
               );
@@ -142,14 +139,7 @@ export default function MovieScreen() {
           </View>
 
           <Text
-            style={{
-              color: "#9CA3AF",
-              marginTop: 10,
-              marginLeft: 16,
-              marginRight: 16,
-              letterSpacing: 0.5,
-              fontFamily:"PlayFair"
-            }}
+            style={theme.overviewColor}
           >
             {movie?.overview}
           </Text>
