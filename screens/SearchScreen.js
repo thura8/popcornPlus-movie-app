@@ -112,7 +112,7 @@ import {
             <Image
               source={require("../assets/images/movie_watching.png")}
               style={styles.movieWatching}
-              // contentFit="contain"
+              
             />
             <Text style={theme.noMoviesText}>
               {t('noMoviesToShow')}

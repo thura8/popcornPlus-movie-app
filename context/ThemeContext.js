@@ -157,6 +157,20 @@ const lightTheme = StyleSheet.create({
     },
     personNameText:{
         color: "#1F2937", fontSize: 12, marginTop: 4,fontFamily:"Montserrat"
+    },
+    readMoreButton:{
+        marginTop: 24,
+        marginHorizontal:145,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor:"#F7F7F7",
+        borderRadius: 20,
+        alignItems: 'center',
+    },
+    readMoreButtonText:{
+        color: '#808080', 
+        fontSize: 16,
+        fontWeight: 'bold',
     }
     
   });
@@ -270,5 +284,19 @@ const lightTheme = StyleSheet.create({
     },
     personNameText:{
         color: "#9CA3AF", fontSize: 12, marginTop: 4,fontFamily:"Montserrat"
+    },
+    readMoreButton:{
+        marginTop: 24,
+        marginHorizontal:145,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        backgroundColor:"#1A1A1A",
+        borderRadius: 20,
+        alignItems: 'center',
+    },
+    readMoreButtonText:{
+        color: '#888888', 
+        fontSize: 16,
+        fontWeight: 'bold',
     }
   });

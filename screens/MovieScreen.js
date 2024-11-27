@@ -33,6 +33,12 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
+  const [isExpanded,setIsExpanded] = useState(false)
+
+  const maxDescriptionLength = 100
+  const description = movie?.overview || '';
+
+  const shortenDescription = description.length > maxDescriptionLength ? description.substring(0,maxDescriptionLength) + '...' : description
 
   const {theme} = useTheme();
 
@@ -141,8 +147,16 @@ export default function MovieScreen() {
           <Text
             style={theme.overviewColor}
           >
-            {movie?.overview}
+            {isExpanded ? description : shortenDescription}
           </Text>
+
+          {description.length > maxDescriptionLength && (
+            <TouchableOpacity style={theme.readMoreButton} onPress={() => setIsExpanded(!isExpanded)}>
+              <Text style={theme.readMoreButtonText}>
+                {isExpanded ? 'Show less' : 'Read more'}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <Cast cast={cast} />
@@ -175,11 +189,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 4,
   },
-  text: {
-    color: "#9CA3AF",
-    fontWeight: "600",
-    fontSize: 16,
-    textAlign: "center",
-    fontFamily:"Montserrat",
-  },
+  
+  
 });

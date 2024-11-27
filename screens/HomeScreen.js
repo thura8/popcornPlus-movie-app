@@ -91,9 +91,8 @@ export default function HomeScreen() {
 
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <SearchIcon
-              size="36" // Smaller icon size
+              size="36" 
               strokeWidth={2}
-              //color="#F7E7DC"
               style={theme.searchIcon}
               resizeMode="contain"
             />
@@ -119,7 +118,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "#1d2d44",
   },
   header: {
     flexDirection: "row",
@@ -133,12 +131,11 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontFamily: "PlayFair",
     fontSize: 20, 
-    //color: "#F7E7DC",
+    
   },
   usernameText: {
     fontFamily: "Anton",
     fontSize: 22, 
-    //color: "#FFF8F3",
     letterSpacing: 2,
   },
 });

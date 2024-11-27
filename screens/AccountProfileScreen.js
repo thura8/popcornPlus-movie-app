@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
   editProfileText: {
     fontSize: 16,  
     fontWeight: 'bold',  
-    color: '#fff',
     marginRight: 8,  
   },
   contentSection: {
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Subtle background for section
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
   },
   contentTitle: {
     fontSize: 18,
