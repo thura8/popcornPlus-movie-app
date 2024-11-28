@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
 import Loading from '../components/loading';
+import { useTheme } from '../context/ThemeContext';
 
 import { Image } from 'expo-image';
 
@@ -22,6 +23,8 @@ export default function SeeAllScreen({ route }) {
   const { data, title } = route.params;
   const navigation = useNavigation();
 
+  const {theme} = useTheme()
+
   
   useEffect(() => {
     if (data) {
@@ -30,7 +33,7 @@ export default function SeeAllScreen({ route }) {
   }, [data]); 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,theme.contentBackground]}>
       <SafeAreaView style={{ backgroundColor: "#0d1321", paddingHorizontal: 1,marginBottom:20 }}>
         <View style={styles.header}>
           <SafeAreaView style={styles.safeArea}>
@@ -91,7 +94,7 @@ export default function SeeAllScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1d2d44",
+    // backgroundColor: "#1d2d44",
   },
   header: {
     marginVertical: 15,

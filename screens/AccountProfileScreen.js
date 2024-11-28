@@ -122,7 +122,7 @@ export default function AccountProfileScreen() {
 
         </View>
         <View style={styles.preferenceRow}>
-          <Text style={[styles.preferenceText,theme.text]}>{isDarkTheme ? t('darkMode') : 'Light Mode'}</Text>
+          <Text style={[styles.preferenceText,theme.text]}>{isDarkTheme ? t('darkMode') : t('lightMode')}</Text>
           <Switch
           trackColor={{ false: '#ccc', true: '#555' }}
           thumbColor={isDarkTheme ? '#f4f3f4' : '#f4f3f4'}

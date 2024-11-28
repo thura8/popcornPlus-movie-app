@@ -72,11 +72,11 @@ export default function SignUpScreen() {
         <SafeAreaView>
           <View style={{ alignItems: 'center', marginTop: 12 }}>
             <Image
-              source={require('../assets/images/popcornPlus.png')}
-              style={{ width: 250, height: 250, borderRadius: 100 }}
+              source={require('../assets/images/popcorn-plusOne.png')}
+              style={{ width: 230,height: 230, borderRadius: 100 }}
               priority='high'
             />
-            <Text style={{ marginTop: 4, color: '#f0ebd8', fontSize: 20, fontWeight: 'bold', fontFamily: 'BebasNeue', letterSpacing: 4 }}>
+            <Text style={{ color: '#f0ebd8', fontSize: 20, fontWeight: 'bold', fontFamily: 'BebasNeue', letterSpacing: 4 }}>
               {t('completeYourProfile')}
             </Text>
           </View>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
   },
   loginText: {
-    color: '#3e5c76',
+    color: '#007BFF',
     fontWeight: 600,
     marginLeft: 4,
     fontFamily: 'Montserrat',

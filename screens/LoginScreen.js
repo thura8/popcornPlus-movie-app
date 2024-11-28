@@ -86,7 +86,7 @@ export default function LoginScreen() {
         <SafeAreaView>
           <View style={styles.header}>
             <Image
-              source={require('../assets/images/popcornPlus.png')}
+              source={require('../assets/images/popcorn-plusOne.png')}
               style={styles.logo}
               priority='high'
             />
@@ -158,12 +158,11 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   logo: {
-    width: 250,
-    height: 250,
+    width: 260,
+    height: 260,
     borderRadius: 100,
   },
   appTitle: {
-    marginTop: 4,
     color: '#f0ebd8',
     fontSize: 24,
     fontWeight: 'bold',
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat',
   },
   signUpText: {
-    color: '#3e5c76',
+    color: '#007BFF',
     fontWeight: '600',
     marginLeft: 4,
     fontFamily: 'Montserrat',

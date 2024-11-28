@@ -147,8 +147,15 @@ export default function ProfileScreen() {
                     </View>
 
                     <Text style={[styles.label,theme.text]}>{t('email')}</Text>
-                    <TextInput style={styles.input} value={userData?.email || ''} editable={false} />
+                    
+                    <View style={styles.editingContainer}>
+                        
+                        <TextInput style={styles.input} value={userData?.email || ''} editable={false} />
+                        <LockKeyhole style={styles.emailIcon} color="#3e5c76" size={22} />
 
+                    </View>
+
+                    
                    
 
                     <View style={styles.buttonContainer}>
@@ -169,7 +176,7 @@ export default function ProfileScreen() {
                             >
                             
                             <Text style={styles.editButtonText}>
-                                {isEditingUsername ? 'Save' : 'Edit'}
+                                {isEditingUsername ? 'Save' : 'Edit '}
                             </Text>
                         </TouchableOpacity>
 
@@ -266,9 +273,10 @@ const styles = StyleSheet.create({
         right: 10,
         top: 38,
     },
-    iconEye: {
+    emailIcon: {
         position: 'absolute',
-        right: 50,
-        top: 36,
+        right: 10,
+        top: 10,
     },
+    
 });

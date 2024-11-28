@@ -9,7 +9,6 @@ import {
   import { Image } from "expo-image";
   
   import { useTheme } from "../context/ThemeContext";
-import { TouchableWithoutFeedback } from "react-native";
 
   export default function Cast({ cast }) {
     

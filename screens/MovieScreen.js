@@ -21,7 +21,7 @@ import {
 } from "../api/movieDb";
 import Loading from "../components/loading";
 
-import { Image} from "expo-image";
+import { Image } from "expo-image";
 import { useTheme } from "../context/ThemeContext";
 
 var { width, height } = Dimensions.get("window");
@@ -32,18 +32,26 @@ export default function MovieScreen() {
   const [cast, setCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [movie, setMovie] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [isExpanded,setIsExpanded] = useState(false)
+  const [movieLoading, setMovieLoading] = useState(false);
+  const [castLoading, setCastLoading] = useState(false);
+  const [similarMoviesLoading, setSimilarMoviesLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const maxDescriptionLength = 100
-  const description = movie?.overview || '';
+  const maxDescriptionLength = 100;
+  const description = movie?.overview || "";
 
-  const shortenDescription = description.length > maxDescriptionLength ? description.substring(0,maxDescriptionLength) + '...' : description
+  const shortenDescription =
+    description.length > maxDescriptionLength
+      ? description.substring(0, maxDescriptionLength) + "..."
+      : description;
 
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
-    setLoading(true);
+    setMovieLoading(true);
+    setCastLoading(true);
+    setSimilarMoviesLoading(true);
+
     getMovieDetails(item.id);
     getMovieCredits(item.id);
     getSimilarMovies(item.id);
@@ -52,25 +60,26 @@ export default function MovieScreen() {
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
     if (data) setMovie(data);
-    setLoading(false);
+    setMovieLoading(false);
   };
 
   const getMovieCredits = async (id) => {
     const data = await fetchCreditsDetails(id);
     if (data && data.cast) setCast(data.cast);
+    setCastLoading(false);
   };
 
   const getSimilarMovies = async (id) => {
     const data = await fetchSimilarMovies(id);
     if (data && data.results) setSimilarMovies(data.results);
+    setSimilarMoviesLoading(false);
   };
 
   return (
-    <View style={[{ flex: 1 },theme.contentBackground]}>
-      
+    <View style={[{ flex: 1 }, theme.contentBackground]}>
       <SafeAreaView style={styles.safeArea}>
         <LinearGradient
-          colors={['rgba(29, 45, 68, 0.6)', 'rgba(29, 45, 68, 0.9)']}
+          colors={["rgba(29, 45, 68, 0.6)", "rgba(29, 45, 68, 0.9)"]}
           style={styles.backButton}
         >
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -79,26 +88,20 @@ export default function MovieScreen() {
         </LinearGradient>
       </SafeAreaView>
 
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 20 }}
-        style={{ flex: 1 }}
-        
-      >
+      <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ flex: 1 }}>
         <View style={styles.container}>
-          {loading ? (
+          {movieLoading ? (
             <Loading />
           ) : (
             <View>
               <Image
                 source={{ uri: image500(movie?.poster_path) }}
-                style={{ width, height: height * 0.64}}
+                style={{ width, height: height * 0.64 }}
                 contentFit="cover"
-                priority='high'
-                
+                priority="high"
               />
               <LinearGradient
                 colors={theme.movieGradient}
-                
                 style={{
                   width,
                   height: height * 0.4,
@@ -112,60 +115,61 @@ export default function MovieScreen() {
           )}
         </View>
 
-        <View style={{ marginTop: -(height * 0.101), marginBottom: 8 }}>
-          <Text
-            style={theme.movieTitle}
-          >
-            {movie?.title}
-          </Text>
+        {!movieLoading && (
+          <View style={{ marginTop: -(height * 0.101), marginBottom: 8 }}>
+            <Text style={theme.movieTitle}>{movie?.title}</Text>
 
-          {movie?.id ? (
-            <Text style={theme.movieScreenText}>
-              {movie?.status} - {movie?.release_date?.split("-")[0]} -{" "}
-              {movie?.runtime} min
-            </Text>
-          ) : null}
-
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-               marginHorizontal: 16,
-               
-            }}
-          >
-            {movie?.genres?.map((genre, index) => {
-              let showDot = index + 1 !== movie.genres.length;
-              return (
-                <Text key={index} style={theme.movieScreenText}>
-                  {genre?.name} {showDot ? "." : null}
-                </Text>
-              );
-            })}
-          </View>
-
-          <Text
-            style={theme.overviewColor}
-          >
-            {isExpanded ? description : shortenDescription}
-          </Text>
-
-          {description.length > maxDescriptionLength && (
-            <TouchableOpacity style={theme.readMoreButton} onPress={() => setIsExpanded(!isExpanded)}>
-              <Text style={theme.readMoreButtonText}>
-                {isExpanded ? 'Show less' : 'Read more'}
+            {movie?.id ? (
+              <Text style={theme.movieScreenText}>
+                {movie?.status} - {movie?.release_date?.split("-")[0]} -{" "}
+                {movie?.runtime} min
               </Text>
-            </TouchableOpacity>
-          )}
-        </View>
+            ) : null}
 
-        <Cast cast={cast} />
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                marginHorizontal: 16,
+              }}
+            >
+              {movie?.genres?.map((genre, index) => {
+                let showDot = index + 1 !== movie.genres.length;
+                return (
+                  <Text key={index} style={theme.movieScreenText}>
+                    {genre?.name} {showDot ? "." : null}
+                  </Text>
+                );
+              })}
+            </View>
 
-        <MovieLists
-          title="Similar Movies"
-          hideSeeAll={true}
-          data={similarMovies}
-        />
+            <Text style={theme.overviewColor}>
+              {isExpanded ? description : shortenDescription}
+            </Text>
+
+            {description.length > maxDescriptionLength && (
+              <TouchableOpacity
+                style={theme.readMoreButton}
+                onPress={() => setIsExpanded(!isExpanded)}
+              >
+                <Text style={theme.readMoreButtonText}>
+                  {isExpanded ? "Show less" : "Read more"}
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
+        {!castLoading && <Cast cast={cast} />}
+
+        {!similarMoviesLoading && (
+          <MovieLists
+            title="Similar Movies"
+            hideSeeAll={true}
+            data={similarMovies}
+          />
+        )}
       </ScrollView>
     </View>
   );
@@ -183,12 +187,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 16,
-    top: 0, 
+    top: 0,
   },
   backButton: {
     borderRadius: 12,
     padding: 4,
   },
-  
-  
 });

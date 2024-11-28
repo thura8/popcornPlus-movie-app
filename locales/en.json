@@ -13,6 +13,7 @@
   "preference": "Preference",
   "language": "Language",
   "darkMode": "Dark Mode",
+  "lightMode":"Light Mode",
   "profile": "Profile",
   "username": "Username",
   "email": "Email",
