@@ -62,7 +62,7 @@ export default function AccountProfileScreen() {
 
         <Image source={require('../assets/images/user_fallBack.jpg')} style={styles.profilePicture} />
 
-        <Text style={[styles.username,theme.text]}>{username}</Text>
+        <Text style={[styles.username,theme.text]}>{username ? username : 'Loading ...'}</Text>
 
         <TouchableOpacity 
           style={[styles.editProfileButton, theme.editButton]}  

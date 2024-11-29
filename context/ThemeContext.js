@@ -196,6 +196,7 @@ const lightTheme = StyleSheet.create({
     },
     seeAllButton: { color: '#4A90E2'},
     movieTitle: { color: '#F7F7F7'},
+    movieTitleText:{color:'#F7F7F7'},
     searchContainer: {
         marginHorizontal: 16,
         marginBottom: 12,

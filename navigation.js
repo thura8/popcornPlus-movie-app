@@ -53,7 +53,7 @@ function TabNavigator() {
       <Tab.Screen name="Search" options={{ headerShown: false }} component={SearchScreen} />
       <Tab.Screen name="Account" options={{headerShown:false}}>
         {(route) => (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{ headerShown: false, animation:'slide_from_bottom' }}>
             <Stack.Screen name="AccountProfileDetails" component={AccountProfileScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Navigator>
@@ -72,7 +72,7 @@ export default function Navigation() {
       <ThemeProvider>
         <FontProvider>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main">
+            <Stack.Navigator initialRouteName="Main" screenOptions={{animation:"fade"}}>
               <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
               <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
               <Stack.Screen name="SeeAll" options={{ headerShown: false }} component={SeeAllScreen} />

@@ -34,7 +34,7 @@ export default function SeeAllScreen({ route }) {
 
   return (
     <View style={[styles.container,theme.contentBackground]}>
-      <SafeAreaView style={{ backgroundColor: "#0d1321", paddingHorizontal: 1,marginBottom:20 }}>
+      <SafeAreaView style={[{paddingHorizontal: 1,marginBottom:20 },theme.headerBackground]}>
         <View style={styles.header}>
           <SafeAreaView style={styles.safeArea}>
             <LinearGradient
@@ -48,7 +48,7 @@ export default function SeeAllScreen({ route }) {
           </SafeAreaView>
 
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText}>
+            <Text style={[styles.titleText,theme.text]}>
                 {t(title)}
             </Text>
          </View>
@@ -59,6 +59,7 @@ export default function SeeAllScreen({ route }) {
         <Loading />
       ) : (
         <ScrollView
+        showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15,
             gap: 12,}}
         >
@@ -75,7 +76,7 @@ export default function SeeAllScreen({ route }) {
                       style={styles.movieImage}
                       priority='high'
                     />
-                    <Text style={styles.movieTitle}>
+                    <Text style={[styles.movieTitle,theme.movieTitleText]}>
                       {item?.title.length > 22
                         ? item?.title.slice(0, 22) + "..."
                         : item?.title}
@@ -97,7 +98,6 @@ const styles = StyleSheet.create({
     // backgroundColor: "#1d2d44",
   },
   header: {
-    marginVertical: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -131,13 +131,14 @@ const styles = StyleSheet.create({
     height: height * 0.3,
   },
   movieTitle: {
-    color: "#f0ebd8",
+    //color: "#f0ebd8",
     marginLeft: 4,
     fontFamily:"Anton"
   },
   titleContainer: {
     flex: 1,               
-    alignItems: 'flex-end', 
+    alignItems: 'center', 
+    paddingTop:10,
     paddingRight:20,
   },
   titleText: {
