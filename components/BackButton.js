@@ -6,14 +6,18 @@ import { ChevronLeftIcon } from 'lucide-react-native'
 import { useTheme } from '../context/ThemeContext'
 import { useNavigation } from '@react-navigation/native'
 
-export default function BackButton({gradientColors,iconColor,iconBackground}) {
+export default function BackButton({gradientColors,iconColor,iconBackground,top}) {
 
     const navigation = useNavigation()
     const {theme} = useTheme()
     const onPressGoBack = useCallback(_ => navigation.goBack(), [])
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={[styles.safeArea,
+      { position: 'absolute',
+        top: top,
+        left: 0,
+        zIndex: 20}]}>
       <LinearGradient
         colors={gradientColors}
         style={styles.backButtonContainer}
@@ -30,10 +34,6 @@ export default function BackButton({gradientColors,iconColor,iconBackground}) {
 
 const styles = StyleSheet.create({
     safeArea: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 20,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',

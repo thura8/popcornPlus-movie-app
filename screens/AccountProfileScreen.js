@@ -42,6 +42,7 @@ export default function AccountProfileScreen() {
         gradientColors={theme.gradientColors} 
         iconColor={theme.iconColor} 
         iconBackground={theme.iconBackground}
+        top={0}
         />
 
       <View style={styles.header}>

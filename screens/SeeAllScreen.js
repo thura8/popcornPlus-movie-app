@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { ChevronLeftIcon } from 'lucide-react-native';
 import Loading from '../components/loading';
+import BackButton from '../components/BackButton'
 import { useTheme } from '../context/ThemeContext';
 
 import { Image } from 'expo-image';
@@ -36,16 +37,13 @@ export default function SeeAllScreen({ route }) {
     <View style={[styles.container,theme.contentBackground]}>
       <SafeAreaView style={[{paddingHorizontal: 1,marginBottom:20 },theme.headerBackground]}>
         <View style={styles.header}>
-          <SafeAreaView style={styles.safeArea}>
-            <LinearGradient
-              colors={['rgba(29, 45, 68, 0.6)', 'rgba(29, 45, 68, 0.9)']}
-              style={styles.backButton}
-            >
-              <TouchableOpacity onPress={() => navigation.goBack()} >
-                <ChevronLeftIcon size={34} strokeWidth={2.5} color="white" />
-              </TouchableOpacity>
-            </LinearGradient>
-          </SafeAreaView>
+
+          <BackButton 
+            gradientColors={theme.gradientColors} 
+            iconBackground={theme.iconBackground}
+            iconColor={theme.iconColor}
+            top={-35}
+          />
 
           <View style={styles.titleContainer}>
             <Text style={[styles.titleText,theme.text]}>
@@ -95,7 +93,6 @@ export default function SeeAllScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#1d2d44",
   },
   header: {
     flexDirection: "row",
@@ -104,12 +101,12 @@ const styles = StyleSheet.create({
    
   },
   safeArea: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 20,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
   },
   backButton: {

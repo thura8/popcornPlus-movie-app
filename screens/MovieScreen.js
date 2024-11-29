@@ -81,6 +81,7 @@ export default function MovieScreen() {
         gradientColors={theme.movieGradientColors} 
         iconBackground={theme.movieIconBackground}
         iconColor={theme.movieIconColor}
+        top={0}
       />
 
 
