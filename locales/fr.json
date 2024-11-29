@@ -17,13 +17,15 @@
     "profile": "Profil",
     "username": "Nom d'utilisateur",
     "email": "E-mail",
-    "logout": "Se déconnecter",
     "pleaseLoginToContinue": "Veuillez vous connecter pour continuer",
     "password": "Mot de passe",
     "login": "Connexion",
     "dontHaveAnAccount": "Vous n'avez pas de compte ?",
     "signUp": "S'inscrire",
     "completeYourProfile": "Complétez votre profil",
-    "alreadyHaveAnAccount": "Vous avez déjà un compte ?"
+    "alreadyHaveAnAccount": "Vous avez déjà un compte ?",
+    "edit":"Éditer",
+    "save":"Enregistrer",
+    "logout": "Déconnexion"
   }
   

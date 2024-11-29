@@ -24,5 +24,7 @@
   "dontHaveAnAccount": "Don't have an account?",
   "signUp": "Sign Up",
   "completeYourProfile": "Complete Your Profile",
-  "alreadyHaveAnAccount": "Already had an account?"
+  "alreadyHaveAnAccount": "Already had an account?",
+  "edit":"Edit",
+  "save":"Save"
 }

@@ -176,7 +176,7 @@ export default function ProfileScreen() {
                             >
                             
                             <Text style={styles.editButtonText}>
-                                {isEditingUsername ? 'Save' : 'Edit '}
+                                {isEditingUsername ? t('save') :  t('edit')}
                             </Text>
                         </TouchableOpacity>
 
@@ -249,15 +249,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FF0000',
         padding: 8,
-        width: 100,
+        paddingVertical:20,
         borderRadius: 12,
     },
     editIcon: {
-        padding: 10,
+        paddingHorizontal:20,
+        paddingVertical:20,
         backgroundColor: '#007bff',
         borderRadius: 12,
         marginRight: 10,
-        width:80 
+        
     },
     editButtonText: {
         fontSize: 16,
