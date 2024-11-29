@@ -171,7 +171,15 @@ const lightTheme = StyleSheet.create({
         color: '#808080', 
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
+    gradientColors: ['#BBDEFB', '#90CAF9'], 
+    iconColor: '#0D47A1', 
+    iconBackground: '#E3F2FD',
+
+    movieGradientColors: ['rgba(255, 255, 255, 0.6)', 'rgba(240, 240, 240, 0.4)'],
+    movieIconBackground: 'rgba(255, 255, 255, 0.3)',
+    movieIconColor: '#000000'
+    
     
   });
   
@@ -299,5 +307,13 @@ const lightTheme = StyleSheet.create({
         color: '#888888', 
         fontSize: 16,
         fontWeight: 'bold',
-    }
+    },
+    
+    gradientColors: ['#333333', '#444444'],
+    iconColor: '#FFF',
+    iconBackground: '#555555',
+    movieGradientColors: ['rgba(51, 51, 51, 0.6)', 'rgba(85, 85, 85, 0.4)'],
+    movieIconBackground: 'rgba(0, 0, 0, 0.3)',
+    movieIconColor: '#FFFFFF'
+    
   });

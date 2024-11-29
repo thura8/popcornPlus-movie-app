@@ -12,6 +12,7 @@ import { useTheme } from '../context/ThemeContext';
 import '../i18n'
 import { useTranslation } from 'react-i18next';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { BackButton } from '../components';
 
 export default function ProfileScreen() {
     const [userData, setUserData] = useState(null);
@@ -111,23 +112,11 @@ export default function ProfileScreen() {
                 <Loading />
             ) : (
                 <View style={[styles.container,theme.contentBackground]}>
-                    <SafeAreaView style={styles.safeArea}>
-                        <LinearGradient
-                        colors={theme.gradientColors}
-                        style={styles.backButton}
-                        >
-
-                        <TouchableOpacity onPress={onPressGoBack}>
-
-                            <View style={styles.backButton}>
-                            <ChevronLeftIcon size={30} strokeWidth={2.5} color={theme.iconColor} />
-                            </View>
-
-                        </TouchableOpacity>
-
-                        </LinearGradient>
-
-                    </SafeAreaView>
+                    <BackButton 
+                        gradientColors={theme.gradientColors} 
+                        iconBackground={theme.iconBackground}
+                        iconColor={theme.iconColor}
+                    />
 
                     <Text style={[styles.title,theme.text]}>{t('profile')}</Text>
 

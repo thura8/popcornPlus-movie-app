@@ -1,9 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Switch } from 'react-native';
-import React, { useState,useEffect, useCallback } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeftIcon, ChevronRightIcon, ChevronRightSquare } from 'lucide-react-native';
+import { ChevronRightIcon, ChevronRightSquare } from 'lucide-react-native';
 import { Image } from 'expo-image';
 
 import '../i18n'
@@ -11,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { auth, db } from "../config/firebase";
 import { doc, onSnapshot } from "firebase/firestore"; 
-import LanguageSelector from '../components/LanguageSelector';
+import { LanguageSelector,BackButton } from '../components';
 import { useTheme } from '../context/ThemeContext';
 
 export default function AccountProfileScreen() {
@@ -32,7 +30,7 @@ export default function AccountProfileScreen() {
     return () => unsubscribeFromFirestore();
   }, []);
 
-  const onPressGoBack = useCallback(_ => navigation.goBack(), [])
+  
 
   const {theme,toggleTheme,isDarkTheme} = useTheme()
 
@@ -40,23 +38,11 @@ export default function AccountProfileScreen() {
   return (
     <View style={[styles.container,theme.contentBackground]}>
 
-      <SafeAreaView style={styles.safeArea}>
-        <LinearGradient
-          colors={theme.gradientColors}
-          style={styles.backButton}
-        >
-
-          <TouchableOpacity onPress={onPressGoBack}>
-
-            <View style={styles.backButton}>
-              <ChevronLeftIcon size={30} strokeWidth={2.5} color={theme.iconColor} />
-            </View>
-
-          </TouchableOpacity>
-
-        </LinearGradient>
-
-      </SafeAreaView>
+      <BackButton 
+        gradientColors={theme.gradientColors} 
+        iconColor={theme.iconColor} 
+        iconBackground={theme.iconBackground}
+        />
 
       <View style={styles.header}>
 
@@ -142,21 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-  },
-  safeArea: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: 20,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-  backButton: {
-    borderRadius: 24,
-    padding: 4,
   },
   header: {
     alignItems: 'center',

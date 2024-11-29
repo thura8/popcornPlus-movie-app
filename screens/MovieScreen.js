@@ -6,10 +6,8 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ChevronLeftIcon } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/cast";
 import MovieLists from "../components/MovieLists";
@@ -20,6 +18,7 @@ import {
   image500,
 } from "../api/movieDb";
 import Loading from "../components/loading";
+import { BackButton } from "../components";
 
 import { Image } from "expo-image";
 import { useTheme } from "../context/ThemeContext";
@@ -77,16 +76,13 @@ export default function MovieScreen() {
 
   return (
     <View style={[{ flex: 1 }, theme.contentBackground]}>
-      <SafeAreaView style={styles.safeArea}>
-        <LinearGradient
-          colors={["rgba(29, 45, 68, 0.6)", "rgba(29, 45, 68, 0.9)"]}
-          style={styles.backButton}
-        >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <ChevronLeftIcon size={34} strokeWidth={2.5} color="white" />
-          </TouchableOpacity>
-        </LinearGradient>
-      </SafeAreaView>
+
+      <BackButton 
+        gradientColors={theme.movieGradientColors} 
+        iconBackground={theme.movieIconBackground}
+        iconColor={theme.movieIconColor}
+      />
+
 
       <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -179,18 +175,5 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
   },
-  safeArea: {
-    position: "absolute",
-    zIndex: 20,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    top: 0,
-  },
-  backButton: {
-    borderRadius: 12,
-    padding: 4,
-  },
+  
 });
