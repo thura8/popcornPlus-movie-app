@@ -1,8 +1,6 @@
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
-import { LogOut, ChevronLeftIcon, LockKeyhole, LockKeyholeOpen,} from 'lucide-react-native';
-import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
+import { LogOut, LockKeyhole, LockKeyholeOpen,} from 'lucide-react-native';
 import { signOut, updatePassword } from 'firebase/auth';
 import { auth, db } from '../config/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -11,7 +9,6 @@ import { useTheme } from '../context/ThemeContext';
 
 import '../i18n'
 import { useTranslation } from 'react-i18next';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { BackButton } from '../components';
 
 export default function ProfileScreen() {
@@ -102,9 +99,6 @@ export default function ProfileScreen() {
         await signOut(auth);
     };
 
-    const onPressGoBack = useCallback(_=> navigation.goBack(),[])
-
-    const navigation = useNavigation();
 
     return (
         <>
@@ -116,6 +110,7 @@ export default function ProfileScreen() {
                         gradientColors={theme.gradientColors} 
                         iconBackground={theme.iconBackground}
                         iconColor={theme.iconColor}
+                        top={0}
                     />
 
                     <Text style={[styles.title,theme.text]}>{t('profile')}</Text>
@@ -204,7 +199,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        fontFamily:"BebasNeue",
+        fontFamily:"Poppins-Regular",
         marginBottom: 20,
         textAlign: 'center',
         
@@ -239,13 +234,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF0000',
         padding: 8,
         paddingVertical:20,
-        borderRadius: 12,
+        borderRadius: 24,
     },
     editIcon: {
         paddingHorizontal:20,
         paddingVertical:20,
         backgroundColor: '#007bff',
-        borderRadius: 12,
+        borderRadius: 24,
         marginRight: 10,
         
     },

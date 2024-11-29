@@ -76,7 +76,7 @@ export default function SignUpScreen() {
               style={{ width: 230,height: 230, borderRadius: 100 }}
               priority='high'
             />
-            <Text style={{ color: '#f0ebd8', fontSize: 20, fontWeight: 'bold', fontFamily: 'BebasNeue', letterSpacing: 4 }}>
+            <Text style={{ color: '#f0ebd8', fontSize: 24, fontWeight: 'bold', fontFamily: 'Roboto-Regular'}}>
               {t('completeYourProfile')}
             </Text>
           </View>
@@ -143,8 +143,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#252525',
-    // paddingHorizontal: 32,
-    // paddingTop: 32,
   },
   formContainer: {
     flex: 1,
@@ -166,7 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 10,
     fontSize: 16,
-    fontFamily: 'Anton',
+    fontFamily: 'Poppins-Regular',
   },
   button: {
     paddingVertical: 12,

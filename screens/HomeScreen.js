@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   welcomeText: {
-    fontFamily: "PlayFair",
-    fontSize: 20, 
+    fontFamily: "Poppins-Regular",
+    fontSize: 24, 
     
   },
   usernameText: {
-    fontFamily: "Anton",
-    fontSize: 22, 
+    fontFamily: "Lato",
+    fontSize: 20, 
     letterSpacing: 2,
   },
 });

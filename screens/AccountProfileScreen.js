@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
   editProfileText: {
     fontSize: 16,  
     fontWeight: 'bold',  
-    marginRight: 8,  
+    marginRight: 8,
+    fontFamily:'Inter-Regular'  
   },
   contentSection: {
     marginVertical: 16,
@@ -166,9 +167,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)', 
   },
   contentTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
-    marginBottom: 12,
+    marginBottom: 10,
+    fontFamily:"SourceSans3"
   },
   contentRow: {
     flexDirection: 'row',
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 16,
     fontWeight: '500',
+    fontFamily:"Roboto-Regular"
   },
   arrowIcon: {
     justifyContent: 'center',
@@ -193,9 +196,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)', 
   },
   preferenceTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
-    marginBottom: 12,
+    marginBottom: 10,
+    fontFamily:"SourceSans3"
   },
   preferenceRow: {
     flexDirection: 'row',
@@ -207,6 +211,7 @@ const styles = StyleSheet.create({
   preferenceText: {
     fontSize: 16,
     fontWeight: '500',
+    fontFamily:"Roboto-Regular",
   },
   languageSelection: {
     flexDirection: 'column',

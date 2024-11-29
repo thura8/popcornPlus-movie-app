@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { image185 } from '../api/movieDb';
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from 'expo-linear-gradient';
-import { ChevronLeftIcon } from 'lucide-react-native';
 import Loading from '../components/loading';
 import BackButton from '../components/BackButton'
 import { useTheme } from '../context/ThemeContext';
@@ -141,6 +139,6 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'white',         
     fontSize: 30,
-    fontFamily:"Pacifico"
+    fontFamily:"Poppins-Regular"
   },
 });

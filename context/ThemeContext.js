@@ -61,12 +61,12 @@ const lightTheme = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 10,
         fontSize: 28,
-        fontFamily:"Pacifico",
-        letterSpacing:1},
+        fontFamily:"Poppins-Regular",
+        },
     sectionTitle:{
         color: '#333333',
         fontSize: 24,
-        fontFamily:"Pacifico"
+        fontFamily:"Montserrat"
     },
     seeAllButton: { color: '#007BFF'},
     movieTitleText: { color: '#333333'},
@@ -89,6 +89,7 @@ const lightTheme = StyleSheet.create({
         fontWeight: "600",
         color: "#f7f7f7", 
         letterSpacing: 1,
+        fontFamily:'Inter-Black'
       },
 
     noMoviesText: {
@@ -96,6 +97,7 @@ const lightTheme = StyleSheet.create({
         fontSize: 26,
         textAlign: "center",
         marginTop: 20,
+        fontFamily:'Nunito'
     },
     iconButton: {
         borderRadius: 50,
@@ -195,12 +197,12 @@ const lightTheme = StyleSheet.create({
         paddingTop: 10,
         marginBottom: 10,
         fontSize: 28,
-        fontFamily:"Pacifico",
-        letterSpacing:1},
+        fontFamily:"Poppins-Regular",
+    },
     sectionTitle:{
         color: '#F7F7F7',
         fontSize: 24,
-        fontFamily:"Pacifico"
+        fontFamily:"Montserrat"
     },
     seeAllButton: { color: '#4A90E2'},
     movieTitle: { color: '#F7F7F7'},
@@ -224,12 +226,14 @@ const lightTheme = StyleSheet.create({
         fontWeight: "600",
         color: "#f7f7f7", 
         letterSpacing: 1,
+        fontFamily:'Inter-Black'
     },
     noMoviesText: {
         color: "#f7f7f7", 
         fontSize: 26,
         textAlign: "center",
         marginTop: 20,
+        fontFamily:"Nunito"
     },
     iconButton: {
         borderRadius: 50,

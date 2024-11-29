@@ -88,8 +88,7 @@ import {
     },
     seeAll: {
       fontSize: 18,
-      //color: "#F7E7DC",
-      fontFamily:"PlayFair"
+      fontFamily:"Roboto-Regular"
     },
     image: {
       borderRadius: 24,

@@ -166,8 +166,7 @@ const styles = StyleSheet.create({
     color: '#f0ebd8',
     fontSize: 24,
     fontWeight: 'bold',
-    fontFamily: 'BebasNeue',
-    letterSpacing: 4,
+    fontFamily: 'Roboto-Regular',
   },
   formContainer: {
     flex: 1,
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     marginBottom: 24,
     fontSize: 16,
-    fontFamily: 'Anton',
+    fontFamily: 'Poppins-Regular',
   },
   button: {
     paddingVertical: 12,
