@@ -3,13 +3,11 @@ import React, { useCallback } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ChevronLeftIcon } from 'lucide-react-native'
-import { useTheme } from '../context/ThemeContext'
 import { useNavigation } from '@react-navigation/native'
 
 export default function BackButton({gradientColors,iconColor,iconBackground,top}) {
 
     const navigation = useNavigation()
-    const {theme} = useTheme()
     const onPressGoBack = useCallback(_ => navigation.goBack(), [])
 
   return (
@@ -36,8 +34,6 @@ const styles = StyleSheet.create({
     safeArea: {
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         paddingHorizontal: 16,
       },
       backButtonContainer: {
