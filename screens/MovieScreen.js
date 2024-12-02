@@ -9,7 +9,12 @@ import {
   Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import  {useRoute} from "@react-navigation/native";
+import  {
+  useRoute,
+  useNavigationState, 
+  useNavigation,
+  CommonActions
+} from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/cast";
 import MovieLists from "../components/MovieLists";
@@ -21,7 +26,7 @@ import {
 } from "../api/movieDb";
 import Loading from "../components/loading";
 import { BackButton } from "../components";
-import {CircleX, EllipsisVertical, Heart, Home} from "lucide-react-native"
+import {CircleX, EllipsisVertical, Home,HeartIcon} from "lucide-react-native"
 
 import { Image } from "expo-image";
 import { useTheme } from "../context/ThemeContext";
@@ -38,6 +43,12 @@ export default function MovieScreen() {
   const [similarMoviesLoading, setSimilarMoviesLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [ openModal , setOpenModal] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  const navigation = useNavigation()
+  const navigationState = useNavigationState(state => state)
+  const routeCount = navigationState.routes.length
+  const isNavigating = navigationState.isNavigating
 
   const maxDescriptionLength = 100;
   const description = movie?.overview || "";
@@ -78,12 +89,22 @@ export default function MovieScreen() {
   };
 
   const onFavoritePress = ()=>{
-    Alert.alert("Added to your favorites")
+    setIsFavorite(!isFavorite)
   }
 
-  const onGoHomePress = ()=>{
-    setOpenModal(false)
-  }
+  const onGoHomePress = () => {
+    setOpenModal(false);
+  
+    setTimeout(() => {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "Main" }],
+        })
+      );
+    }, 500);
+  };
+  
 
   function renderModal() {
     return (
@@ -104,14 +125,16 @@ export default function MovieScreen() {
 
             <View style={styles.list}>
               <TouchableOpacity style={styles.element} onPress={onFavoritePress}>
-                <Heart width={25} height={25} color="#7e8590" />
+                {isFavorite ? <HeartIcon size={28} strokeWidth={2.75} color={"#f547ad"} />:<HeartIcon width={25} height={25} color={"#7e8590"} />}
                 <Text style={styles.label}>Favourites</Text>
               </TouchableOpacity>
   
-              <TouchableOpacity style={styles.element} onPress={onGoHomePress}>
-                <Home width={25} height={25} color="#7e8590" />
+              {routeCount > 2 &&
+               <TouchableOpacity style={styles.element} onPress={onGoHomePress}>
+                 <Home width={25} height={25} color="#7e8590" />
                 <Text style={styles.label}>Home</Text>
               </TouchableOpacity>
+              }
             </View>
           </View>
         </View>
@@ -123,102 +146,106 @@ export default function MovieScreen() {
   return (
     <View style={[{ flex: 1 }, theme.contentBackground]}>
 
-      <BackButton 
-        gradientColors={theme.movieGradientColors} 
-        iconBackground={theme.movieIconBackground}
-        iconColor={theme.movieIconColor}
-        top={0}
-      />
+              <BackButton 
+                 gradientColors={theme.movieGradientColors} 
+                 iconBackground={theme.movieIconBackground}
+                 iconColor={theme.movieIconColor}
+                 top={0}
+               />
 
-      <TouchableOpacity style={{position:"absolute",top:58, right:20,zIndex:21}} onPress={()=> setOpenModal(true)} >
-        <EllipsisVertical size={34} />
-      </TouchableOpacity>
-      {renderModal()}
+               <TouchableOpacity style={{position:"absolute",top:58, right:20,zIndex:21}} onPress={()=> setOpenModal(true)} >
+                 <EllipsisVertical size={34} />
+               </TouchableOpacity>
+               {renderModal()}
 
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ flex: 1 }}>
-        <View style={styles.container}>
-          {movieLoading ? (
-            <Loading />
-          ) : (
-            <View>
-              <Image
-                source={{ uri: image500(movie?.poster_path) }}
-                style={{ width, height: height * 0.64 }}
-                contentFit="cover"
-                priority="high"
-              />
-              <LinearGradient
-                colors={theme.movieGradient}
-                style={{
-                  width,
-                  height: height * 0.4,
-                  position: "absolute",
-                  bottom: 0,
-                }}
-                start={{ x: 0.5, y: 0 }}
-                end={{ x: 0.5, y: 1 }}
-              />
-            </View>
-          )}
-        </View>
+               <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ flex: 1 }}>
+                 <View style={styles.container}>
+                   {movieLoading ? (
+                     <Loading />
+                   ) : (
+                     <View>
+                       <Image
+                         source={{ uri: image500(movie?.poster_path) }}
+                         style={{ width, height: height * 0.64 }}
+                         contentFit="cover"
+                         priority="high"
+                       />
+                       <LinearGradient
+                         colors={theme.movieGradient}
+                         style={{
+                           width,
+                           height: height * 0.4,
+                           position: "absolute",
+                           bottom: 0,
+                         }}
+                         start={{ x: 0.5, y: 0 }}
+                         end={{ x: 0.5, y: 1 }}
+                       />
+                     </View>
+                   )}
+                 </View>
 
-        {!movieLoading && (
-          <View style={{ marginTop: -(height * 0.101), marginBottom: 8 }}>
-            <Text style={theme.movieTitle}>{movie?.title}</Text>
+                 {!movieLoading && (
+                   <View style={{ marginTop: -(height * 0.101), marginBottom: 8 }}>
+                     <Text style={theme.movieTitle}>{movie?.title}</Text>
 
-            {movie?.id ? (
-              <Text style={theme.movieScreenText}>
-                {movie?.status} - {movie?.release_date?.split("-")[0]} -{" "}
-                {movie?.runtime} min
-              </Text>
-            ) : null}
+                     {movie?.id ? (
+                       <Text style={theme.movieScreenText}>
+                         {movie?.status} - {movie?.release_date?.split("-")[0]} -{" "}
+                         {movie?.runtime} min
+                       </Text>
+                     ) : null}
 
-            <View
-              style={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                marginHorizontal: 16,
-              }}
-            >
-              {movie?.genres?.map((genre, index) => {
-                let showDot = index + 1 !== movie.genres.length;
-                return (
-                  <Text key={index} style={theme.movieScreenText}>
-                    {genre?.name} {showDot ? "." : null}
-                  </Text>
-                );
-              })}
-            </View>
+                     <View
+                       style={{
+                         flexDirection: "row",
+                         flexWrap: "wrap",
+                         justifyContent: "center",
+                         marginHorizontal: 16,
+                       }}
+                     >
+                       {movie?.genres?.map((genre, index) => {
+                         let showDot = index + 1 !== movie.genres.length;
+                         return (
+                           <Text key={index} style={theme.movieScreenText}>
+                             {genre?.name} {showDot ? "." : null}
+                           </Text>
+                         );
+                       })}
+                     </View>
 
-            <Text style={theme.overviewColor}>
-              {isExpanded ? description : shortenDescription}
-            </Text>
+                     <Text style={theme.overviewColor}>
+                       {isExpanded ? description : shortenDescription}
+                     </Text>
 
-            {description.length > maxDescriptionLength && (
-              <TouchableOpacity
-                style={theme.readMoreButton}
-                onPress={() => setIsExpanded(!isExpanded)}
-              >
-                <Text style={theme.readMoreButtonText}>
-                  {isExpanded ? "Show less" : "Read more"}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        )}
+                     {description.length > maxDescriptionLength && (
+                       <TouchableOpacity
+                         style={theme.readMoreButton}
+                         onPress={() => setIsExpanded(!isExpanded)}
+                       >
+                         <Text style={theme.readMoreButtonText}>
+                           {isExpanded ? "Show less" : "Read more"}
+                         </Text>
+                       </TouchableOpacity>
+                     )}
+                   </View>
+                 )}
 
-        {!castLoading && <Cast cast={cast} />}
+                 {!castLoading && <Cast cast={cast} />}
 
-        {!similarMoviesLoading && (
-          <MovieLists
-            title="Similar Movies"
-            hideSeeAll={true}
-            data={similarMovies}
-          />
-        )}
-      </ScrollView>
+                 {!similarMoviesLoading && (
+                   <MovieLists
+                     title="Similar Movies"
+                     hideSeeAll={true}
+                     data={similarMovies}
+                   />
+                 )}
+               </ScrollView>
+              
+
+            
+    
     </View>
   );
 }
@@ -237,18 +264,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff", 
     borderRadius: 12, 
     padding: 10, 
-    width: 250, 
+    width: 210, 
     elevation: 5, 
     shadowColor: "#000", 
     shadowOffset: { width: 0, height: 2 }, 
     shadowOpacity: 0.2, 
     shadowRadius: 4, 
   },
+  list:{
+    marginTop:8
+  },
   element: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 8,
-    width:170
+    width:150
   },
   label: {
     marginLeft: 12,
@@ -257,7 +287,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: "absolute", 
-    top: 4,
+    top: 5,
     right: -18,
     backgroundColor: "transparent",
     paddingHorizontal:24

@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'Roboto-Regular',
+    paddingHorizontal:16
   },
   formContainer: {
     flex: 1,
