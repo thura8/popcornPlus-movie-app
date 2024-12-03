@@ -26,6 +26,8 @@
     "alreadyHaveAnAccount": "Vous avez déjà un compte ?",
     "edit":"Éditer",
     "save":"Enregistrer",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "Favorites": "Favoris",
+    "NoFavoritesMessage": "Pas encore de films favoris !"
   }
   

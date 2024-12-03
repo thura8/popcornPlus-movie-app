@@ -18,6 +18,7 @@ import AccountProfileScreen from "./screens/AccountProfileScreen";
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
 import { ThemeProvider,useTheme } from "./context/ThemeContext";
+import FavoriteScreen from "./screens/FavoriteScreen";
 
 
 function TabNavigator() {
@@ -53,9 +54,10 @@ function TabNavigator() {
       <Tab.Screen name="Search" options={{ headerShown: false }} component={SearchScreen} />
       <Tab.Screen name="Account" options={{headerShown:false}}>
         {(route) => (
-          <Stack.Navigator screenOptions={{ headerShown: false, animation:'slide_from_bottom' }}>
+          <Stack.Navigator screenOptions={{ headerShown: false}}>
             <Stack.Screen name="AccountProfileDetails" component={AccountProfileScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="Favorites" component={FavoriteScreen} options={{animation:'fade_from_bottom'}} />
+            <Stack.Screen name="Profile" component={ProfileScreen}  options={{animation:'slide_from_bottom' }}/>
           </Stack.Navigator>
         )}
   </Tab.Screen>

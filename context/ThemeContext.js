@@ -87,7 +87,7 @@ const lightTheme = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         fontWeight: "600",
-        color: "#f7f7f7", 
+        color: "#666666", 
         letterSpacing: 1,
         fontFamily:'Inter-Black'
       },

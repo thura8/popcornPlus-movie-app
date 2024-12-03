@@ -26,5 +26,7 @@
   "completeYourProfile": "Complete Your Profile",
   "alreadyHaveAnAccount": "Already had an account?",
   "edit":"Edit",
-  "save":"Save"
+  "save":"Save",
+  "Favorites": "Favorites",
+  "NoFavoritesMessage": "No favorite movies yet!"
 }

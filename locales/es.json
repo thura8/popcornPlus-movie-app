@@ -26,5 +26,7 @@
   "alreadyHaveAnAccount": "¿Ya tienes una cuenta?",
   "edit":"Editar",
   "save":"Guardar",
-  "logout": "Cerrar sesión"
+  "logout": "Cerrar sesión",
+  "Favorites": "Favoritos",
+  "NoFavoritesMessage": "¡Aún no hay películas favoritas!"
 }

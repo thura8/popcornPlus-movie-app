@@ -69,12 +69,12 @@ export default function AccountProfileScreen() {
 
           <Text style={[styles.contentText,theme.text]}>{t('favorites')}</Text>
 
-          <View style={styles.arrowIcon}>
+          <TouchableOpacity style={styles.arrowIcon} onPress={()=>navigation.navigate("Favorites")}>
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
-          </View>
+          </TouchableOpacity>
 
         </View>
-        <View style={styles.contentRow}>
+        {/* <View style={styles.contentRow}>
 
           <Text style={[styles.contentText,theme.text]}>{t('watchLater')}</Text>
 
@@ -82,7 +82,7 @@ export default function AccountProfileScreen() {
             <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
           </View>
 
-        </View>
+        </View> */}
 
       </View>
 
