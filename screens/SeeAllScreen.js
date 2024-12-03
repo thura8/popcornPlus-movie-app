@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback,ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback,ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { image185 } from '../api/movieDb';

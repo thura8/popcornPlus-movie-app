@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import { auth, db } from "../config/firebase";
 import { doc, onSnapshot } from "firebase/firestore"; 
-import { LanguageSelector,BackButton } from '../components';
+import { LanguageSelector } from '../components';
 import { useTheme } from '../context/ThemeContext';
 
 export default function AccountProfileScreen() {
@@ -37,13 +37,6 @@ export default function AccountProfileScreen() {
   
   return (
     <View style={[styles.container,theme.contentBackground]}>
-
-      <BackButton 
-        gradientColors={theme.gradientColors} 
-        iconColor={theme.iconColor} 
-        iconBackground={theme.iconBackground}
-        top={0}
-        />
 
       <View style={styles.header}>
 
