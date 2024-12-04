@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     position: 'relative', 
     bottom: 0, 
-    marginTop: 24,
+    marginTop: 10,
     marginHorizontal:"auto",
     alignItems: 'center', 
     justifyContent: 'center', 

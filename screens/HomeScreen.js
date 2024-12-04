@@ -23,7 +23,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import '../i18n'
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
-
+import { Image } from "expo-image";
 
 
 export default function HomeScreen() {
@@ -78,15 +78,30 @@ export default function HomeScreen() {
     <View style={[styles.container,theme.contentBackground]}>
       <StatusBar translucent backgroundColor={'transparent'} />
         <SafeAreaView style={[styles.header,theme.headerBackground]}>
-          <View style={styles.headerLeft}>
-            <Text style={[styles.welcomeText,theme.welcomeText]}>
-              {t('welcome')}
-            </Text>
-            <TouchableOpacity style={{position:'relative',top:12}} onPress={() => navigation.navigate("Account")}>
-              <Text style={[styles.usernameText,theme.username]}>
-                {username ? username : 'Loading...'} 
-              </Text>
+
+          <View style={{flexDirection:'row',position:'relative',top:10}}>
+            
+             <TouchableOpacity onPress={()=> navigation.openDrawer()}> 
+              <Image 
+                source={require("../assets/images/user_fallBack.jpg")} 
+                style={{
+                  width: 70,
+                  height: 70,
+                  borderRadius: 80,
+                }} 
+              />
             </TouchableOpacity>
+
+            <View style={styles.headerLeft}>
+              <Text style={[styles.welcomeText,theme.welcomeText]}>
+                {t('welcome')}
+              </Text>
+              <TouchableOpacity style={{position:'relative',top:8}} onPress={() => navigation.navigate("Account")}>
+                <Text style={[styles.usernameText,theme.username]}>
+                  {username ? username : 'Loading...'} 
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
@@ -127,6 +142,7 @@ const styles = StyleSheet.create({
   },
   headerLeft: {
     flexDirection: "column",
+    marginLeft:12
   },
   welcomeText: {
     fontFamily: "Poppins-Regular",
