@@ -50,17 +50,22 @@ const apiCall = async (endpoint, params, retries = 3) => {
   }
 };
 
+export const fetchPaginatedMovies = async (endpoint, page=1) => {
+  const params = {page}
+  const data = await apiCall(endpoint,params)
+  return data
+}
 
-export const fetchTrendingMovies = () => {
-  return apiCall(trendingMovies);
+export const fetchTrendingMovies = (page = 1) => {
+  return fetchPaginatedMovies(trendingMovies, page);
 };
 
-export const fetchUpComingMovies = () => {
-  return apiCall(upComingMovies);
+export const fetchUpComingMovies = (page = 1) => {
+  return fetchPaginatedMovies(upComingMovies, page);
 };
 
-export const fetchTopRatedMovies = () => {
-  return apiCall(topRatedMovies);
+export const fetchTopRatedMovies = (page = 1) => {
+  return fetchPaginatedMovies(topRatedMovies, page);
 };
 
 export const fetchMovieDetails = (id) => {

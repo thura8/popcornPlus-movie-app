@@ -41,7 +41,6 @@ import {
           page:'1'
         }).then(data=> {
           setLoading(false)
-          //console.log('Movies are fetched',data)
           if(data && data.results) setResults(data.results);
       })
       }else{

@@ -1,53 +1,106 @@
-import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback,ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { image185 } from '../api/movieDb';
+import { image185, fetchUpComingMovies, fetchTopRatedMovies } from '../api/movieDb'; 
 import { useNavigation } from "@react-navigation/native";
 import Loading from '../components/loading';
-import BackButton from '../components/BackButton'
+import BackButton from '../components/BackButton';
 import { useTheme } from '../context/ThemeContext';
-
 import { Image } from 'expo-image';
-
-import '../i18n'
+import '../i18n';
 import { useTranslation } from 'react-i18next';
+import * as Progress from "react-native-progress"
 
 var { width, height } = Dimensions.get('window');
 
 export default function SeeAllScreen({ route }) {
   const [loading, setLoading] = useState(true);
-
-  const {t}=useTranslation()
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const { t } = useTranslation();
   
-  const { data, title } = route.params;
+  const { title } = route.params;
   const navigation = useNavigation();
+  const { theme } = useTheme();
 
-  const {theme} = useTheme()
-
-  
   useEffect(() => {
-    if (data) {
-      setLoading(false);  
+
+    const fetchInitialMovies = async () => {
+      let initialMovies;
+      if (title === "upcoming") {
+        initialMovies = await fetchUpComingMovies();
+      } else if (title === "topRated") {
+        initialMovies = await fetchTopRatedMovies();
+      }
+      if (initialMovies && initialMovies.results) {
+        setMovies(initialMovies.results);
+        setLoading(false);
+      }
+    };
+
+    fetchInitialMovies();
+  }, [title]);
+
+  const fetchMoreMovies = async () => {
+  
+    if (loadingMore || loading) return;
+  
+    //console.log("Fetching more movies...");
+  
+    
+    setLoadingMore(true);
+  
+    const newPage = page + 1;
+    let newMovies;
+  
+    try {
+      
+      if (title === "upcoming") {
+        newMovies = await fetchUpComingMovies(newPage);
+      } else if (title === "topRated") {
+        newMovies = await fetchTopRatedMovies(newPage);
+      }
+  
+      if (newMovies && newMovies.results && newMovies.results.length > 0) {
+    
+        setMovies((prevMovies) => [...prevMovies, ...newMovies.results]);
+        setPage(newPage);
+      }
+    } catch (error) {
+  
+      //console.log("Error fetching movies:", error);
+    } finally {
+  
+      setLoadingMore(false);
+      //console.log("loadingMore after fetch:", loadingMore);
     }
-  }, [data]); 
+  };  
+
+  const handleScroll = (event) => {
+    const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
+    const isAtBottom = contentOffset.y + layoutMeasurement.height >= contentSize.height - 20; 
+
+    if (isAtBottom) {
+      fetchMoreMovies();
+    }
+  };
 
   return (
-    <View style={[styles.container,theme.contentBackground]}>
-      <SafeAreaView style={[{paddingHorizontal: 1,marginBottom:20 },theme.headerBackground]}>
+    <View style={[styles.container, theme.contentBackground]}>
+      <SafeAreaView style={[{ paddingHorizontal: 1, marginBottom: 20 }, theme.headerBackground]}>
         <View style={styles.header}>
-
           <BackButton 
             gradientColors={theme.gradientColors} 
             iconBackground={theme.iconBackground}
             iconColor={theme.iconColor}
-            top={-35}
+            top={-46}
           />
-
           <View style={styles.titleContainer}>
-            <Text style={[styles.titleText,theme.text]}>
-                {t(title)}
+            <Text style={[styles.titleText, theme.text]}>
+              {t(title)}
             </Text>
-         </View>
+          </View>
         </View>
       </SafeAreaView>
 
@@ -55,34 +108,40 @@ export default function SeeAllScreen({ route }) {
         <Loading />
       ) : (
         <ScrollView
-        showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 15,
-            gap: 12,}}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 15, gap: 12 }}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
         >
           <View style={styles.resultsContainer}>
-            {data.map((item, index) => {
-              return (
-                <TouchableWithoutFeedback
-                  key={index}
-                  onPress={() => navigation.push("Movie", item)}
-                >
-                  <View style={styles.resultItem}>
-                    <Image
-                      source={{ uri: image185(item?.poster_path) }}
-                      style={styles.movieImage}
-                      priority='high'
-                    />
-                    <Text style={[styles.movieTitle,theme.movieTitleText]}>
-                      {item?.title.length > 22
-                        ? item?.title.slice(0, 22) + "..."
-                        : item?.title}
-                    </Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              );
-            })}
+            {movies.map((item, index) => (
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() => navigation.push("Movie", item)}
+              >
+                <View style={{ marginBottom: 16 }}>
+                  <Image
+                    source={{ uri: image185(item.poster_path) }}
+                    style={styles.image}
+                    contentFit="contain"
+                    priority="high"
+                  />
+                  <Text style={[styles.movieName, theme.movieTitleText]}>
+                    {item.title.length > 25 ? item.title.slice(0, 25) + "..." : item.title}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
+
           </View>
+
+          {loadingMore && (
+            <View style={styles.loadingContainer}>
+              <Progress.CircleSnail thickness={4} size={80} color={theme.loadingColor} />
+            </View>
+          )}
         </ScrollView>
+
       )}
     </View>
   );
@@ -91,54 +150,44 @@ export default function SeeAllScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000',
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-   
-  },
-  safeArea: {
-    position: 'absolute',
-    zIndex: 20,
-    width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-  },
-  backButton: {
-    borderRadius: 12,
-    padding: 4,
-  },
-  resultsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-  },
-  resultItem: {
-    marginBottom: 16,
-    paddingBottom: 8,
-  },
-  movieImage: {
-    borderRadius: 24,
-    width: width * 0.44,
-    height: height * 0.3,
-  },
-  movieTitle: {
-    //color: "#f0ebd8",
-    marginLeft: 4,
-    fontFamily:"Anton"
+    justifyContent: 'space-between',
+    paddingTop: 10,
   },
   titleContainer: {
-    flex: 1,               
-    alignItems: 'center', 
-    paddingTop:10,
-    paddingRight:20,
+    flex: 1,
+    alignItems: 'center',
+
   },
   titleText: {
-    color: 'white',         
-    fontSize: 30,
-    fontFamily:"Poppins-Regular"
+    fontSize: 24,
   },
+  resultsContainer: {
+    paddingBottom: 20,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    flexWrap:'wrap'
+  },
+  image: {
+    borderRadius: 12,
+    width: width * 0.43,
+    height: height * 0.30,
+  },
+  movieName: {
+    color: "#F7E7DC",
+    marginTop: 8,
+    fontFamily: "Anton",
+  },
+  loadingContainer: {
+    position: 'relative', 
+    bottom: 0, 
+    marginTop: 24,
+    marginHorizontal:"auto",
+    alignItems: 'center', 
+    justifyContent: 'center', 
+  }
 });
