@@ -12,15 +12,14 @@ import {
   import React, { useCallback, useState } from "react";
   import { useNavigation } from "@react-navigation/native";
   import { ArrowBigLeftDash } from "lucide-react-native";
-  import Loading from "../components/loading";
   import { debounce } from "lodash";
   import { image185, searchMovies } from "../api/movieDb";
   import { Image } from "expo-image";
-
   import { useTheme } from "../context/ThemeContext";
 
   import '../i18n'
   import { useTranslation } from "react-i18next";
+  import * as Progress from "react-native-progress"
 
   var { width, height } = Dimensions.get("window");
   
@@ -69,13 +68,15 @@ import {
         </View>
   
         {loading ? (
-          <Loading />
+          <View style={[styles.absoluteCenter, { height, width }]}>
+            <Progress.CircleSnail thickness={12} size={100} color={theme.loadingColor} />
+          </View>
         ) : results.length > 0 ? (
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollContainer}
           >
-            <Text style={styles.resultsText}>Results ({results.length})</Text>
+            <Text style={[styles.resultsText,theme.movieTitleText]}>Results ({results.length})</Text>
   
             <View style={styles.resultsContainer}>
             
@@ -95,7 +96,7 @@ import {
                         priority='high'
                       />
   
-                      <Text style={styles.movieTitle}>
+                      <Text style={[styles.movieTitle,theme.movieTitleText]}>
                         {item?.title.length > 22
                           ? item?.title.slice(0, 22) + "..."
                           : item?.title}
@@ -133,7 +134,6 @@ import {
     },
   
     resultsText: {
-      color: "white",
       fontWeight: "600",
       marginLeft: 4,
     },
@@ -152,7 +152,6 @@ import {
       height: height * 0.3,
     },
     movieTitle: {
-      color: "#f0ebd8",
       marginLeft: 4,
     },
     imageContainer: {
@@ -164,5 +163,12 @@ import {
       height: 384,
       width: 384,
       borderRadius: 20,
+    },
+    absoluteCenter: {
+      position: "absolute",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+    
     },
   });

@@ -18,7 +18,8 @@ export const FontProvider = ({ children }) => {
         'Nunito':require('../assets/fonts/Nunito/static/Nunito-ExtraBold.ttf'),
         'Poppins-Regular':require('../assets/fonts/Poppins/Poppins-Regular.ttf'),
         'Roboto-Regular':require('../assets/fonts/Roboto/Roboto-Regular.ttf'),
-        'SourceSans3':require('../assets/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf')
+        'SourceSans3':require('../assets/fonts/Source_Sans_3/static/SourceSans3-Regular.ttf'),
+        'SourceSans3-Bold' : require('../assets/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf')
 
     });
 

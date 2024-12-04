@@ -58,25 +58,14 @@ export default function AccountProfileScreen() {
 
         <Text style={[styles.contentTitle,theme.text]}>{t('content')}</Text>
 
-        <View style={styles.contentRow}>
+        <TouchableOpacity style={[styles.arrowIcon,styles.contentRow]} onPress={()=>navigation.navigate("Favorites")}>
 
           <Text style={[styles.contentText,theme.text]}>{t('favorites')}</Text>
 
-          <TouchableOpacity style={styles.arrowIcon} onPress={()=>navigation.navigate("Favorites")}>
-            <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
-          </TouchableOpacity>
+          <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
 
-        </View>
-        {/* <View style={styles.contentRow}>
-
-          <Text style={[styles.contentText,theme.text]}>{t('watchLater')}</Text>
-
-          <View style={styles.arrowIcon}>
-            <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
-          </View>
-
-        </View> */}
-
+        </TouchableOpacity>
+        
       </View>
 
       <View style={[styles.preferenceSection,theme.headerBackground]}>
@@ -161,9 +150,8 @@ const styles = StyleSheet.create({
   },
   contentTitle: {
     fontSize: 20,
-    fontWeight: '700',
     marginBottom: 10,
-    fontFamily:"SourceSans3"
+    fontFamily:"SourceSans3-Bold"
   },
   contentRow: {
     flexDirection: 'row',
@@ -190,9 +178,8 @@ const styles = StyleSheet.create({
   },
   preferenceTitle: {
     fontSize: 20,
-    fontWeight: '700',
     marginBottom: 10,
-    fontFamily:"SourceSans3"
+    fontFamily:"SourceSans3-Bold"
   },
   preferenceRow: {
     flexDirection: 'row',

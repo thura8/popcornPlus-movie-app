@@ -20,6 +20,17 @@ import useAuth from "./hooks/useAuth";
 import { ThemeProvider,useTheme } from "./context/ThemeContext";
 import FavoriteScreen from "./screens/FavoriteScreen";
 
+function HomeStackNavigator(){
+  return(
+    
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="HomeMain" component={HomeScreen} />
+      <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' }} />
+    </Stack.Navigator>
+    
+  )
+}
+
 
 function TabNavigator() {
 
@@ -50,7 +61,7 @@ function TabNavigator() {
         },
       })}
     >
-      <Tab.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
+      <Tab.Screen name="Home" options={{ headerShown: false }} component={HomeStackNavigator} />
       <Tab.Screen name="Search" options={{ headerShown: false }} component={SearchScreen} />
       <Tab.Screen name="Account" options={{headerShown:false}}>
         {(route) => (
@@ -60,7 +71,7 @@ function TabNavigator() {
             <Stack.Screen name="Profile" component={ProfileScreen}  options={{animation:'slide_from_bottom' }}/>
           </Stack.Navigator>
         )}
-  </Tab.Screen>
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -77,7 +88,6 @@ export default function Navigation() {
             <Stack.Navigator initialRouteName="Main" screenOptions={{animation:"fade"}}>
               <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
               <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
-              <Stack.Screen name="SeeAll" options={{ headerShown: false }} component={SeeAllScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </FontProvider>
