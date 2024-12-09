@@ -10,8 +10,8 @@ import {
     TouchableWithoutFeedback,
   } from "react-native";
   import React, { useCallback, useState } from "react";
-  import { useNavigation } from "@react-navigation/native";
-  import { ArrowBigLeftDash } from "lucide-react-native";
+  import { useNavigation,DrawerActions } from "@react-navigation/native";
+  import { ArrowBigLeftDash, Menu } from "lucide-react-native";
   import { debounce } from "lodash";
   import { image185, searchMovies } from "../api/movieDb";
   import { Image } from "expo-image";
@@ -50,8 +50,25 @@ import {
 
     const handleText = useCallback(debounce(handleSearch,400),[])
 
+    const openDrawer = () => {
+      navigation.dispatch(DrawerActions.toggleDrawer());
+    };
+
     return (
       <SafeAreaView style={[styles.safeArea,theme.contentBackground]}>
+
+        <View style={styles.header}>
+
+         <TouchableOpacity onPress={openDrawer}>
+
+           <Menu strokeWidth={2.5} size={34}/>
+
+         </TouchableOpacity>
+
+          <Text style={[styles.searchText,theme.text]}>Search</Text>
+
+        </View>
+
         <View style={theme.searchContainer}>
           <TextInput
             onChangeText={handleText}
@@ -126,6 +143,17 @@ import {
   const styles = StyleSheet.create({
     safeArea: {
       flex: 1,
+    },
+    header:{
+      flexDirection:'row',
+      alignItems:'center',
+      justifyContent:'space-between',
+      paddingHorizontal:24,
+      marginBottom:16
+    },
+    searchText:{
+      fontFamily:"Lato",
+      fontSize:28
     },
 
     scrollContainer: {

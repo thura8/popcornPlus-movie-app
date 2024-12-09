@@ -180,8 +180,11 @@ const lightTheme = StyleSheet.create({
 
     movieGradientColors: ['rgba(255, 255, 255, 0.6)', 'rgba(240, 240, 240, 0.4)'],
     movieIconBackground: 'rgba(255, 255, 255, 0.3)',
-    movieIconColor: '#000000'
-    
+    movieIconColor: '#000000',
+    drawerBackgroundColor: '#ffffff',
+    drawerTextColor: '#333333',
+    activeItemColor: '#1E90FF', 
+    inactiveItemColor: '#B0C4DE',    
     
   });
   
@@ -318,6 +321,10 @@ const lightTheme = StyleSheet.create({
     iconBackground: '#555555',
     movieGradientColors: ['rgba(51, 51, 51, 0.6)', 'rgba(85, 85, 85, 0.4)'],
     movieIconBackground: 'rgba(0, 0, 0, 0.3)',
-    movieIconColor: '#FFFFFF'
+    movieIconColor: '#FFFFFF',
+    drawerBackgroundColor: '#333333',
+    drawerTextColor: '#ffffff',
+    activeItemColor: '#007AFF', 
+    inactiveItemColor: '#5F9EA0', 
     
   });

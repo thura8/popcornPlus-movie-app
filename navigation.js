@@ -21,6 +21,10 @@ import FavoriteScreen from "./screens/FavoriteScreen";
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
+import { Home,HeartIcon, Settings, Search } from "lucide-react-native";
+
+import DrawerHeader from "./components/DrawerHeader";
+import GenreScreen from "./screens/GenreScreen";
 
 // function HomeStackNavigator() {
 //   return (
@@ -32,29 +36,72 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 // }
 
 function DrawerNavigator(){
+
+  const {theme} = useTheme()
+
   return(
-    <Drawer.Navigator
-      screenOptions={{
-        drawerStyle: { backgroundColor: '#fff', width: 340 },
-        headerShown: false,
-      }}
-    >
-      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-      <Drawer.Screen name="Favorites" component={FavoriteScreen} />
-      <Drawer.Screen name="Profile" component={AccountProfileScreen} />
-    </Drawer.Navigator>
+
+      <Drawer.Navigator
+
+        drawerContent={(props) => <DrawerHeader {...props}/>}
+        screenOptions={{
+          drawerStyle: {
+            width: 360,
+            backgroundColor: theme.drawerBackgroundColor, 
+          },
+          drawerActiveTintColor: theme.activeItemColor, 
+          drawerInactiveTintColor: theme.inactiveItemColor, 
+          drawerLabelStyle: {
+            fontSize: 16,
+            fontWeight: "600",
+
+          },
+          headerShown: false,
+        }}
+      >
+        <Drawer.Screen 
+          name="HomeDrawer" 
+          component={HomeScreen} 
+          options={{
+            title:"Home",
+            drawerIcon: ({ color, size }) => <Home color={color} size={size} />,
+          }} 
+        />
+        <Drawer.Screen 
+          name="Favorites" 
+          component={FavoriteScreen} 
+          options={{
+            drawerIcon: ({color,size}) => <HeartIcon color={color} size={size} />
+          }} 
+        />
+        <Drawer.Screen
+          name="Genres"
+          component={GenreScreen}
+          options={{
+            drawerIcon: ({ color, size }) => <Ionicons name="list" color={color} size={size} />,
+          }}
+        />
+        <Drawer.Screen 
+          name="Setting" 
+          component={AccountProfileScreen}
+          options={{
+            drawerIcon : ({color,size})=> <Settings color={color} size={size} />
+          }} 
+        />
+      </Drawer.Navigator>
+    
   )
 }
 
-function ProfileStackNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="AccountMain" component={AccountProfileScreen} />
-      <Stack.Screen name="Favorites" component={FavoriteScreen} options={{ animation: 'fade_from_bottom' }} />
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_bottom' }} />
-    </Stack.Navigator>
-  );
-}
+// function ProfileStackNavigator() {
+//   return (
+//     <Stack.Navigator screenOptions={{ headerShown: false }}>
+//       <Stack.Screen name="AccountMain" component={AccountProfileScreen} />
+//       <Stack.Screen name="Favorites" component={FavoriteScreen} options={{ animation: 'fade_from_bottom' }} />
+//       <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_bottom' }} />
+//     </Stack.Navigator>
+//   );
+// }
 
 function TabNavigator() {
   const { theme } = useTheme();
@@ -65,12 +112,12 @@ function TabNavigator() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'HomeTab') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === 'Account') {
-            iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Favorites') {
+            iconName = focused ? 'heart' : 'heart-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -83,16 +130,31 @@ function TabNavigator() {
         },
       })}
     >
-      <Tab.Screen name="Home" options={{ headerShown: false }} component={DrawerNavigator} />
-      <Tab.Screen name="Search" options={{ headerShown: false }} component={SearchScreen} />
-      <Tab.Screen name="Account" options={{ headerShown: false }} component={ProfileStackNavigator} />
+      <Tab.Screen 
+        name="HomeTab" 
+        options={{title:'Home', headerShown: false }} 
+        component={DrawerNavigator} 
+      />
+
+      <Tab.Screen 
+        name="Search" 
+        options={{ headerShown: false }} 
+        component={SearchScreen}
+      />
+
+      <Tab.Screen 
+        name="Favorites" 
+        options={{ headerShown: false  }} 
+        component={FavoriteScreen} 
+      />
+
     </Tab.Navigator>
   );
 }
 
 
 export default function Navigation() {
-  const { user } = useAuth();
+  const { user } = useAuth(); 
   console.log('Current user : ', user);
 
   if (user) {
@@ -104,6 +166,8 @@ export default function Navigation() {
               <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
               <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
               <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' , headerShown:false}} />
+              {/* <Stack.Screen name="AccountProfile" component={AccountProfileScreen} options={{headerShown:false}} /> */}
+              <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_right',headerShown:false }} />
             </Stack.Navigator>
           </NavigationContainer>
         </FontProvider>

@@ -9,6 +9,7 @@ const trendingMovies = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const upComingMovies = `${apiBaseUrl}/movie/upcoming?api_key=${apiKey}`;
 const topRatedMovies = `${apiBaseUrl}/movie/top_rated?api_key=${apiKey}`;
 const searchingMovies = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
+const genreMovieList = `${apiBaseUrl}/genre/movie/list?language=en&api_key=${apiKey}`
 
 //dynamic endpoints
 const movieDetails = (id) => `${apiBaseUrl}/movie/${id}?api_key=${apiKey}`;
@@ -82,4 +83,8 @@ export const fetchSimilarMovies = (id) => {
 
 export const searchMovies = params =>{
   return apiCall(searchingMovies,params)
+}
+
+export const fetchGenreMovieList = ()=>{
+  return apiCall(genreMovieList)
 }

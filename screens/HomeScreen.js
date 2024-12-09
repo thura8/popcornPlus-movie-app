@@ -72,7 +72,7 @@ export default function HomeScreen() {
     }
   };
 
-  const {theme,isDarkTheme} = useTheme()
+  const {theme} = useTheme()
 
   return (
     <View style={[styles.container,theme.contentBackground]}>
@@ -96,7 +96,7 @@ export default function HomeScreen() {
               <Text style={[styles.welcomeText,theme.welcomeText]}>
                 {t('welcome')}
               </Text>
-              <TouchableOpacity style={{position:'relative',top:8}} onPress={() => navigation.navigate("Account")}>
+              <TouchableOpacity style={{position:'relative',top:8}}>
                 <Text style={[styles.usernameText,theme.username]}>
                   {username ? username : 'Loading...'} 
                 </Text>
