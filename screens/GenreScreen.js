@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, ActivityIndicator, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from "react-native";
 import { Image } from "expo-image";
 import DropDownPicker from "react-native-dropdown-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { fetchGenreMovieList } from "../api/movieDb";
+import { fetchGenreMovieList, image185 } from "../api/movieDb";
+import { useTheme } from "../context/ThemeContext";
+import { ChevronDown, ChevronUp } from "lucide-react-native";
+import { BackButton } from "../components";
+
+var { width, height } = Dimensions.get("window");
 
 const apiBaseUrl = "https://api.themoviedb.org/3";
 const apiKey = "81f2b97bd1318146fa6a370db0415099";
@@ -15,25 +28,26 @@ const fetchMoviesByGenre = async (genreId, page = 1) => {
   return response.json();
 };
 
-export default function GenreScreen() {
+export default function GenreScreen({ navigation }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState(28);
   const [genres, setGenres] = useState([]);
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
+  const { theme } = useTheme();
+
   useEffect(() => {
-    getGenreList(); 
+    getGenreList();
   }, []);
 
   useEffect(() => {
-    
     if (value) {
-      setMovies([]); 
-      setPage(1); 
-      fetchMovies(); 
+      setMovies([]);
+      setPage(1);
+      fetchMovies();
     }
   }, [value]);
 
@@ -65,37 +79,23 @@ export default function GenreScreen() {
     }
   };
 
-  // const renderMovie = ({ item }) => (
-  //   <View style={styles.movieCard}>
-  //     <Image
-  //       source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-  //       style={styles.moviePoster}
-  //       priority={'high'}
-  //     />
-  //     <Text style={styles.movieTitle}>{item.title}</Text>
-  //   </View>
-  // );
-
-  // const handleLoadMore = () => {
-  //   if (!isFetchingMore) {
-  //     fetchMovies(true);
-  //   }
-  // };
-
-  const renderMovieCard = (item) => (
-    <View style={styles.movieCard} key={item.id}>
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-        style={styles.moviePoster}
-        priority={"high"}
-      />
-      <Text style={styles.movieTitle}>{item.title}</Text>
-    </View>
-  );
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Select Genre</Text>
+    <SafeAreaView style={[styles.container, theme.headerBackground]}>
+      
+      <View style={{marginBottom:48}}>
+        <BackButton 
+          gradientColors={theme.gradientColors} 
+          iconBackground={theme.iconBackground}
+          iconColor={theme.iconColor}
+          top={-55}
+          left={-10}
+        />
+
+        <Text style={[styles.header, theme.placeholderText]}>Select a movie genre</Text>
+      </View>
+
+
+
       <DropDownPicker
         open={open}
         value={value}
@@ -103,29 +103,74 @@ export default function GenreScreen() {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setGenres}
-        style={styles.dropdown}
-        dropDownContainerStyle={styles.dropdownContainer}
-        placeholder="Choose a genre"
+        style={[styles.dropdown, theme.inputBackground]}
+        dropDownContainerStyle={[styles.dropdownContainer, theme.inputBackground]}
+        placeholderStyle={{
+          color: theme.placeholderText,
+          fontSize: 14,
+          
+        }}
+        listItemContainerStyle={{
+          paddingVertical: 10,
+        }}
+        listItemLabelStyle={{
+          color: theme.text.color,
+          fontSize: 16,
+        }}
+        selectedItemContainerStyle={{
+          backgroundColor: theme.selectedItemBackground.color,
+          borderRadius: 24,
+        }}
+        ArrowDownIconComponent={({ style }) => (
+          <ChevronDown style={style} size={24} color={theme.icon.color} />
+        )}
+        ArrowUpIconComponent={({ style }) => (
+          <ChevronUp style={style} size={24} color={theme.icon.color} />
+        )}
+        dropDownDirection="BOTTOM" 
+        zIndex={1000} 
+        zIndexInverse={3000} 
       />
 
+
       {isLoading ? (
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color={theme.loadingIndicator.color} />
       ) : (
         <ScrollView
-          contentContainerStyle={styles.moviesContainer}
-          onScrollEndDrag={() => {
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 8, gap: 12 }}
+          onScroll={() => {
             if (!isFetchingMore) {
-              fetchMovies(true);  
+              fetchMovies(true);
             }
           }}
+          scrollEventThrottle={16}
         >
-          <View style={styles.moviesGrid}>
-            {movies.map((movie) => renderMovieCard(movie))}
+          <View style={styles.resultsContainer}>
+            {movies.map((item, index) => (
+              <TouchableWithoutFeedback
+                key={index}
+                onPress={() => navigation.push("Movie", item)}
+              >
+                <View style={styles.movieContainer}>
+                  <Image
+                    source={{ uri: image185(item.poster_path) }}
+                    style={styles.image}
+                    contentFit="contain"
+                    priority="high"
+                  />
+                  <Text style={[styles.movieName, theme.text]}>
+                    {item.title.length > 25 ? item.title.slice(0, 25) + "..." : item.title}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
           </View>
-          {isFetchingMore && <ActivityIndicator size="small" color="#000" />}
+          {isFetchingMore && (
+            <ActivityIndicator size="small" color={theme.loadingIndicator.color} />
+          )}
         </ScrollView>
       )}
-    
     </SafeAreaView>
   );
 }
@@ -133,48 +178,39 @@ export default function GenreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9f9f9",
-    padding: 10,
+    paddingHorizontal:10
   },
   header: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10,
+    position:'absolute',
+    right:0,
+    top:5
   },
   dropdown: {
-    backgroundColor: "#EFEFEF",
     borderWidth: 0,
-    marginBottom: 10,
+    marginTop: 8,
+    marginBottom:24
   },
   dropdownContainer: {
-    backgroundColor: "#FFFFFF",
     borderWidth: 0,
   },
-  listContainer: {
+  resultsContainer: {
     paddingBottom: 20,
-  },
-  moviesContainer: {
-    paddingBottom: 20,
-  },
-  moviesGrid: {
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
+    flexWrap: "wrap",
   },
-  movieCard: {
-    width: "48%", 
-    marginBottom: 15,
-    alignItems: "center",
+  movieContainer: {
+    marginBottom: 16,
   },
-  moviePoster: {
-    width: "100%",
-    height: 200,
-    borderRadius: 10,
+  image: {
+    borderRadius: 12,
+    width: width * 0.43,
+    height: height * 0.3,
   },
-  movieTitle: {
-    marginTop: 5,
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
+  movieName: {
+    marginTop: 8,
+    fontFamily: "Anton",
   },
 });

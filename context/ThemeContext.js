@@ -185,7 +185,11 @@ const lightTheme = StyleSheet.create({
     drawerTextColor: '#333333',
     activeItemColor: '#1E90FF', 
     inactiveItemColor: '#B0C4DE',    
-    
+    inputBackground: { backgroundColor: "#E0F7FA" },
+    placeholderText: { color: "#607D8B" },
+    selectedItemBackground: { color: "#B3E5FC" },
+    icon: { color: "#0288D1" },
+    loadingIndicator: { color: "#0288D1" },
   });
   
   const darkTheme = StyleSheet.create({
@@ -326,5 +330,9 @@ const lightTheme = StyleSheet.create({
     drawerTextColor: '#ffffff',
     activeItemColor: '#007AFF', 
     inactiveItemColor: '#5F9EA0', 
-    
+    inputBackground: { backgroundColor: "#37474F" },
+    placeholderText: { color: "#B0BEC5" },
+    selectedItemBackground: { color: "#0288D1" },
+    icon: { color: "#81D4FA" },
+    loadingIndicator: { color: "#81D4FA" },
   });

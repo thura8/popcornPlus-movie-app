@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { ChevronLeftIcon } from 'lucide-react-native'
 import { useNavigation } from '@react-navigation/native'
 
-export default function BackButton({gradientColors,iconColor,iconBackground,top}) {
+export default function BackButton({gradientColors,iconColor,iconBackground,top,left=0}) {
 
     const navigation = useNavigation()
     const onPressGoBack = useCallback(_ => navigation.goBack(), [])
@@ -14,7 +14,7 @@ export default function BackButton({gradientColors,iconColor,iconBackground,top}
     <SafeAreaView style={[styles.safeArea,
       { position: 'absolute',
         top: top,
-        left: 0,
+        left: left,
         zIndex: 20}]}>
       <LinearGradient
         colors={gradientColors}
