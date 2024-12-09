@@ -15,7 +15,7 @@ import {
   fetchUpComingMovies,
 } from "../api/movieDb";
 import { useNavigation } from "@react-navigation/native";
-import { SearchIcon } from "lucide-react-native";
+import { Menu, SearchIcon } from "lucide-react-native";
 import Loading from "../components/loading";
 import { auth, db } from "../config/firebase";
 import { doc, onSnapshot } from "firebase/firestore"; 
@@ -77,42 +77,39 @@ export default function HomeScreen() {
   return (
     <View style={[styles.container,theme.contentBackground]}>
       <StatusBar translucent backgroundColor={'transparent'} />
-        <SafeAreaView style={[styles.header,theme.headerBackground]}>
+      <SafeAreaView style={[{ 
+        flexDirection: "row", 
+        justifyContent: "space-between", 
+        alignItems: "center", 
+        paddingHorizontal: 24 
+      }, theme.headerBackground]}
+      >
 
-          <View style={{flexDirection:'row',position:'relative',top:10}}>
-            
-             <TouchableOpacity onPress={()=> navigation.openDrawer()}> 
-              <Image 
-                source={require("../assets/images/user_fallBack.jpg")} 
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: 80,
-                }} 
-              />
+          <TouchableOpacity onPress={() => navigation.openDrawer()} style={{position:'relative',top:10}}>
+            <Menu size={36} strokeWidth={2.5} />
+          </TouchableOpacity>
+
+      
+          <View style={{ flexDirection: 'row', alignItems: 'center',position:'relative',top:10 }}>
+            <TouchableOpacity>
+              <Text style={[styles.usernameText, theme.username]}>
+                {username ? username : 'Loading...'}
+              </Text>
             </TouchableOpacity>
 
-            <View style={styles.headerLeft}>
-              <Text style={[styles.welcomeText,theme.welcomeText]}>
-                {t('welcome')}
-              </Text>
-              <TouchableOpacity style={{position:'relative',top:8}}>
-                <Text style={[styles.usernameText,theme.username]}>
-                  {username ? username : 'Loading...'} 
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-            <SearchIcon
-              size="36" 
-              strokeWidth={2}
-              style={theme.searchIcon}
-              resizeMode="contain"
+            <Image
+              source={require("../assets/images/user_fallBack.jpg")}
+              style={{
+                width: 70,
+                height: 70,
+                borderRadius: 35, 
+                marginLeft: 10,   
+              }}
             />
-          </TouchableOpacity>
-        </SafeAreaView>
+          </View>
+        
+
+    </SafeAreaView>
 
       {loading ? (
         <Loading />
@@ -141,7 +138,8 @@ const styles = StyleSheet.create({
     paddingHorizontal:16
   },
   headerLeft: {
-    flexDirection: "column",
+    flexDirection: "row",
+    alignItems:'center',
     marginLeft:12
   },
   welcomeText: {

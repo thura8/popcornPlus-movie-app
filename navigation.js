@@ -17,23 +17,14 @@ import SignUpScreen from "./screens/SignUpScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AccountProfileScreen from "./screens/AccountProfileScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
+import GenreScreen from "./screens/GenreScreen";
 
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
-import { Home,HeartIcon, Settings, Search } from "lucide-react-native";
+import { Home,HeartIcon, Settings } from "lucide-react-native";
 
 import DrawerHeader from "./components/DrawerHeader";
-import GenreScreen from "./screens/GenreScreen";
-
-// function HomeStackNavigator() {
-//   return (
-//     <Stack.Navigator screenOptions={{ headerShown: false }}>
-//       <Stack.Screen name="HomeMain" component={DrawerNavigator} />
-//       <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' }} />
-//     </Stack.Navigator>
-//   );
-// }
 
 function DrawerNavigator(){
 
@@ -61,7 +52,7 @@ function DrawerNavigator(){
       >
         <Drawer.Screen 
           name="HomeDrawer" 
-          component={HomeScreen} 
+          component={TabNavigator} 
           options={{
             title:"Home",
             drawerIcon: ({ color, size }) => <Home color={color} size={size} />,
@@ -93,17 +84,8 @@ function DrawerNavigator(){
   )
 }
 
-// function ProfileStackNavigator() {
-//   return (
-//     <Stack.Navigator screenOptions={{ headerShown: false }}>
-//       <Stack.Screen name="AccountMain" component={AccountProfileScreen} />
-//       <Stack.Screen name="Favorites" component={FavoriteScreen} options={{ animation: 'fade_from_bottom' }} />
-//       <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_bottom' }} />
-//     </Stack.Navigator>
-//   );
-// }
 
-function TabNavigator() {
+export function TabNavigator() {
   const { theme } = useTheme();
 
   return (
@@ -133,7 +115,7 @@ function TabNavigator() {
       <Tab.Screen 
         name="HomeTab" 
         options={{title:'Home', headerShown: false }} 
-        component={DrawerNavigator} 
+        component={HomeScreen} 
       />
 
       <Tab.Screen 
@@ -163,10 +145,9 @@ export default function Navigation() {
         <FontProvider>
           <NavigationContainer>
             <Stack.Navigator initialRouteName="Main" screenOptions={{ animation: "fade" }}>
-              <Stack.Screen name="Main" options={{ headerShown: false }} component={TabNavigator} />
+              <Stack.Screen name="Main" options={{ headerShown: false }} component={DrawerNavigator} />
               <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
               <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' , headerShown:false}} />
-              {/* <Stack.Screen name="AccountProfile" component={AccountProfileScreen} options={{headerShown:false}} /> */}
               <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_right',headerShown:false }} />
             </Stack.Navigator>
           </NavigationContainer>

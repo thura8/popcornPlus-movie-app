@@ -61,7 +61,7 @@ import {
 
          <TouchableOpacity onPress={openDrawer}>
 
-           <Menu strokeWidth={2.5} size={34}/>
+           <Menu strokeWidth={2.5} size={36}/>
 
          </TouchableOpacity>
 
