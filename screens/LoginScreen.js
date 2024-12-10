@@ -116,7 +116,7 @@ export default function LoginScreen() {
                 secureTextEntry={!showPassword}
                 style={styles.input}
                 placeholder="Enter your password"
-                placeholderTextColor="#C0C0C0"
+                placeholderTextColor="#C0C0C03"
                 value={password}
                 onChangeText={(value) => setPassword(value)}
                 returnKeyType='done'
