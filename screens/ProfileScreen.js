@@ -163,7 +163,7 @@ export default function ProfileScreen() {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.logout} onPress={handleLogout}>
-                            <Text style={{ color: 'white', marginRight: 8 ,fontFamily:"BebasNeue",fontSize:18}}>{t('logout')}</Text>
+                            <Text style={{ color: 'white', marginRight: 8 ,fontFamily:"BebasNeue",fontSize:18,letterSpacing:1.5}}>{t('logout')}</Text>
                             <LogOut color="white" />
                         </TouchableOpacity>
                     </View>
@@ -243,9 +243,10 @@ const styles = StyleSheet.create({
         
     },
     editButtonText: {
-        fontSize: 16,
+        fontSize: 18,
         color: '#fff',
-        fontFamily: 'Lato',
+        fontFamily: 'BebasNeue',
+        letterSpacing:1.5,
         textAlign:'center'
     },
     editingContainer: {

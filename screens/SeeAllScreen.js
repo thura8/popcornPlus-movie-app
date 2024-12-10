@@ -160,11 +160,13 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-end',
+    paddingRight:16
 
   },
   titleText: {
     fontSize: 24,
+    fontFamily:'Poppins-Regular'
   },
   resultsContainer: {
     paddingBottom: 20,
