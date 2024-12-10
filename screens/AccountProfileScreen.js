@@ -67,7 +67,9 @@ export default function AccountProfileScreen() {
         <View style={styles.preferenceRow}>
           <View style={styles.languageSelection}>
             <Text style={[styles.preferenceText, theme.text]}>{t('language')}</Text>
-            <LanguageSelector />
+            <View style={{marginHorizontal:16}}>
+              <LanguageSelector />
+            </View>
           </View>
         </View>
         <View style={styles.preferenceRow}>
