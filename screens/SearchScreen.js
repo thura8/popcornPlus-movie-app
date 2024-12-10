@@ -65,7 +65,7 @@ import {
 
          </TouchableOpacity>
 
-          <Text style={[styles.searchText,theme.text]}>Search</Text>
+          <Text style={[styles.searchText,theme.text]}>{t('search')}</Text>
 
         </View>
 

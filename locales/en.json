@@ -28,5 +28,15 @@
   "edit":"Edit",
   "save":"Save",
   "Favorites": "Favorites",
-  "NoFavoritesMessage": "No favorite movies yet!"
+  "NoFavoritesMessage": "No favorite movies yet!",
+  "support": "Support",
+  "helpCenter": "Help Center",
+  "contactSupport": "Contact Support",
+  "feedback": "Feedback",
+  "about": "About",
+  "termsAndConditions": "Terms and Conditions",
+  "privacyPolicy": "Privacy Policy",
+  "appVersion": "App Version",
+  "search": "Search",
+  "settings": "Settings"
 }

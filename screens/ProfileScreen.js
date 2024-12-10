@@ -138,9 +138,7 @@ export default function ProfileScreen() {
                         <LockKeyhole style={styles.emailIcon} color="#3e5c76" size={22} />
 
                     </View>
-
-                    
-                   
+                  
 
                     <View style={styles.buttonContainer}>
 
@@ -233,14 +231,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FF0000',
         padding: 8,
-        paddingVertical:20,
-        borderRadius: 24,
+        paddingVertical:16,
+        borderRadius: 12,
     },
     editIcon: {
-        paddingHorizontal:20,
+        paddingHorizontal:16,
         paddingVertical:20,
         backgroundColor: '#007bff',
-        borderRadius: 24,
+        borderRadius: 12,
         marginRight: 10,
         
     },
@@ -250,7 +248,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Lato',
         textAlign:'center'
     },
-      editingContainer: {
+    editingContainer: {
         position: 'relative',
     },
     icon: {

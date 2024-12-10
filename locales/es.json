@@ -28,5 +28,15 @@
   "save":"Guardar",
   "logout": "Cerrar sesión",
   "Favorites": "Favoritos",
-  "NoFavoritesMessage": "¡Aún no hay películas favoritas!"
+  "NoFavoritesMessage": "¡Aún no hay películas favoritas!",
+  "support": "Soporte",
+  "helpCenter": "Centro de ayuda",
+  "contactSupport": "Contactar Soporte",
+  "feedback": "Comentarios",
+  "about": "Acerca de",
+  "termsAndConditions": "Términos y condiciones",
+  "privacyPolicy": "Política de privacidad",
+  "appVersion": "Versión de la aplicación",
+  "search": "Buscar",
+  "settings": "Configuración"
 }

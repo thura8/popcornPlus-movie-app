@@ -25,6 +25,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { Home,HeartIcon, Settings } from "lucide-react-native";
 
 import DrawerHeader from "./components/DrawerHeader";
+import TermsAndConditionsScreen from "./screens/TermsAndConditionsScreen";
 
 function DrawerNavigator(){
 
@@ -72,15 +73,21 @@ function DrawerNavigator(){
             drawerIcon: ({ color, size }) => <Ionicons name="list" color={color} size={size} />,
           }}
         />
-        <Drawer.Screen 
-          name="Setting" 
-          component={AccountProfileScreen}
-          options={{
-            drawerIcon : ({color,size})=> <Settings color={color} size={size} />
-          }} 
-        />
       </Drawer.Navigator>
     
+  )
+}
+function SettingStackNavigator(){
+  const {theme} = useTheme()
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="AccountProfile" component={AccountProfileScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="TermsAndConditions" component={TermsAndConditionsScreen} 
+        options={{
+           headerShown:false 
+        }} 
+      />
+    </Stack.Navigator>
   )
 }
 
@@ -98,8 +105,8 @@ export function TabNavigator() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Search') {
             iconName = focused ? 'search' : 'search-outline';
-          } else if (route.name === 'Favorites') {
-            iconName = focused ? 'heart' : 'heart-outline';
+          } else if (route.name === 'Setting') {
+            iconName = focused ? 'settings' : 'settings-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -125,9 +132,9 @@ export function TabNavigator() {
       />
 
       <Tab.Screen 
-        name="Favorites" 
+        name="Setting"
         options={{ headerShown: false  }} 
-        component={FavoriteScreen} 
+        component={SettingStackNavigator} 
       />
 
     </Tab.Navigator>

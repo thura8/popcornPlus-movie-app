@@ -1,107 +1,87 @@
-import { View, Text, TouchableOpacity, StyleSheet, Switch } from 'react-native';
-import React, { useState,useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { ChevronRightIcon, ChevronRightSquare } from 'lucide-react-native';
-import { Image } from 'expo-image';
+import { View, Text, TouchableOpacity, StyleSheet, Switch, SafeAreaView, Alert } from 'react-native';
+import React from 'react';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { ChevronRight, Menu } from 'lucide-react-native';
 
-import '../i18n'
+import '../i18n';
 import { useTranslation } from 'react-i18next';
 
-import { auth, db } from "../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore"; 
 import { LanguageSelector } from '../components';
 import { useTheme } from '../context/ThemeContext';
 
 export default function AccountProfileScreen() {
 
-    const [username,setUsername] = useState('');
-    
-    const {t} = useTranslation();
-
+  const { t } = useTranslation();
   const navigation = useNavigation();
+  const { theme, toggleTheme, isDarkTheme } = useTheme();
 
-  useEffect(() => {
-    const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser .uid), (doc) => {
-      if (doc.exists()) {
-        setUsername(doc.data().username || 'User ');
-      }
-    });
+  const supportData = [
+    { title: t('helpCenter'), info: 'FAQs available at help.popcorn+.com' },
+    { title: t('contactSupport'), info: 'Email us: support@popcorn+.com' },
+    { title: t('feedback'), info: 'Rate us on Play Store or App Store' },
+  ];
 
-    return () => unsubscribeFromFirestore();
-  }, []);
+  const aboutData = [
+    { title: t('privacyPolicy'), info: 'We prioritize your data security.' },
+    { title: t('appVersion'), info: '1.0.0' },
+  ];
 
-  
 
-  const {theme,toggleTheme,isDarkTheme} = useTheme()
-
-  
   return (
-    <View style={[styles.container,theme.contentBackground]}>
-
-      <View style={styles.header}>
-
-        <Image source={require('../assets/images/user_fallBack.jpg')} style={styles.profilePicture} />
-
-        <Text style={[styles.username,theme.text]}>{username ? username : 'Loading ...'}</Text>
-
-        <TouchableOpacity 
-          style={[styles.editProfileButton, theme.editButton]}  
-          onPress={() => navigation.navigate('Profile')}
-        >
-          <Text style={[styles.editProfileText, theme.editText]}>{t('editProfile')}</Text>
-          <ChevronRightIcon size={24} color={theme.editIconColor} />  
+    <View style={[styles.container, theme.contentBackground]}>
+      <SafeAreaView style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+          <Menu strokeWidth={2.5} size={36} style={{ marginLeft: 4 }} />
         </TouchableOpacity>
+        <Text style={[styles.searchText, theme.text]}>{t('settings')}</Text>
+      </SafeAreaView>
 
-      </View>
-
-      <View style={[styles.contentSection,theme.headerBackground]}>
-
-        <Text style={[styles.contentTitle,theme.text]}>{t('content')}</Text>
-
-        <TouchableOpacity style={[styles.arrowIcon,styles.contentRow]} onPress={()=>navigation.navigate("Favorites")}>
-
-          <Text style={[styles.contentText,theme.text]}>{t('favorites')}</Text>
-
-          <ChevronRightSquare size={24} strokeWidth={2.5} color="gray" />
-
-        </TouchableOpacity>
-        
-      </View>
-
-      <View style={[styles.preferenceSection,theme.headerBackground]}>
-
-        <Text style={[styles.preferenceTitle,theme.text]}>{t('preference')}</Text>
-
-        <View style={styles.preferenceRow}>
-
-        
-
-          <View style={styles.languageSelection}>
-
-          <Text style={[styles.preferenceText,theme.text]}>{t('language')}</Text>
-
-            <View style={styles.languageSection}>
-
-              <LanguageSelector/>
-
-            </View>
-
-
+      <View style={[styles.supportSection, theme.headerBackground]}>
+        <Text style={[styles.sectionTitle, theme.text]}>{t('support')}</Text>
+        {supportData.map((item, index) => (
+          <View key={index} style={styles.row}>
+            <Text style={[styles.rowTitle, theme.text]}>{item.title}</Text>
+            <Text style={[styles.rowInfo, theme.text]}>{item.info}</Text>
           </View>
-
-        </View>
-        <View style={styles.preferenceRow}>
-          <Text style={[styles.preferenceText,theme.text]}>{isDarkTheme ? t('darkMode') : t('lightMode')}</Text>
-          <Switch
-          trackColor={{ false: '#ccc', true: '#555' }}
-          thumbColor={isDarkTheme ? '#f4f3f4' : '#f4f3f4'}
-          onValueChange={toggleTheme}
-          value={isDarkTheme}
-        />
-        </View>
-
+        ))}
       </View>
 
+      <View style={[styles.aboutSection, theme.headerBackground]}>
+        <Text style={[styles.sectionTitle, theme.text]}>{t('about')}</Text>
+        
+          <TouchableOpacity style={styles.row} onPress={() => navigation.navigate('TermsAndConditions')}>
+            <Text style={[styles.rowTitle, theme.text]}>{t('termsAndConditions')}</Text>
+            <ChevronRight size={20} color={theme.text.color} />
+          </TouchableOpacity>
+        
+          {aboutData.map((item, index) => (
+            <View key={index} style={styles.row}>
+            <Text style={[styles.rowTitle, theme.text]}>{item.title}</Text>
+            <Text style={[styles.rowInfo, theme.text]}>{item.info}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={[styles.preferenceSection, theme.headerBackground]}>
+        <Text style={[styles.preferenceTitle, theme.text]}>{t('preference')}</Text>
+        <View style={styles.preferenceRow}>
+          <View style={styles.languageSelection}>
+            <Text style={[styles.preferenceText, theme.text]}>{t('language')}</Text>
+            <LanguageSelector />
+          </View>
+        </View>
+        <View style={styles.preferenceRow}>
+          <Text style={[styles.preferenceText, theme.text]}>
+            {isDarkTheme ? t('darkMode') : t('lightMode')}
+          </Text>
+          <Switch
+            trackColor={{ false: '#ccc', true: '#555' }}
+            thumbColor={isDarkTheme ? '#f4f3f4' : '#f4f3f4'}
+            onValueChange={toggleTheme}
+            value={isDarkTheme}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -109,105 +89,85 @@ export default function AccountProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
   },
   header: {
+    flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    marginBottom: 24,
   },
-  profilePicture: {
-    width: 100,
-    height: 100,
-    borderRadius: 80,
+  searchText: {
+    fontFamily: 'Lato',
+    fontSize: 28,
   },
-  username: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
-  editProfileButton: {
-    flexDirection: 'row',  
-    alignItems: 'center',  
-    paddingVertical: 12,  
-    paddingHorizontal: 16,  
-    borderRadius: 30,  
-    backgroundColor: '#007bff',  
-    marginVertical: 10,  
-  },
-  editProfileText: {
-    fontSize: 16,  
-    fontWeight: 'bold',  
-    marginRight: 8,
-    fontFamily:'Inter-Regular'  
-  },
-  contentSection: {
-    marginVertical: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-  },
-  contentTitle: {
+  sectionTitle: {
     fontSize: 20,
     marginBottom: 10,
-    fontFamily:"SourceSans3-Bold"
+    fontFamily: 'SourceSans3-Bold',
   },
-  contentRow: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
-
+    marginVertical: 8,
   },
-  contentText: {
+  rowTitle: {
+    flex: 1,
     fontSize: 16,
-    fontWeight: '500',
-    fontFamily:"Roboto-Regular"
+    fontWeight: 'bold',
   },
-  arrowIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  rowInfo: {
+    flex: 1,
+    fontSize: 14,
+    color: '#555',
   },
-  preferenceSection: {
-    marginVertical: 16,
+  supportSection: {
+    marginBottom: 16,
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  aboutSection: {
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  versionText: {
+    fontSize: 14,
+    marginTop: 10,
+    fontFamily: 'Roboto-Regular',
+    color: '#555',
+  },
+  preferenceSection: {
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
   },
   preferenceTitle: {
     fontSize: 20,
     marginBottom: 10,
-    fontFamily:"SourceSans3-Bold"
+    fontFamily: 'SourceSans3-Bold',
   },
   preferenceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
-
   },
   preferenceText: {
     fontSize: 16,
     fontWeight: '500',
-    fontFamily:"Roboto-Regular",
+    fontFamily: 'Roboto-Regular',
   },
   languageSelection: {
     flexDirection: 'column',
     alignItems: 'flex-start',
   },
-  selectedLanguage: {
-    marginRight: 10,
-    fontSize: 14,
-    color: '#555',
-  },
-  languageOption: {
-    marginHorizontal: 5,
-    fontSize: 14,
-    color: '#007bff',
-  },
-  languageSection:{
-    paddingHorizontal:16
-  }
 });
