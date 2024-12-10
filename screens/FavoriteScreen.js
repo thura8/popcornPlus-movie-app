@@ -47,7 +47,7 @@ export default function FavoritesScreen() {
             gradientColors={theme.gradientColors}
             iconBackground={theme.iconBackground}
             iconColor={theme.iconColor}
-            top={-35}
+            top={-40}
           />
           <View style={styles.titleContainer}>
             <Text style={[styles.titleText, theme.text]}>{t("Favorites")}</Text>
@@ -120,9 +120,10 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    alignItems: "center",
-    paddingTop: 10,
-    paddingRight: 20,
+    alignItems: "flex-end",
+    position:'relative',
+    top:12,
+    right:12
   },
   titleText: {
     color: "white",

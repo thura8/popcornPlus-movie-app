@@ -15,16 +15,13 @@ import {
   fetchUpComingMovies,
 } from "../api/movieDb";
 import { useNavigation } from "@react-navigation/native";
-import { Menu, SearchIcon } from "lucide-react-native";
+import { Menu } from "lucide-react-native";
 import Loading from "../components/loading";
 import { auth, db } from "../config/firebase";
-import { doc, onSnapshot } from "firebase/firestore"; 
-
-import '../i18n'
+import { doc, onSnapshot } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
 import { Image } from "expo-image";
-
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([]);
@@ -33,13 +30,13 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
   const navigation = useNavigation();
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser.uid), (doc) => {
       if (doc.exists()) {
-        setUsername(doc.data().username || 'User ' );
+        setUsername(doc.data().username || 'User');
       }
     });
 
@@ -72,44 +69,30 @@ export default function HomeScreen() {
     }
   };
 
-  const {theme} = useTheme()
-
   return (
-    <View style={[styles.container,theme.contentBackground]}>
+    <View style={[styles.container, theme.contentBackground]}>
       <StatusBar translucent backgroundColor={'transparent'} />
-      <SafeAreaView style={[{ 
-        flexDirection: "row", 
-        justifyContent: "space-between", 
-        alignItems: "center", 
-        paddingHorizontal: 24 
-      }, theme.headerBackground]}
-      >
+      <SafeAreaView style={[styles.headerContainer, theme.headerBackground]}>
+        
+        <TouchableOpacity onPress={() => navigation.openDrawer()} style={[styles.menuIconContainer,theme.contentBackground]}>
+          <Menu size={30} strokeWidth={2.5} style={[styles.menuIcon, theme.menuIcon]} />
+        </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.openDrawer()} style={{position:'relative',top:10}}>
-            <Menu size={36} strokeWidth={2.5} />
+        
+        <View style={styles.userInfoContainer}>
+          <TouchableOpacity>
+            <Text style={[styles.usernameText, theme.username]}>
+              {username ? username : 'Loading...'}
+            </Text>
           </TouchableOpacity>
 
-      
-          <View style={{ flexDirection: 'row', alignItems: 'center',position:'relative',top:10 }}>
-            <TouchableOpacity>
-              <Text style={[styles.usernameText, theme.username]}>
-                {username ? username : 'Loading...'}
-              </Text>
-            </TouchableOpacity>
-
-            <Image
-              source={require("../assets/images/user_fallBack.jpg")}
-              style={{
-                width: 70,
-                height: 70,
-                borderRadius: 35, 
-                marginLeft: 10,   
-              }}
-            />
-          </View>
-        
-
-    </SafeAreaView>
+          
+          <Image
+            source={require("../assets/images/user_fallBack.jpg")}
+            style={styles.userImage}
+          />
+        </View>
+      </SafeAreaView>
 
       {loading ? (
         <Loading />
@@ -131,25 +114,51 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  header: {
+  headerContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal:16
+    paddingHorizontal: 16,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
+    marginBottom: 8,
   },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems:'center',
-    marginLeft:12
+  menuIconContainer: {
+    position: 'relative',
+    top: 5,
+    padding: 8,
+    borderRadius: 25,  
+    boxShadow: '0px 0px 15px rgba(0,0,0,0.3)',  
   },
-  welcomeText: {
-    fontFamily: "Poppins-Regular",
-    fontSize: 24, 
-    
+  menuIcon: {
+    padding: 6,
+    borderRadius: 18,
+  },
+  userInfoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    top: 5,
   },
   usernameText: {
     fontFamily: "Lato",
-    fontSize: 20, 
-    letterSpacing: 2,
+    fontSize: 22,
+    letterSpacing: 1.5,
+    marginRight: 12,
+  },
+  userImage: {
+    width: 75,
+    height: 75,
+    borderRadius: 37.5,
+    borderWidth: 2,
+    borderColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
 });

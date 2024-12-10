@@ -42,7 +42,7 @@ function DrawerNavigator(){
             backgroundColor: theme.drawerBackgroundColor, 
           },
           drawerActiveTintColor: theme.activeItemColor, 
-          drawerInactiveTintColor: theme.inactiveItemColor, 
+          drawerInactiveTintColor: theme.activeItemColor, 
           drawerLabelStyle: {
             fontSize: 16,
             fontWeight: "600",

@@ -75,9 +75,10 @@ import {
             placeholder={t('searchMovie')}
             placeholderTextColor="lightgray"
             style={theme.textInput}
+            
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("HomeTab")}
             style={theme.iconButton}
           >
             <ArrowBigLeftDash size={25} style={theme.iconColor} />
