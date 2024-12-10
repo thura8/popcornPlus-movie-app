@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useTheme } from "../context/ThemeContext";
 import { Image } from "expo-image";
@@ -7,11 +7,24 @@ import { ChevronRight } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
+import {auth,db} from '../config/firebase'
+import {doc,onSnapshot} from "firebase/firestore"
+
 const DrawerHeader = (props) => {
-  
+  const [username,setUsername] = useState('')
   const { theme } = useTheme();
   const navigation = useNavigation()
   const {t} = useTranslation()
+
+  useEffect(()=>{
+    const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser.uid), (doc) => {
+      if (doc.exists()) {
+        setUsername(doc.data().username || 'User');
+      }
+    });
+
+    return () => unsubscribeFromFirestore();
+  },[])
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={[{ flex: 1 },theme.headerBackground]}>
@@ -22,7 +35,9 @@ const DrawerHeader = (props) => {
           priority={"high"}
         />
         <View style={styles.userProfile}>
-            <Text style={[styles.username, theme.username]}>Big Boss</Text>
+            <Text style={[styles.username, theme.username]}>
+              {username ? username : 'Loading...'}
+            </Text>
 
             <TouchableOpacity style={styles.viewProfileButton} 
               onPress={ ()=>navigation.navigate("Profile")}
