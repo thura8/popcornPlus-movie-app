@@ -22,14 +22,17 @@ import GenreScreen from "./screens/GenreScreen";
 import { FontProvider } from "./context/FontProvider";
 import useAuth from "./hooks/useAuth";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
-import { Home,HeartIcon, Settings } from "lucide-react-native";
+import { Home,HeartIcon } from "lucide-react-native";
 
 import DrawerHeader from "./components/DrawerHeader";
 import TermsAndConditionsScreen from "./screens/TermsAndConditionsScreen";
 
+import { useTranslation } from "react-i18next";
+
 function DrawerNavigator(){
 
   const {theme} = useTheme()
+  const {t} = useTranslation()
 
   return(
 
@@ -55,7 +58,7 @@ function DrawerNavigator(){
           name="HomeDrawer" 
           component={TabNavigator} 
           options={{
-            title:"Home",
+            title:t('home'),
             drawerIcon: ({ color, size }) => <Home color={color} size={size} />,
           }} 
         />
@@ -63,6 +66,7 @@ function DrawerNavigator(){
           name="Favorites" 
           component={FavoriteScreen} 
           options={{
+            title:t('Favorites'),
             drawerIcon: ({color,size}) => <HeartIcon color={color} size={size} />
           }} 
         />
@@ -70,6 +74,7 @@ function DrawerNavigator(){
           name="Genres"
           component={GenreScreen}
           options={{
+            title:t('genres'),
             drawerIcon: ({ color, size }) => <Ionicons name="list" color={color} size={size} />,
           }}
         />
@@ -94,7 +99,7 @@ function SettingStackNavigator(){
 
 export function TabNavigator() {
   const { theme } = useTheme();
-
+  const {t} = useTranslation();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -121,19 +126,19 @@ export function TabNavigator() {
     >
       <Tab.Screen 
         name="HomeTab" 
-        options={{title:'Home', headerShown: false }} 
+        options={{title:t('home'), headerShown: false }} 
         component={HomeScreen} 
       />
 
       <Tab.Screen 
         name="Search" 
-        options={{ headerShown: false }} 
+        options={{title:t('search'), headerShown: false }} 
         component={SearchScreen}
       />
 
       <Tab.Screen 
         name="Setting"
-        options={{ headerShown: false  }} 
+        options={{title:t('settings'), headerShown: false  }} 
         component={SettingStackNavigator} 
       />
 

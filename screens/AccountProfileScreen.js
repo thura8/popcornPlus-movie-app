@@ -16,13 +16,13 @@ export default function AccountProfileScreen() {
   const { theme, toggleTheme, isDarkTheme } = useTheme();
 
   const supportData = [
-    { title: t('helpCenter'), info: 'FAQs available at help.popcorn+.com' },
-    { title: t('contactSupport'), info: 'Email us: support@popcorn+.com' },
-    { title: t('feedback'), info: 'Rate us on Play Store or App Store' },
+    { title: t('helpCenter'), info: t('faqs') },
+    { title: t('contactSupport'), info: t('emailUs') },
+    { title: t('feedback'), info: t('rateUs') },
   ];
 
   const aboutData = [
-    { title: t('privacyPolicy'), info: 'We prioritize your data security.' },
+    { title: t('privacyPolicy'), info: t('dataSecurity') },
     { title: t('appVersion'), info: '1.0.0' },
   ];
 

@@ -38,6 +38,19 @@
     "privacyPolicy": "Politique de confidentialité",
     "appVersion": "Version de l'application",
     "search": "Rechercher",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "home": "Accueil",
+    "genres": "Genres",
+    "viewProfile": "Voir le profil",
+    "faqs": "FAQ disponibles sur help.popcorn+.com",
+    "emailUs": "Envoyez-nous un e-mail : support@popcorn+.com",
+    "rateUs": "Notez-nous sur le Play Store ou l'App Store",
+    "dataSecurity": "Nous priorisons la sécurité de vos données.",
+    "termsAgreement": "En utilisant cette application, vous acceptez de respecter nos termes et politiques.",
+    "unauthorizedUse": "La reproduction ou la distribution non autorisée de toute partie de cette application est strictement interdite.",
+    "serviceGuarantee": "Cette application ne garantit pas un service ininterrompu ni sans erreur.",
+    "updateRights": "Nous nous réservons le droit de mettre à jour ces termes à tout moment sans préavis.",
+    "informationalContent": "Tout le contenu dans l'application est à des fins informatives uniquement."
+
   }
   

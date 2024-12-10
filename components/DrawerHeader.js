@@ -5,11 +5,13 @@ import { Image } from "expo-image";
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { ChevronRight } from "lucide-react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from "react-i18next";
 
 const DrawerHeader = (props) => {
   
   const { theme } = useTheme();
   const navigation = useNavigation()
+  const {t} = useTranslation()
 
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={[{ flex: 1 },theme.headerBackground]}>
@@ -26,7 +28,7 @@ const DrawerHeader = (props) => {
               onPress={ ()=>navigation.navigate("Profile")}
               >
                 <View style={{flexDirection:'row',alignItems:'center'}}>
-                    <Text style={[styles.viewProfileText,  theme.welcomeText ]}>View Profile</Text>
+                    <Text style={[styles.viewProfileText,  theme.welcomeText ]}>{t('viewProfile')}</Text>
                     <ChevronRight color={"#B0B0B0"}/>
                 </View>
             </TouchableOpacity>
