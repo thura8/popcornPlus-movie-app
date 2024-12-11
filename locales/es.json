@@ -50,5 +50,12 @@
   "unauthorizedUse": "La reproducción o distribución no autorizada de cualquier parte de esta aplicación está estrictamente prohibida.",
   "serviceGuarantee": "Esta aplicación no garantiza un servicio ininterrumpido ni libre de errores.",
   "updateRights": "Nos reservamos el derecho de actualizar estos términos en cualquier momento sin previo aviso.",
-  "informationalContent": "Todo el contenido dentro de la aplicación es solo para fines informativos."
+  "informationalContent": "Todo el contenido dentro de la aplicación es solo para fines informativos.",
+  "chooseImage": "Elegir imagen",
+    "selectOption": "Seleccione una opción para elegir su imagen de perfil",
+    "cancel": "Cancelar",
+    "imageSelectionCancelled": "Selección de imagen cancelada",
+    "cameraOperationCancelled": "Operación de cámara cancelada",
+    "gallery": "Galería",
+    "camera": "Cámara"
 }

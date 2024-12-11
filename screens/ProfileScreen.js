@@ -1,6 +1,6 @@
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { LogOut, LockKeyhole, LockKeyholeOpen,} from 'lucide-react-native';
+import { LogOut, LockKeyhole, LockKeyholeOpen, Pencil,} from 'lucide-react-native';
 import { signOut, updatePassword } from 'firebase/auth';
 import { auth, db } from '../config/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -32,38 +32,89 @@ export default function ProfileScreen() {
     const {t} = useTranslation()
     const {theme} = useTheme()
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing:true,
-          quality: 1,
-        });
-        
-        console.log(result)
+    const requestPermissions = async ()=>{
 
-        if (!result.canceled) {
-          
-            const savedUri = await saveImageToFileSystem(result.assets[0].uri);
-            if (savedUri) {
-                setProfileImage(savedUri); // Set the saved file URI in state
-            }
-        } else {
-            Alert.alert('Image Selection Cancelled');
+        const {status : cameraStatus} = await ImagePicker.requestCameraPermissionsAsync();
+        const {status : galleryStatus} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        return cameraStatus === 'granted' && galleryStatus === 'granted'
+    }
+
+    const pickImage = async () => {
+
+        const permissionGranted = await requestPermissions();
+
+        if(!permissionGranted){
+            Alert.alert("Permission Required", 'We need camera and gallery permissions to proceed.')
+            return
         }
+
+        Alert.alert(
+            t('chooseImage'),
+            t('selectOption'),
+
+            [
+                {
+                    text:t('gallery'),
+                    onPress: ()=> openGallery(),
+                },
+                {
+                    text: t('camera'),
+                    onPress: () => openCamera(),
+                },
+                {
+                    text: t('cancel'),
+                    style: 'cancel',
+                },
+            ]
+        )
       };
 
+      const openGallery = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            const savedUri = await saveImageToFileSystem(result.assets[0].uri);
+            if (savedUri) {
+                setProfileImage(savedUri); 
+            }
+        } else {
+            Alert.alert(t('imageSelectionCancelled'));
+        }
+    };
+
+        const openCamera = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            const savedUri = await saveImageToFileSystem(result.assets[0].uri);
+            if (savedUri) {
+                setProfileImage(savedUri);
+            }
+        } else {
+            Alert.alert(t('cameraOperationCancelled'));
+        }
+    };
+
       const saveImageToFileSystem = async (uri) => {
-        // Generate a unique file name based on the image URI
+        
         const fileName = uri.split('/').pop();
         const newUri = FileSystem.documentDirectory + fileName;
 
         try {
-            // Copy the image from the original URI to the new URI
+            
             await FileSystem.copyAsync({
                 from: uri,
                 to: newUri,
             });
-            return newUri; // Return the new file URI
+            return newUri; 
         } catch (error) {
             console.error("Error saving image to file system", error);
             return null;
@@ -160,6 +211,13 @@ export default function ProfileScreen() {
 
                     <Text style={[styles.title,theme.text]}>{t('profile')}</Text>
 
+                    <View style={styles.imageContainer}>
+                        <Image source={profileImage ? { uri: profileImage } : require("../assets/images/user_fallBack.jpg")} style={styles.profileImage} />
+                        <TouchableOpacity style={styles.editImageButton} onPress={pickImage}>
+                            <Pencil size={20} color="white" />
+                        </TouchableOpacity>
+                    </View>
+
                     <View style={styles.editingContainer}>
                         <Text style={[styles.label,theme.text]}>{t('username')}</Text>
                         <TextInput
@@ -183,11 +241,6 @@ export default function ProfileScreen() {
                         <LockKeyhole style={styles.emailIcon} color="#3e5c76" size={22} />
 
                     </View>
-
-                    <Text style={styles.title}>Pick an Image</Text>
-                    <Button title="Pick Image from Gallery" onPress={pickImage} />
-
-                    {profileImage && <Image source={{ uri: profileImage }} style={styles.profileImagePreview} />}
                   
 
                     <View style={styles.buttonContainer}>
@@ -286,7 +339,7 @@ const styles = StyleSheet.create({
     },
     editIcon: {
         paddingHorizontal:16,
-        paddingVertical:20,
+        paddingVertical:16,
         backgroundColor: '#007bff',
         borderRadius: 12,
         marginRight: 10,
@@ -312,11 +365,22 @@ const styles = StyleSheet.create({
         right: 10,
         top: 10,
     },
-    profileImagePreview: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginTop: 16,
-      },
+    imageContainer: {
+        marginHorizontal:'auto',
+        marginBottom: 20,
+    },
+    profileImage: {
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+    },
+    editImageButton: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        backgroundColor: '#007bff',
+        padding: 8,
+        borderRadius: 16,
+    },
     
 });

@@ -50,5 +50,12 @@
   "unauthorizedUse": "Unauthorized reproduction or distribution of any part of this app is strictly prohibited.",
   "serviceGuarantee": "This app does not guarantee uninterrupted or error-free service.",
   "updateRights": "We reserve the right to update these terms at any time without notice.",
-  "informationalContent": "All content within the app is for informational purposes only."
+  "informationalContent": "All content within the app is for informational purposes only.",
+  "chooseImage": "Choose Image",
+  "selectOption": "Select an option to choose your profile image",
+  "cancel": "Cancel",
+  "imageSelectionCancelled": "Image Selection Cancelled",
+  "cameraOperationCancelled": "Camera Operation Cancelled",
+  "gallery": "Gallery",
+  "camera": "Camera"
 }
