@@ -21,6 +21,7 @@ import {useTheme} from '../context/ThemeContext'
 
 import '../i18n'
 import { useTranslation } from 'react-i18next';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -55,22 +56,39 @@ export default function LoginScreen() {
   const handleSubmit = async () => {
     if (validateForm()) {
       try {
-        await signInWithEmailAndPassword(auth, email, password);
-        console.log('Login successful!');
+
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userId = userCredential.user.uid;
+        console.log('Login successful! User ID:',userId);
+
+        await AsyncStorage.setItem('loggedInUserId',userId);
+
         setError('');
+
       } catch (err) {
+
         console.error('Login Error:', err);
+
         if (err && err.code) {
+
           if (err.code === 'auth/wrong-password') {
+
             setError('Incorrect password. Please try again.');
+
           } else if (err.code === 'auth/user-not-found') {
+
             setError('No user found with this email address.');
+
           } else if (err.code === 'auth/invalid-email') {
+
             setError('Invalid email address.');
+
           } else {
+
             setError('Login failed. Please try again.');
           }
         } else {
+          
           setError('An unexpected error occurred.');
         }
       }

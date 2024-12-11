@@ -22,6 +22,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
 import { Image } from "expo-image";
+import { useImage } from "../context/ImageProvider";
 
 export default function HomeScreen() {
   const [trending, setTrending] = useState([]);
@@ -32,6 +33,8 @@ export default function HomeScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
   const { theme } = useTheme();
+
+  const {profileImage, setProfileImage} = useImage()
 
   useEffect(() => {
     const unsubscribeFromFirestore = onSnapshot(doc(db, 'users', auth.currentUser.uid), (doc) => {
@@ -88,7 +91,7 @@ export default function HomeScreen() {
 
           
           <Image
-            source={require("../assets/images/user_fallBack.jpg")}
+            source={profileImage ? { uri: profileImage } : require("../assets/images/user_fallBack.jpg")}
             style={styles.userImage}
           />
         </View>

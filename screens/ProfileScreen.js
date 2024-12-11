@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LogOut, LockKeyhole, LockKeyholeOpen,} from 'lucide-react-native';
 import { signOut, updatePassword } from 'firebase/auth';
@@ -11,6 +11,11 @@ import '../i18n'
 import { useTranslation } from 'react-i18next';
 import { BackButton } from '../components';
 
+import * as ImagePicker from 'expo-image-picker'
+import * as FileSystem from 'expo-file-system'
+import { Image } from 'expo-image';
+import { useImage } from '../context/ImageProvider';
+
 export default function ProfileScreen() {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -22,8 +27,48 @@ export default function ProfileScreen() {
     const [updatedUsername, setUpdatedUsername] = useState('');
     //const [updatedPassword, setUpdatedPassword] = useState('');
 
+    const {profileImage, setProfileImage} = useImage()
+
     const {t} = useTranslation()
     const {theme} = useTheme()
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing:true,
+          quality: 1,
+        });
+        
+        console.log(result)
+
+        if (!result.canceled) {
+          
+            const savedUri = await saveImageToFileSystem(result.assets[0].uri);
+            if (savedUri) {
+                setProfileImage(savedUri); // Set the saved file URI in state
+            }
+        } else {
+            Alert.alert('Image Selection Cancelled');
+        }
+      };
+
+      const saveImageToFileSystem = async (uri) => {
+        // Generate a unique file name based on the image URI
+        const fileName = uri.split('/').pop();
+        const newUri = FileSystem.documentDirectory + fileName;
+
+        try {
+            // Copy the image from the original URI to the new URI
+            await FileSystem.copyAsync({
+                from: uri,
+                to: newUri,
+            });
+            return newUri; // Return the new file URI
+        } catch (error) {
+            console.error("Error saving image to file system", error);
+            return null;
+        }
+    };
 
     const fetchUserData = async () => {
         try {
@@ -138,6 +183,11 @@ export default function ProfileScreen() {
                         <LockKeyhole style={styles.emailIcon} color="#3e5c76" size={22} />
 
                     </View>
+
+                    <Text style={styles.title}>Pick an Image</Text>
+                    <Button title="Pick Image from Gallery" onPress={pickImage} />
+
+                    {profileImage && <Image source={{ uri: profileImage }} style={styles.profileImagePreview} />}
                   
 
                     <View style={styles.buttonContainer}>
@@ -262,5 +312,11 @@ const styles = StyleSheet.create({
         right: 10,
         top: 10,
     },
+    profileImagePreview: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        marginTop: 16,
+      },
     
 });

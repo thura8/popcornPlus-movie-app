@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import {auth,db} from '../config/firebase'
 import {doc,onSnapshot} from "firebase/firestore"
 
+import { useImage } from "../context/ImageProvider";
+
 const DrawerHeader = (props) => {
   const [username,setUsername] = useState('')
   const { theme } = useTheme();
@@ -26,11 +28,13 @@ const DrawerHeader = (props) => {
     return () => unsubscribeFromFirestore();
   },[])
 
+  const {profileImage} = useImage()
+
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={[{ flex: 1 },theme.headerBackground]}>
       <View style={[styles.header,  theme.headerBackground ]}>
         <Image
-          source={require("../assets/images/user_fallBack.jpg")}
+          source={profileImage ? { uri: profileImage } : require("../assets/images/user_fallBack.jpg")}
           style={styles.profileImage}
           priority={"high"}
         />

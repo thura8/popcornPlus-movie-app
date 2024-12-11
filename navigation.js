@@ -28,6 +28,7 @@ import DrawerHeader from "./components/DrawerHeader";
 import TermsAndConditionsScreen from "./screens/TermsAndConditionsScreen";
 
 import { useTranslation } from "react-i18next";
+import { ImageProvider } from "./context/ImageProvider";
 
 function DrawerNavigator(){
 
@@ -153,31 +154,35 @@ export default function Navigation() {
 
   if (user) {
     return (
-      <ThemeProvider>
-        <FontProvider>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="Main" screenOptions={{ animation: "fade" }}>
-              <Stack.Screen name="Main" options={{ headerShown: false }} component={DrawerNavigator} />
-              <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
-              <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' , headerShown:false}} />
-              <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_right',headerShown:false }} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </FontProvider>
-      </ThemeProvider>
+      <ImageProvider>
+        <ThemeProvider>
+          <FontProvider>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName="Main" screenOptions={{ animation: "fade" }}>
+                <Stack.Screen name="Main" options={{ headerShown: false }} component={DrawerNavigator} />
+                <Stack.Screen name="Movie" options={{ headerShown: false }} component={MovieScreen} />
+                <Stack.Screen name="SeeAll" component={SeeAllScreen} options={{ animation: 'fade' , headerShown:false}} />
+                <Stack.Screen name="Profile" component={ProfileScreen} options={{ animation: 'slide_from_right',headerShown:false }} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </FontProvider>
+        </ThemeProvider>
+      </ImageProvider>
     );   
   } else {
     return (
-      <ThemeProvider>
-        <FontProvider>
-          <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
-              <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
-              <Stack.Screen name="SignUp" options={{ headerShown: false }} component={SignUpScreen} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </FontProvider>
-      </ThemeProvider>
+      <ImageProvider>
+        <ThemeProvider>
+          <FontProvider>
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName="Login">
+                <Stack.Screen name="Login" options={{ headerShown: false }} component={LoginScreen} />
+                <Stack.Screen name="SignUp" options={{ headerShown: false }} component={SignUpScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </FontProvider>
+        </ThemeProvider>
+      </ImageProvider>
     );
   }
 }
