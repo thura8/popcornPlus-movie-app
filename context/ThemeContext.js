@@ -71,25 +71,15 @@ const lightTheme = StyleSheet.create({
     seeAllButton: { color: '#007BFF'},
     movieTitleText: { color: '#333333'},
     searchContainer: {
-        marginHorizontal: 16,
-        marginBottom: 12,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderWidth: 1,
+        
         borderColor: "#E0E0E0",
-        borderRadius: 50,
+        
         backgroundColor: "#ffffff", 
       },
     textInput: {
-        paddingBottom: 4,
-        paddingLeft: 24,
-        flex: 1,
-        fontSize: 16,
-        fontWeight: "600",
+        
         color: "#666666", 
-        letterSpacing: 1,
-        fontFamily:'Inter-Black'
+        
       },
 
     noMoviesText: {
@@ -100,14 +90,9 @@ const lightTheme = StyleSheet.create({
         fontFamily:'Nunito'
     },
     iconButton: {
-        borderRadius: 50,
-        padding: 12,
-        margin: 4,
+       
         backgroundColor: "#E5F0FF", 
-        shadowColor: "#000000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        
     },
     iconColor: "#174A7A",
     tabBackgroundColor: "#ffffff", 
@@ -215,25 +200,14 @@ const lightTheme = StyleSheet.create({
     movieTitle: { color: '#F7F7F7'},
     movieTitleText:{color:'#F7F7F7'},
     searchContainer: {
-        marginHorizontal: 16,
-        marginBottom: 12,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderWidth: 1,
+        
         borderColor: "#333A40",
-        borderRadius: 50,
+        
         backgroundColor: "#2c2c2c", 
       },
     textInput: {
-        paddingBottom: 4,
-        paddingLeft: 24,
-        flex: 1,
-        fontSize: 16,
-        fontWeight: "600",
         color: "#f7f7f7", 
-        letterSpacing: 1,
-        fontFamily:'Inter-Black'
+        
     },
     noMoviesText: {
         color: "#f7f7f7", 
@@ -243,14 +217,9 @@ const lightTheme = StyleSheet.create({
         fontFamily:"Nunito"
     },
     iconButton: {
-        borderRadius: 50,
-        padding: 12,
-        margin: 4,
+        
         backgroundColor: "#22303C", 
-        shadowColor: "#000000",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
+        
     },
     iconColor: "#7FB3D5",
     tabBackgroundColor: "#121212",

@@ -11,7 +11,7 @@ import {
   } from "react-native";
   import React, { useCallback, useState } from "react";
   import { useNavigation,DrawerActions } from "@react-navigation/native";
-  import { ArrowBigLeftDash, Menu } from "lucide-react-native";
+  import { ArrowBigLeftDash, Menu, Search } from "lucide-react-native";
   import { debounce } from "lodash";
   import { image185, searchMovies } from "../api/movieDb";
   import { Image } from "expo-image";
@@ -69,20 +69,15 @@ import {
 
         </View>
 
-        <View style={theme.searchContainer}>
+
+        <View style={[styles.textInputContainer,theme.searchContainer]}>
+          <Search size={20} color="#999" /> 
           <TextInput
             onChangeText={handleText}
             placeholder={t('searchMovie')}
-            placeholderTextColor="lightgray"
-            style={theme.textInput}
-            
+            placeholderTextColor="#999"
+            style={[styles.textInput,theme.textInput]}
           />
-          <TouchableOpacity
-            onPress={() => navigation.navigate("HomeTab")}
-            style={theme.iconButton}
-          >
-            <ArrowBigLeftDash size={25} style={theme.iconColor} />
-          </TouchableOpacity>
         </View>
   
         {loading ? (
@@ -199,5 +194,29 @@ import {
       justifyContent: "center",
       alignItems: "center",
     
+    },
+    textInputContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginHorizontal: 16,
+      marginVertical: 10,
+      
+      borderRadius: 16, 
+      paddingHorizontal: 16,
+      paddingVertical: 12, 
+      shadowColor: "#000",
+      shadowOpacity: 0.1,
+      shadowOffset: { width: 0, height: 2 },
+      shadowRadius: 4,
+      elevation: 3,
+      
+      borderWidth: 1.5, 
+    },
+    textInput: {
+      flex: 1,
+      fontSize: 18, 
+      fontFamily: "Lato",
+      
+      marginLeft: 8, 
     },
   });
