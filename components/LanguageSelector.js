@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   selectedButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#339AFF',
     borderWidth: 2,
-    borderColor: '#0056b3',
+    borderColor: '#0056B3',
   },
   buttonText: {
     fontSize: 16,

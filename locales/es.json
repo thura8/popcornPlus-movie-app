@@ -57,5 +57,6 @@
     "imageSelectionCancelled": "Selección de imagen cancelada",
     "cameraOperationCancelled": "Operación de cámara cancelada",
     "gallery": "Galería",
-    "camera": "Cámara"
+    "camera": "Cámara",
+    "selectGenre": "Elige un género"
 }

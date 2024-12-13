@@ -57,5 +57,6 @@
   "imageSelectionCancelled": "Image Selection Cancelled",
   "cameraOperationCancelled": "Camera Operation Cancelled",
   "gallery": "Gallery",
-  "camera": "Camera"
+  "camera": "Camera",
+  "selectGenre": "Select a Movie Genre"
 }

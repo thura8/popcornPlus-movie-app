@@ -40,13 +40,13 @@ export default function LoginScreen() {
 
   const validateForm = () => {
     if (!email || !password) {
-      Alert.alert('Error', 'All fields are required.');
+      setError('All fields are required.');
       return false;
     }
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email address.');
+     setError('Please enter a valid email address.');
       return false;
     }
 
@@ -56,45 +56,37 @@ export default function LoginScreen() {
   const handleSubmit = async () => {
     if (validateForm()) {
       try {
-
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password.trim());
         const userId = userCredential.user.uid;
-        console.log('Login successful! User ID:',userId);
-
-        await AsyncStorage.setItem('loggedInUserId',userId);
-
-        setError('');
-
+        console.log('Login successful! User ID:', userId);
+  
+        
+        await AsyncStorage.setItem('loggedInUserId', userId);
+  
+        setError(''); 
       } catch (err) {
-
-        console.error('Login Error:', err);
-
-        if (err && err.code) {
-
-          if (err.code === 'auth/wrong-password') {
-
+        
+        if (err ) {
+          if (err === 'auth/wrong-password') {
             setError('Incorrect password. Please try again.');
-
-          } else if (err.code === 'auth/user-not-found') {
-
+          } else if (err=== 'auth/user-not-found') {
             setError('No user found with this email address.');
-
-          } else if (err.code === 'auth/invalid-email') {
-
+          } else if (err === 'auth/invalid-email') {
             setError('Invalid email address.');
-
+          } else if (err === 'auth/invalid-credential') {
+            setError('Invalid credentials. Please check your email and password.');
           } else {
-
             setError('Login failed. Please try again.');
           }
         } else {
           
-          setError('An unexpected error occurred.');
+          console.error('Unexpected Login Error:', err);
+          setError('An unexpected error occurred. Please try again.');
         }
       }
     }
   };
-
+  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       

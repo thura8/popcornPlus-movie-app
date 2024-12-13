@@ -55,6 +55,7 @@ export default function FavoritesScreen() {
         </View>
       </SafeAreaView>
 
+
       {loading ? (
         <Loading />
       ) : (

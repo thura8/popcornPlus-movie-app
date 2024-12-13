@@ -187,14 +187,17 @@ export default function MovieScreen() {
   return (
     <View style={[{ flex: 1 }, theme.contentBackground]}>
       <BackButton
-        gradientColors={theme.movieGradientColors}
-        iconBackground={theme.movieIconBackground}
-        iconColor={theme.movieIconColor}
-        top={0}
+        // gradientColors={theme.movieGradientColors}
+        // iconBackground={theme.movieIconBackground}
+        // iconColor={theme.movieIconColor}
+        gradientColors={theme.gradientColors}
+        iconBackground={theme.iconBackground}
+        iconColor={theme.iconColor}
+        top={-8}
       />
 
       <TouchableOpacity
-        style={{ position: "absolute", top: 53, right: 15, zIndex: 21 }}
+        style={{ position: "absolute", top: 48, right: 15, zIndex: 21 }}
         onPress={() => setOpenModal(true)}
       >
         <View style={styles.iconBackground}>

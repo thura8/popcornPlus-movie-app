@@ -15,6 +15,7 @@ import { fetchGenreMovieList, image185 } from "../api/movieDb";
 import { useTheme } from "../context/ThemeContext";
 import { ChevronDown, ChevronUp } from "lucide-react-native";
 import { BackButton } from "../components";
+import { useTranslation } from "react-i18next";
 
 var { width, height } = Dimensions.get("window");
 
@@ -38,6 +39,7 @@ export default function GenreScreen({ navigation }) {
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
   const { theme } = useTheme();
+  const {t} = useTranslation()
 
   useEffect(() => {
     getGenreList();
@@ -91,7 +93,7 @@ export default function GenreScreen({ navigation }) {
           left={-10}
         />
 
-        <Text style={[styles.header, theme.placeholderText]}>Select a movie genre</Text>
+        <Text style={[styles.header, theme.text]}>{t('selectGenre')}</Text>
       </View>
 
 
@@ -181,11 +183,12 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   header: {
-    fontSize: 20,
+    fontSize: 24,
+    fontFamily: "Poppins-Regular",
     fontWeight: "bold",
     position:'absolute',
     right:0,
-    top:5
+    top:0
   },
   dropdown: {
     borderWidth: 0,
