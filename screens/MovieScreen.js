@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   Modal,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute, useNavigationState, useNavigation, CommonActions } from "@react-navigation/native";
@@ -155,35 +156,39 @@ export default function MovieScreen() {
   function renderModal() {
     return (
       <Modal visible={openModal} animationType="fade" transparent={true}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.card}>
-            <TouchableOpacity style={styles.closeButton} onPress={() => setOpenModal(false)}>
-              <CircleX style={styles.closeButtonText} size={26} />
-            </TouchableOpacity>
-
-            <View style={styles.list}>
-              <TouchableOpacity style={styles.element} onPress={onFavoritePress}>
-                {isFavorite ? (
-                  <HeartIcon size={28} strokeWidth={2.75} color={"#f547ad"} />
-                ) : (
-                  <HeartIcon width={25} height={25} color={"#7e8590"} />
-                )}
-                <Text style={styles.label}>Favourites</Text>
-              </TouchableOpacity>
-
-              {routeCount > 2 && (
-                <TouchableOpacity style={styles.element} onPress={onGoHomePress}>
-                  <Home width={25} height={25} color="#7e8590" />
-                  <Text style={styles.label}>Home</Text>
+        <TouchableWithoutFeedback onPress={() => setOpenModal(false)}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.card}>
+                <TouchableOpacity style={styles.closeButton} onPress={() => setOpenModal(false)}>
+                  <CircleX style={styles.closeButtonText} size={26} />
                 </TouchableOpacity>
-              )}
-            </View>
+  
+                <View style={styles.list}>
+                  <TouchableOpacity style={styles.element} onPress={onFavoritePress}>
+                    {isFavorite ? (
+                      <HeartIcon size={28} strokeWidth={2.75} color={"#f547ad"} />
+                    ) : (
+                      <HeartIcon width={25} height={25} color={"#7e8590"} />
+                    )}
+                    <Text style={styles.label}>Favourites</Text>
+                  </TouchableOpacity>
+  
+                  {routeCount > 2 && (
+                    <TouchableOpacity style={styles.element} onPress={onGoHomePress}>
+                      <Home width={25} height={25} color="#7e8590" />
+                      <Text style={styles.label}>Home</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
     );
   }
-
+  
   return (
     <View style={[{ flex: 1 }, theme.contentBackground]}>
       <BackButton
