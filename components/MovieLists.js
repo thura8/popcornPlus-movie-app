@@ -53,7 +53,6 @@ import {
                     // source={require("../assets/images/theWolfOfWallStreet_movie_poster.jpg")}
                     source={{ uri: image185(item.poster_path) }}
                     style={styles.image}
-                    contentFit="contain"
                     priority='high'
                   />
                   <Text style={[styles.movieName,theme.movieTitleText]}>

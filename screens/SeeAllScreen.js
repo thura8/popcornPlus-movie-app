@@ -123,7 +123,6 @@ export default function SeeAllScreen({ route }) {
                   <Image
                     source={{ uri: image185(item.poster_path) }}
                     style={styles.image}
-                    contentFit="contain"
                     priority="high"
                   />
                   <Text style={[styles.movieName, theme.movieTitleText]}>
@@ -175,13 +174,13 @@ const styles = StyleSheet.create({
     flexWrap:'wrap'
   },
   image: {
-    borderRadius: 12,
+    borderRadius:24,
     width: width * 0.43,
     height: height * 0.30,
   },
   movieName: {
     color: "#F7E7DC",
-    marginTop: 8,
+    marginLeft:8,
     fontFamily: "Anton",
   },
   loadingContainer: {

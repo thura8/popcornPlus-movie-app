@@ -14,7 +14,7 @@ import { useImage } from "../context/ImageProvider";
 
 const DrawerHeader = (props) => {
   const [username,setUsername] = useState('')
-  const { theme } = useTheme();
+  const { theme,isDarkTheme } = useTheme();
   const navigation = useNavigation()
   const {t} = useTranslation()
 
@@ -55,6 +55,21 @@ const DrawerHeader = (props) => {
       </View>
 
       <DrawerItemList {...props} />
+
+      <View style={[styles.footer, theme.headerBackground]}>
+        
+        <Image
+          source={isDarkTheme ? require('../assets/images/popcorn-plusOne.png'): require('../assets/images/popcorn-plusOne.webp')}
+          style={styles.footerLogo}
+          priority={'high'}
+        />
+        
+        <Text style={[styles.footerText, theme.text]}>
+          © {new Date().getFullYear()} PopCornPlus. All rights reserved.
+        </Text>
+      </View>
+
+
     </DrawerContentScrollView>
   );
 };
@@ -92,6 +107,21 @@ const styles = StyleSheet.create({
   viewProfileText: {
     fontSize: 14,
     fontWeight: "600",
+  },
+  footer: {
+    marginTop: "auto",
+    padding: 16,
+    alignItems: "center", 
+  },
+  footerLogo: {
+    width: 80, 
+    height: 80,
+    borderRadius:100,
+    marginBottom:4
+  },
+  footerText: {
+    fontSize: 14,
+    textAlign: "center",
   },
   
 });
