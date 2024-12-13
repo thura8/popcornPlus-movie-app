@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity, SafeAreaView, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { LogOut, LockKeyhole, LockKeyholeOpen, Pencil,} from 'lucide-react-native';
-import { signOut, updatePassword } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { auth, db } from '../config/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Loading from '../components/loading';
@@ -21,11 +21,9 @@ export default function ProfileScreen() {
     const [loading, setLoading] = useState(true);
 
     const [isEditingUsername, setIsEditingUsername] = useState(false);
-    // const [isEditingPassword, setIsEditingPassword] = useState(false);
-    // const [showPassword, setShowPassword] = useState(false);
 
     const [updatedUsername, setUpdatedUsername] = useState('');
-    //const [updatedPassword, setUpdatedPassword] = useState('');
+    
 
     const {profileImage, setProfileImage} = useImage()
 

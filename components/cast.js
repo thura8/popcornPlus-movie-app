@@ -31,8 +31,7 @@ import {
                 >
                   <View style={styles.castImageContainer}>
                     <Image
-                      //source={require("../assets/images/brueWayne.jpg")}
-  
+                      
                       source={{
                         uri: image185(person?.profile_path) || fallBackCastImage,
                       }}

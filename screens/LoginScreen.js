@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
-  Alert,
   Keyboard,
   TouchableWithoutFeedback,
   StatusBar,

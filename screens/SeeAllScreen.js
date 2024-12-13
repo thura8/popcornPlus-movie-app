@@ -46,8 +46,6 @@ export default function SeeAllScreen({ route }) {
   
     if (loadingMore || loading) return;
   
-    //console.log("Fetching more movies...");
-  
     
     setLoadingMore(true);
   
@@ -69,11 +67,11 @@ export default function SeeAllScreen({ route }) {
       }
     } catch (error) {
   
-      //console.log("Error fetching movies:", error);
+      console.log("Error fetching movies:", error);
     } finally {
   
       setLoadingMore(false);
-      //console.log("loadingMore after fetch:", loadingMore);
+      
     }
   };  
 

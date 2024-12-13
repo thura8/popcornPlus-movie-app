@@ -50,7 +50,7 @@ import {
               >
                 <View style={{ marginRight: 16, marginBottom: 4 }}>
                   <Image
-                    // source={require("../assets/images/theWolfOfWallStreet_movie_poster.jpg")}
+                    
                     source={{ uri: image185(item.poster_path) }}
                     style={styles.image}
                     priority='high'
